@@ -4,10 +4,15 @@ import TodoItem from './TodoItem';
 const TodoList = (props) => {
     let todoItems = props.items.map((todoItem) => {
         const {id, title, isActive, dueDate} = todoItem;
-        return <li key={id}><TodoItem title={title} isActive={isActive} dueDate={dueDate}/></li>;
+        return <TodoItem key={id} title={title} isActive={isActive} dueDate={dueDate}/>;
     });
 
-    return <div><ul>{todoItems}</ul></div>;
+    return (
+        <React.Fragment>
+            <h3>{props.title}</h3>
+            <ul className="list-group">{todoItems}</ul>
+        </React.Fragment>
+    );
 }
 
 export default TodoList;

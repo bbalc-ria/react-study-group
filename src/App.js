@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 import TodoList from './todo-app/TodoList';
-import TodoJsonList from './todo-app/TodoJsonList';
+import {todoJsonList, resources} from './utils/data';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <TodoList items={TodoJsonList}/>
-      </header>
+    <div className="container">
+      <div className="col-md-4 offset-md-4">
+        <TodoList items={todoJsonList} title={resources.listTitle}/>
+        </div>
     </div>
   );
 }
