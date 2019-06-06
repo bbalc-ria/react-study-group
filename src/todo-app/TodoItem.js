@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Displaystatus = (isActive) => isActive ? 'Active' : 'Completed';
+const DisplayStatus = (isActive) => isActive ? 'Active' : 'Completed';
 
-const TodoItem = ({title, isActive, dueDate}) => (<div>{title}, {Displaystatus(isActive)}, {dueDate}</div>)
+const TodoItem = ({title, isActive, dueDate}) => (<div>{title}, {DisplayStatus(isActive)}, {dueDate}</div>)
 
 export default TodoItem;
