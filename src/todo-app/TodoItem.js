@@ -1,6 +1,6 @@
 import React from 'react';
 
-const displayStatus = (isActive) => isActive ? <input type="radio" checked readOnly/> : <input type="radio"/>
+const displayStatus = (isActive) => <input type="radio" checked={isActive}/>
 
 const TodoItem = ({title, isActive, dueDate}) => (
     <li className="list-group-item">
