@@ -1,11 +1,10 @@
 import React from 'react';
 
-const TodoItem = props => {
-        return ( 
-                <li id={props.id}>
-                    <input type="checkbox" id={props.id}/>{props.name}
-                </li>
-        );
-}
+const TodoItem = ({ id, name, completed }) => (
+  <li id={id}>
+    <input type="checkbox" id={id} checked={completed} /> {name}
+  </li>
+);
+
 
 export default TodoItem;

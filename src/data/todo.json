@@ -1,8 +1,22 @@
 [
-     
-        {"id" : 1, "name": "Define", "status": "Completed"},
-        {"id" : 2, "name": "Plan", "status": "Completed"},
-        {"id" : 3, "name": "Execute", "status": "Active"},
-        {"id" : 4, "name": "Deliver", "status": "NotCompleted"}
-    
+  {
+    "id": 1,
+    "name": "Define",
+    "completed": true
+  },
+  {
+    "id": 2,
+    "name": "Plan",
+    "completed": true
+  },
+  {
+    "id": 3,
+    "name": "Execute",
+    "completed": false
+  },
+  {
+    "id": 4,
+    "name": "Deliver",
+    "completed": false
+  }
 ]
