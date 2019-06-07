@@ -1,0 +1,8 @@
+[
+     
+        {"id" : 1, "name": "Define", "status": "Completed"},
+        {"id" : 2, "name": "Plan", "status": "Completed"},
+        {"id" : 3, "name": "Execute", "status": "Active"},
+        {"id" : 4, "name": "Deliver", "status": "NotCompleted"}
+    
+]
