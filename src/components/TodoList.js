@@ -1,12 +1,13 @@
 import React from 'react';
 import TodoData from '../data/todo.json';
-import TodoItem from './TodoItem.js';
+import Item from './TodoItem.js';
+
 
 const TodoList = () => (
   <ul>
     {
       TodoData.map((props) =>
-        (<TodoItem  {...props} />)
+        (<Item  {...props} />)
       )
     }
   </ul>
