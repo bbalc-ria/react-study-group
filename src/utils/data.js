@@ -6,8 +6,4 @@ const todoJsonList = [
     {id: 5, title: "Todo5", isCompleted: false, dueDate: '2019-05-05'},
 ]
 
-const resources = {
-    listTitle: "My to do list:"
-}
-
-export {todoJsonList, resources};
+export {todoJsonList};

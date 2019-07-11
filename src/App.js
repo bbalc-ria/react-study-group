@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import TodoList from './todo-app/TodoList';
-import {resources} from './utils/Data';
+import {resources} from './utils/Resources';
 import {getListFromLocalstorage} from './utils/Helpers';
 
 function App() {

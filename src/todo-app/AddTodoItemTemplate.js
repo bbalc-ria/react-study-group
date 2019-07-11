@@ -1,4 +1,5 @@
 import React from 'react';
+import {resources} from '../../src/utils/Resources';
 
 class AddTodoItemTemplate extends React.Component{
     constructor(props) {
@@ -26,14 +27,14 @@ class AddTodoItemTemplate extends React.Component{
                 <input  
                     type="text" 
                     className="form-control col-md-9" 
-                    placeholder="To do item"
+                    placeholder={resources.toDoItemPlaceholder}
                     value={this.state.title}
                     onChange={this.handleTitleChange}/>
 
                 <input 
                     type="button" 
                     className="btn btn-primary btn-sm col-md-2 offset-md-1"
-                    value="Add"
+                    value={resources.addCaption}
                     disabled={!this.state.title}
                     onClick={this.handleOnAdd}/>
                     </div>
