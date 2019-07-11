@@ -1,14 +1,19 @@
 import React from 'react';
 import './App.css';
 import TodoList from './todo-app/TodoList';
-import {todoJsonList, resources} from './utils/data';
+import {resources} from './utils/Data';
+import {getListFromLocalstorage} from './utils/Helpers';
 
 function App() {
+
+  //localStorage.setItem('todoJsonList', '');
+  let persistedList = getListFromLocalstorage('todoJsonList');
+
   return (
     <div className="container">
       <div className="col-md-4 offset-md-4">
-        <TodoList items={todoJsonList} title={resources.listTitle}/>
-        </div>
+        <TodoList items={persistedList} title={resources.listTitle}/>
+      </div>
     </div>
   );
 }
