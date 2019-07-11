@@ -14,11 +14,11 @@ class TodoList extends React.Component {
 
     getListOfTodoItems = (items) => {
         let todoItems = items.map((todoItem) => {
-            const {id, title, isActive, dueDate} = todoItem;
-            return <TodoItem key={id} id={id} title={title} isActive={isActive} dueDate={dueDate}/>;
+            const {id, title, isCompleted, dueDate} = todoItem;
+            return <TodoItem key={id} id={id} title={title} isCompleted={isCompleted} dueDate={dueDate}/>;
         });
 
-        todoItems.push(<AddTodoItemTemplate key={100000} onAdd={this.onAddItem}/>)
+        todoItems.push(<AddTodoItemTemplate key={0} onAdd={this.onAddItem}/>)
 
         return todoItems;
     }

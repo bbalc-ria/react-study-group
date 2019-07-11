@@ -14,7 +14,7 @@ class AddTodoItemTemplate extends React.Component{
     }
 
     handleOnAdd = (event) => {
-        let item = {id: 0, title: this.state.title, isActive: false, dueDate: ''};
+        let item = {id: 0, title: this.state.title, isCompleted: false, dueDate: ''};
         this.props.onAdd(item);
         this.setState({title: ''});
         event.preventDefault();
