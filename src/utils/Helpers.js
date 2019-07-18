@@ -1,4 +1,4 @@
-const getListFromLocalstorage = itemKey => {
+const getListFromLocalStorage = itemKey => {
   let persistedStringList = localStorage.getItem(itemKey);
 
   let persistedList = persistedStringList
@@ -8,4 +8,8 @@ const getListFromLocalstorage = itemKey => {
   return persistedList;
 };
 
-export { getListFromLocalstorage };
+const setListOnLocalStorage = (itemKey, list) => {
+    localStorage.setItem(itemKey, JSON.stringify(list));
+};
+
+export { getListFromLocalStorage,  setListOnLocalStorage};

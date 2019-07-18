@@ -1,7 +1,10 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 import AddTodoItem from "./AddTodoItem";
-import { getListFromLocalstorage } from "../../src/utils/Helpers";
+import {
+  getListFromLocalStorage,
+  setListOnLocalStorage
+} from "../../src/utils/Helpers";
 
 class TodoList extends React.Component {
   constructor(props) {
@@ -32,7 +35,7 @@ class TodoList extends React.Component {
   };
 
   onAddItem = item => {
-    let persistedList = getListFromLocalstorage("todoJsonList");
+    let persistedList = getListFromLocalStorage("todoJsonList");
 
     // Get the highest existing id to compute the next id
     let itemIds = persistedList.map(item => item.id);
@@ -43,7 +46,7 @@ class TodoList extends React.Component {
 
     persistedList.push(item);
     this.setState({ items: persistedList });
-    localStorage.setItem("todoJsonList", JSON.stringify(persistedList));
+    setListOnLocalStorage("todoJsonList", persistedList);
   };
 
   render() {

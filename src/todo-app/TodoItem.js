@@ -1,5 +1,8 @@
 import React from "react";
-import { getListFromLocalstorage } from "../../src/utils/Helpers";
+import {
+  getListFromLocalStorage,
+  setListOnLocalStorage
+} from "../../src/utils/Helpers";
 
 class TodoItem extends React.Component {
   constructor(props) {
@@ -15,13 +18,13 @@ class TodoItem extends React.Component {
 
     this.setState({ isCompleted: isItemCompleted });
 
-    let persistedList = getListFromLocalstorage("todoJsonList");
+    let persistedList = getListFromLocalStorage("todoJsonList");
     let persistedItem = persistedList.find(
       item => item.id === JSON.parse(itemId)
     );
-    persistedItem.isCompleted = isItemCompleted;
 
-    localStorage.setItem("todoJsonList", JSON.stringify(persistedList));
+    persistedItem.isCompleted = isItemCompleted;
+    setListOnLocalStorage("todoJsonList", persistedList);
   };
 
   render() {

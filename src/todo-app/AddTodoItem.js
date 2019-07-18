@@ -23,6 +23,12 @@ class AddTodoItem extends React.Component {
     event.preventDefault();
   };
 
+  handleKeyPress = event => {
+    if (event.charCode === 13 && this.state.title !== "") {
+      this.handleOnAdd(event);
+    }
+  };
+
   render() {
     return (
       <li className="list-group-item">
@@ -33,6 +39,7 @@ class AddTodoItem extends React.Component {
             placeholder={resources.toDoItemPlaceholder}
             value={this.state.title}
             onChange={this.handleTitleChange}
+            onKeyPress={this.handleKeyPress}
           />
 
           <input
