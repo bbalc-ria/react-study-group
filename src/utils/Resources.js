@@ -1,7 +1,7 @@
 const resources = {
-    listTitle: "My to do list:",
-    toDoItemPlaceholder: "To do item",
-    addCaption: "Add"
-}
+  listTitle: "My to do list:",
+  toDoItemPlaceholder: "To do item",
+  addCaption: "Add"
+};
 
-export {resources}
+export { resources };
