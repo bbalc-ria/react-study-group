@@ -10,9 +10,6 @@ class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = { items: props.items };
-
-    this.getListOfTodoItems = this.getListOfTodoItems.bind(this);
-    this.onAddItem = this.onAddItem.bind(this);
   }
 
   getListOfTodoItems = items => {

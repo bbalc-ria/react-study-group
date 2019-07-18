@@ -8,8 +8,6 @@ class TodoItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isCompleted: props.isCompleted };
-
-    this.onItemStateChanged = this.onItemStateChanged.bind(this);
   }
 
   onItemStateChanged = event => {
