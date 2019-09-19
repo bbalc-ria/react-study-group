@@ -3,6 +3,7 @@ import "./App.css";
 import TodoList from "./todo-app/TodoList";
 import { resources } from "./utils/Resources";
 import { getListFromLocalStorage } from "./utils/Helpers";
+import Example1 from "./Example1";
 
 function App() {
   //localStorage.setItem('todoJsonList', '');
@@ -11,7 +12,7 @@ function App() {
   return (
     <div className="container">
       <div className="col-md-4 offset-md-4">
-        <TodoList items={persistedList} title={resources.listTitle} />
+        <TodoList todoItems={persistedList} title={resources.listTitle} />
       </div>
     </div>
   );

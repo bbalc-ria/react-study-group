@@ -1,58 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { resources } from "../utils/Resources";
 
-class AddTodoItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { title: "" };
-  }
+const AddTodoItem = props => {
+  const [title, setTitle] = useState("");
 
-  handleTitleChange = event => {
-    this.setState({ title: event.target.value });
+  const handleTitleChange = event => {
+    setTitle(event.target.value);
   };
 
-  handleOnAdd = event => {
+  const handleOnAdd = event => {
     let item = {
       id: 0,
-      title: this.state.title,
+      title: title,
       isCompleted: false,
       dueDate: ""
     };
-    this.props.onAdd(item);
-    this.setState({ title: "" });
+
+    props.onAdd(item);
+    setTitle("");
     event.preventDefault();
   };
 
-  handleKeyPress = event => {
-    if (event.charCode === 13 && this.state.title !== "") {
-      this.handleOnAdd(event);
+  const handleKeyPress = event => {
+    if (event.charCode === 13 && title !== "") {
+      handleOnAdd(event);
     }
   };
 
-  render() {
-    return (
-      <li className="list-group-item">
-        <div className="row">
-          <input
-            type="text"
-            className="form-control col-md-9"
-            placeholder={resources.toDoItemPlaceholder}
-            value={this.state.title}
-            onChange={this.handleTitleChange}
-            onKeyPress={this.handleKeyPress}
-          />
+  return (
+    <li className="list-group-item">
+      <div className="row">
+        <input
+          type="text"
+          className="form-control col-md-9"
+          placeholder={resources.toDoItemPlaceholder}
+          value={title}
+          onChange={handleTitleChange}
+          onKeyPress={handleKeyPress}
+        />
 
-          <input
-            type="button"
-            className="btn btn-primary btn-sm col-md-2 offset-md-1"
-            value={resources.addCaption}
-            disabled={this.state.title === ""}
-            onClick={this.handleOnAdd}
-          />
-        </div>
-      </li>
-    );
-  }
-}
+        <input
+          type="button"
+          className="btn btn-primary btn-sm col-md-2 offset-md-1"
+          value={resources.addCaption}
+          disabled={title === ""}
+          onClick={handleOnAdd}
+        />
+      </div>
+    </li>
+  );
+};
 
 export default AddTodoItem;
