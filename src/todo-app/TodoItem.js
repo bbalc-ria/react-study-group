@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as S from "./style";
 import {
   getListFromLocalStorage,
   setListOnLocalStorage
@@ -23,10 +24,10 @@ const TodoItem = props => {
   };
 
   return (
-    <li className="list-group-item" key={props.id}>
-      <div className="form-check">
-        <label className="form-check-label">
-          <input
+    <S.ListGroupItem key={props.id}>
+      <S.CheckboxWrapper>
+        <S.Label>
+          <S.Input
             type="checkbox"
             className="form-check-input"
             value={props.id}
@@ -34,9 +35,9 @@ const TodoItem = props => {
             onChange={onItemStateChanged}
           />
           {props.title}
-        </label>
-      </div>
-    </li>
+        </S.Label>
+      </S.CheckboxWrapper>
+    </S.ListGroupItem>
   );
 };
 

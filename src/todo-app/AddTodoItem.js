@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as S from "./style";
 import { resources } from "../utils/Resources";
 
 const AddTodoItem = props => {
@@ -9,6 +10,8 @@ const AddTodoItem = props => {
   };
 
   const handleOnAdd = event => {
+    if (title === "") return;
+
     let item = {
       id: 0,
       title: title,
@@ -28,26 +31,21 @@ const AddTodoItem = props => {
   };
 
   return (
-    <li className="list-group-item">
-      <div className="row">
-        <input
+    <S.ListGroupItem>
+      <S.Row>
+        <S.FormControl
           type="text"
-          className="form-control col-md-9"
           placeholder={resources.toDoItemPlaceholder}
           value={title}
           onChange={handleTitleChange}
           onKeyPress={handleKeyPress}
         />
 
-        <input
-          type="button"
-          className="btn btn-primary btn-sm col-md-2 offset-md-1"
-          value={resources.addCaption}
-          disabled={title === ""}
-          onClick={handleOnAdd}
-        />
-      </div>
-    </li>
+        <S.Button disabled={title === ""} onClick={handleOnAdd}>
+          {resources.addCaption}
+        </S.Button>
+      </S.Row>
+    </S.ListGroupItem>
   );
 };
 
