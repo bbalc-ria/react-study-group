@@ -1,0 +1,103 @@
+$base-width:50vw;
+
+.full-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  // float: center;
+  background: rgba(109, 130, 143, 0.1)
+}
+
+.title {
+  text-align: center;
+}
+
+.checkbox-round {
+  width: 1.3em;
+  height: 1.3em;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.checkbox-round:checked {
+  background-color: gray;
+}
+
+.list-wrapper {
+  height: fit-content;
+  background: rgba($color: #ffffff, $alpha: 1.0)
+}
+
+.input {
+  float: left;
+  border-bottom: 2px solid rgba($color: #000000, $alpha: 0.2);
+  width: $base-width;
+}
+
+.center {
+  // margin: 0px auto;
+}
+
+.todo-list {
+  float: left;
+  padding-top: 0vh;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: $base-width;
+}
+
+.todo-element {
+  /* display: inherit; */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-top: 3px;
+  padding-left: 10px;
+}
+
+input[type=text] {
+  font-size: 3em;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 0px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+.footer {}
+
+.button {
+  margin: 5px;
+}
+
+.list {}
+
+input[type=text]::-webkit-input-placeholder {
+  opacity: 0.1;
+}
+
+.completed {
+  opacity: 0.3;
+  text-decoration: line-through;
+}
+
+.select-all {
+  float: left;
+  opacity: 0.3;
+  font-size: 3em;
+}
