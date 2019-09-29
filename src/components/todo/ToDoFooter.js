@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { thisExpression } from "@babel/types";
 
 export default class ToDoFooter extends Component {
   componentDidMount = () => {

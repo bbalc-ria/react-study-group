@@ -43,9 +43,7 @@ $base-width:50vw;
   width: $base-width;
 }
 
-.center {
-  // margin: 0px auto;
-}
+
 
 .todo-list {
   float: left;
@@ -79,13 +77,10 @@ input:focus {
   outline: none;
 }
 
-.footer {}
-
 .button {
   margin: 5px;
 }
 
-.list {}
 
 input[type=text]::-webkit-input-placeholder {
   opacity: 0.1;

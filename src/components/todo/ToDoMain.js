@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Input from "./ToDoInput";
 import ToDoList from "./ToDoList";
 import ToDoFooter from "./ToDoFooter";
-import { throwStatement } from "@babel/types";
 
 const filterTypes = {
   ALL: 0,
