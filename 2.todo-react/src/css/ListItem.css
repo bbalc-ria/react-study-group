@@ -1,0 +1,28 @@
+.box {
+    background-color: transparent;
+    border: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.box-checked {
+    background-image: url("../resources/verified.svg");
+}
+
+.box-notchecked {    
+    background-image: url("../resources/gif.svg");
+}
+
+.box-delete {
+    background-image: url("../resources/delete.svg");
+}
+
+.list-row {
+    display: inline;
+    align-content: center;    
+}
+
+.list-input {
+    width: 200px;
+    height: 30px;
+}
