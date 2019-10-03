@@ -3,6 +3,7 @@
     border: 0;
     width: 30px;
     height: 30px;
+    background-repeat: no-repeat;
 }
 
 .box-checked {
@@ -15,10 +16,11 @@
 
 .box-delete {
     background-image: url("../resources/delete.svg");
+    
 }
 
 .list-row {
-    display: inline;
+    display: block;
     align-content: center;    
 }
 

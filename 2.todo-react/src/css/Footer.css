@@ -1,0 +1,17 @@
+.row {
+    display: inline;
+    align-content: center;    
+}
+
+.box {
+    background-color: transparent;    
+    border: 1;
+    min-width: 50px;
+    height: 20px;
+    margin: 10px;
+}
+
+.list-input {
+    width: 200px;
+    height: 30px;
+}

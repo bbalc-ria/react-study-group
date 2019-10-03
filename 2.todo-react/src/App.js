@@ -6,7 +6,7 @@ import CheckList from './comp/CheckList';
 function App() {
   return (
     <div className="App">
-      <CheckList/>
+      <CheckList />
     </div>
   );
 }
