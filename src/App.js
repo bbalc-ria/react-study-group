@@ -1,15 +1,23 @@
 import React from 'react';
+import logo from './logo.svg';
 import './App.css';
-import ToDoList from './ToDoList/toDoList';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {
-          <ToDoList items={[{name:"name 1", complete:true, selected:true},{name:"name 2"}]} 
-            itemCount={2} filterValue={"All"}/>
-        }
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
       </header>
     </div>
   );
