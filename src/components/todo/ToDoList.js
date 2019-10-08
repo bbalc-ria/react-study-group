@@ -1,22 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 import ToDoElement from "./ToDoElement";
 
-export class ToDoList extends Component {
-  render() {
+export function ToDoList(props) {
     return (
       <div className="list">
         <ul className="todo-list">
-          {this.props.listTodos.map(x => (
+          {props.listTodos.map(x => (
             <ToDoElement
               key={x.id}
               todo={x}
-              changeCompleted={this.props.changeCompleted}
+              changeCompleted={props.changeCompleted}
             ></ToDoElement>
           ))}
         </ul>
       </div>
     );
   }
-}
 
 export default ToDoList;

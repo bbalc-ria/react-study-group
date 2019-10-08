@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Input from "./ToDoInput";
 import ToDoList from "./ToDoList";
 import ToDoFooter from "./ToDoFooter";
@@ -9,112 +9,115 @@ const filterTypes = {
   COMPLETED: 2
 };
 
-export class ToDo extends Component {
-  state = {
-    listTodos: [],
-    lastId: 0,
-    customListTodos: [],
-    filterType: filterTypes.ALL
-  };
-  AddTodo = text => {
-    this.setState(
-      {
-        listTodos: [
-          ...this.state.listTodos,
-          { id: this.state.lastId, text, completed: false }
-        ],
-        lastId: this.state.lastId + 1
-      },
-      this.refreshCustomList
-    );
+export function ToDo (props){
+  const [listTodos,setListTodos] = useState([]);
+  const [lastId, setLastId] = useState(0);
+  const [customListTodos,setCustomListTodos] = useState([]);
+  const [filterType,setFilterType] = useState(filterTypes.ALL);
+ 
+  let AddTodo = text => {
+    setListTodos([
+      ...listTodos,
+      { id: lastId, text, completed: false }
+    ])
+    setLastId(lastId+1);
+    refreshCustomList();
   };
 
-  refreshCustomList = () => {
-    switch (this.state.filterType) {
+  let refreshCustomList = () => {
+    
+    switch (filterType) {
       case filterTypes.ALL:
-        this.showAll();
+        showAll();
         break;
       case filterTypes.ACTIVE:
-        this.showActive();
+        showActive();
         break;
       case filterTypes.COMPLETED:
-        this.showCompleted();
+        showCompleted();
         break;
       default:
         break;
     }
   };
 
-  changeCompleted = (id, value) => {
-    let listTodos = this.state.listTodos;
-    let index = listTodos.findIndex(x => x.id === id);
-    listTodos[index].completed = value;
-    this.setState({ listTodos });
+  let changeCompleted = (id, value) => {
+    let listTodosAux = listTodos;
+    let index = listTodosAux.findIndex(x => x.id === id);
+    listTodosAux[index].completed = value;
+    setListTodos(listTodosAux);
+    refreshCustomList()
   };
 
-  showAll = () => {
-    this.setState({ customListTodos: this.state.listTodos });
+  let showAll = () => {
+    setFilterType(filterTypes.ALL);
+    setCustomListTodos(listTodos);
   };
-  showActive = () => {
-    this.setState({
-      customListTodos: this.state.listTodos.filter(x => x.completed === false)
-    });
+  let showActive = () => {
+    setFilterType(filterTypes.ACTIVE);
+    setCustomListTodos(listTodos.filter(x => !x.completed));
   };
-  showCompleted = () => {
-    this.setState({
-      customListTodos: this.state.listTodos.filter(x => x.completed === true)
-    });
+  let showCompleted = () => {
+    setFilterType(filterTypes.COMPLETED);
+    setCustomListTodos(listTodos.filter(x => x.completed));
   };
-  clearCompleted = () => {
-    this.setState(
-      { listTodos: this.state.listTodos.filter(x => !x.completed) },
-      this.refreshCustomList
-    );
+  let clearCompleted = () => {
+    setListTodos(listTodos.filter(x=>!x.completed));
+    refreshCustomList();
   };
-  handleChangeAll = () => {
-    let completed = this.state.listTodos.filter(x => x.completed === true)
-      .length;
+  let handleChangeAll = () => {
+    //TODO
+    let nrOfCompletedTodos = customListTodos.filter(x => x.completed === true).length;
 
-    let allCompleted = completed === this.state.listTodos.length;
+    let allCompleted = nrOfCompletedTodos === customListTodos.length || nrOfCompletedTodos===0;
     let newArray = [];
     if (allCompleted) {
-      this.state.listTodos.forEach(element => {
-        let newElement = { ...element, completed: false };
+      listTodos.forEach(element => {
+        let newElement = { ...element, completed:!customListTodos[0].completed ?true: !listTodos[0] };
         newArray.push(newElement);
       });
-    } else {
-      this.state.listTodos.forEach(element => {
+    // } else 
+    // if (nrOfCompletedTodos===0 || ){
+    //   this.state.listTodos.forEach(element => {
+    //     let newElement = { ...element, completed: true };
+    //     newArray.push(newElement);
+    // })
+  }
+    else {
+      customListTodos.forEach(element => {
         let newElement = { ...element, completed: true };
         newArray.push(newElement);
       });
     }
-    this.setState({ listTodos: newArray }, this.refreshCustomList);
-  };
+    setListTodos(newArray);
+    refreshCustomList();
+   };
 
-  render() {
+ 
     return (
       <>
         <div className="full-body">
           <h1 className="title">ToDo</h1>
           <div className="list-wrapper">
             <div className="select-all">
-              <button onClick={this.handleChangeAll}>SetAll</button>
+              <button onClick={handleChangeAll}>SetAll</button>
             </div>
-            <Input addTodo={this.AddTodo}></Input>
+            <Input addTodo={AddTodo}></Input>
 
             <ToDoFooter
-              total={this.state.listTodos.length}
+              total={listTodos.length}
               completed={
-                this.state.listTodos.filter(x => x.completed === true).length
+                listTodos.filter(x => x.completed === true).length
               }
-              showAll={this.showAll}
-              showActive={this.showActive}
-              showCompleted={this.showCompleted}
-              clear={this.clearCompleted}
+              showAll={showAll}
+              show={refreshCustomList}
+              showActive={showActive}
+              showCompleted={showCompleted}
+              clear={clearCompleted}
             ></ToDoFooter>
             <ToDoList
-              listTodos={this.state.customListTodos}
-              changeCompleted={this.changeCompleted}
+              listTodos={customListTodos}
+              changeCompleted={changeCompleted}
             >
               THERE is the List
             </ToDoList>
@@ -123,6 +126,5 @@ export class ToDo extends Component {
       </>
     );
   }
-}
 
 export default ToDo;

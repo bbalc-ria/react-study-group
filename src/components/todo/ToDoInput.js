@@ -1,34 +1,29 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./input.scss";
-export class Input extends Component {
-  state = {
-    text: ""
-  };
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+export default function Input(props)  {
+  const [text, setText] = useState("");
+  
+  let handleChange = e => {
+    setText(e.target.value);
   };
 
-  handlePress = e => {
-    if (e.key === "Enter" && this.state.text.length > 0) {
-      this.props.addTodo(this.state.text);
-      this.setState({ text: "" });
+  let handlePress = e => {
+    if (e.key === "Enter" && text.length > 0) {
+      props.addTodo(text);
+      setText("");
     }
   };
 
-  render() {
     return (
       <div className="input">
         <input
           name="text"
           placeholder="Input text of the todo"
           type="text"
-          value={this.state.text}
-          onChange={this.handleChange}
-          onKeyPress={this.handlePress}
+          value={text}
+          onChange={handleChange}
+          onKeyPress={handlePress}
         ></input>
       </div>
     );
   }
-}
-
-export default Input;
