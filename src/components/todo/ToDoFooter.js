@@ -1,34 +1,35 @@
-import React,{ useEffect } from "react";
+import React, { useEffect } from "react";
+import * as S from 'styles';
 
-export default function ToDoFooter (props) {
-    useEffect( () => {
+export default function ToDoFooter(props) {
+  useEffect(() => {
     props.show();
-    });
-    return (
-      <div className="footer">
-        <button name="all" className="button" onClick={props.showAll}>
-          All
-        </button>
-        <button
-          name="active"
-          className="button"
-          onClick={props.showActive}
-        >
-          Active
-        </button>
-        <button
-          name="completed"
-          className="button"
-          onClick={props.showCompleted}
-        >
-          Completed
-        </button>
-        {props.completed}/ {props.total}
-        {props.completed !== 0 && (
-          <button name="clear" className="button" onClick={props.clear}>
-            Clear
-          </button>
-        )}
-      </div>
-    );
-  }
+  });
+  return (
+    <div>
+      <S.Button name="all" onClick={props.showAll}>
+        All
+        </S.Button>
+      <S.Button
+        name="active"
+        className="S.Button"
+        onClick={props.showActive}
+      >
+        Active
+        </S.Button>
+      <S.Button
+        name="completed"
+        className="S.Button"
+        onClick={props.showCompleted}
+      >
+        Completed
+        </S.Button>
+      {props.completed}/ {props.total}
+      {props.completed !== 0 && (
+        <S.Button name="clear" onClick={props.clear}>
+          Clear
+          </S.Button>
+      )}
+    </div>
+  );
+}

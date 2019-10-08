@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./input.scss";
-export default function Input(props)  {
+import * as S from 'styles';
+export default function TodoInput(props) {
   const [text, setText] = useState("");
-  
+
   let handleChange = e => {
     setText(e.target.value);
   };
@@ -14,16 +14,17 @@ export default function Input(props)  {
     }
   };
 
-    return (
-      <div className="input">
-        <input
-          name="text"
-          placeholder="Input text of the todo"
-          type="text"
-          value={text}
-          onChange={handleChange}
-          onKeyPress={handlePress}
-        ></input>
-      </div>
-    );
-  }
+  return (
+    <S.Input
+      name="text"
+      placeholder="Input text of the todo"
+      type="text"
+      value={text}
+      onChange={handleChange}
+      onKeyPress={handlePress}
+      isActive
+    ></S.Input >
+
+  );
+}
+
