@@ -8,17 +8,11 @@
     background-repeat: no-repeat;
     background-clip: padding-box;
     background-position: 0px;
+    cursor: pointer;
 }
 
 .checkbox-grayout {
-    opacity: 0.8;     
+    opacity: 0.2;     
     color: #d9d9dd;
-}
-
-.checkbox-checked {
-    background-image: url("../resources/verified.svg");
-}
-
-.checkbox-notchecked {    
-    background-image: url("../resources/gif.svg");
+    cursor: not-allowed;
 }

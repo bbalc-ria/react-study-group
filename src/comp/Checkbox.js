@@ -3,18 +3,13 @@ import '../css/Checkbox.css';
 
 function Checkbox(props) {
     console.log(props.visible)
-    
-    let visible = props.visible ;
-    if(props.visible === undefined)
-        visible = true;
+
+    let visible = props.visible === undefined ? true : props.visible;
+    let className = visible ? "checkbox" : "checkbox checkbox-grayout";
+    let onClick = visible ? () => props.onCheck(props.index) : undefined;
 
     return (
-        <button className={
-            visible ? props.checked
-                ? "checkbox checkbox-checked"
-                : "checkbox checkbox-notchecked"
-                : "checkbox checkbox-grayout"}
-            onClick={visible ? () => props.onCheck(props.index) : undefined} />
+        <input type="checkbox" checked={props.checked} className={className} onClick={onClick} />
     );
 }
 

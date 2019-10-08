@@ -8,12 +8,16 @@
 }
 
 li {
-    border: 2px groove;
+    border-bottom: 1px solid gray;
     width: 100%;    
     display: flex;
     align-content: center;
+    margin-top: 5px;
 }
 
 .box-delete {
     background-image: url("../resources/delete.svg");
+    background-size: 100%;
+    background-position: center;
+    cursor: pointer;
 }
