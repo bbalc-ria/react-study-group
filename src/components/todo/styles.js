@@ -12,7 +12,7 @@ export const Input = styled.input`
     box-sizing: border-box;
 }
 `
-export const Input = styled.input`
+export const Element = styled.div`
 width: 1.3em;
 height: 1.3em;
 background-color: white;
@@ -24,7 +24,7 @@ outline: none;
 cursor: pointer;
 `
 export const Li = styled.li
-    ` border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  ` border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 margin-top: 3px;
 padding-left: 10px;
 ${props => props.completed && `opacity: 0.3; background-color: gray;
@@ -43,8 +43,29 @@ margin-left: 10px;
 export const Button = styled.button`
   margin: 5px;
 `
-const Input = styled.input`
-    float: left;
-    border-bottom: 2px solid rgba($color: #000000, $alpha: 0.2);
-    width: $base-width;
-  `
+// export const Input = styled.input`
+//     float: left;
+//     border-bottom: 2px solid rgba($color: #000000, $alpha: 0.2);
+//     width: $base-width;
+//   `
+
+
+
+
+export const Title = styled.h1`
+  text-align: center;
+`;
+
+export const SelectAllButton = styled.button`
+float: left;
+opacity: 1;
+font-size: 3em;
+`
+export const FullBody = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: center;
+width: 100%;
+height: 100%;
+background: rgba(109, 130, 143, 0.1)`

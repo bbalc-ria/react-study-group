@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TodoInput from "./ToDoInput";
 import ToDoList from "./ToDoList";
 import ToDoFooter from "./ToDoFooter";
-import styled from 'styled-components';
+import * as S from './styles';
 
 const filterTypes = {
   ALL: 0,
@@ -97,9 +97,9 @@ export function ToDo(props) {
 
   return (
     <>
-      <FullBody>
-        <Title>ToDo</Title>
-        <SelectAllButton onClick={handleChangeAll}>SetAll></SelectAllButton>
+      <S.FullBody>
+        <S.Title>ToDo</S.Title>
+        <S.SelectAllButton onClick={handleChangeAll}>SetAll></S.SelectAllButton>
 
         <TodoInput addTodo={AddTodo}></TodoInput>
 
@@ -120,27 +120,11 @@ export function ToDo(props) {
         >
           THERE is the List
             </ToDoList>
-      </FullBody>
+      </S.FullBody>
 
     </>
   );
 }
-const Title = styled.h1`
-    text-align: center;
-  `;
 
-const SelectAllButton = styled.button`
-  float: left;
-  opacity: 1;
-  font-size: 3em;
-`
-const FullBody = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-align-items: center;
-width: 100%;
-height: 100%;
-background: rgba(109, 130, 143, 0.1)`
 export default ToDo;
 

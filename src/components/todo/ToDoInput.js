@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as S from 'styles';
+import * as S from './styles';
 export default function TodoInput(props) {
   const [text, setText] = useState("");
 

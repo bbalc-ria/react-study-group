@@ -1,6 +1,6 @@
 import React from "react";
 import ToDoElement from "./ToDoElement";
-import * as S from 'styles';
+import * as S from './styles';
 export function ToDoList(props) {
   return (
     <div className="list">

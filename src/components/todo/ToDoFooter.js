@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import * as S from 'styles';
+import * as S from './styles';
 
 export default function ToDoFooter(props) {
   useEffect(() => {
