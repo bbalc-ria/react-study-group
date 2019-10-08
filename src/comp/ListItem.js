@@ -1,12 +1,14 @@
 import React from 'react';
 import '../css/ListItem.css';
+import Checkbox from './Checkbox'
+import GrayInput from './GrayInput'
 
 function ListItem(props) {
     return (
         <li className="list-row">
-            <button className={props.checked ? "box box-checked" : "box box-notchecked"} onClick={()=> props.onCheck(props.index)}></button>
-            <input className="list-input" value={props.value} readOnly={true} />
-            <button className="box box-delete" onClick={() => props.onDelete(props.index)}></button>
+            <Checkbox checked={props.checked} onCheck={props.onCheck} index={props.index} />
+            <GrayInput checked={props.checked} text={props.text} />            
+            <button className="box box-delete" onClick={() => props.onDelete(props.index)} />
         </li>
     );
 }

@@ -1,30 +1,19 @@
 .box {
     background-color: transparent;
     border: 0;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
     background-repeat: no-repeat;
 }
 
-.box-checked {
-    background-image: url("../resources/verified.svg");
-}
-
-.box-notchecked {    
-    background-image: url("../resources/gif.svg");
+li {
+    border: 2px groove;
+    width: 100%;    
+    display: flex;
+    align-content: center;
 }
 
 .box-delete {
     background-image: url("../resources/delete.svg");
-    
-}
-
-.list-row {
-    display: block;
-    align-content: center;    
-}
-
-.list-input {
-    width: 200px;
-    height: 30px;
 }

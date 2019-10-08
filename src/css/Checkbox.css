@@ -1,0 +1,24 @@
+.checkbox {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    background-repeat: no-repeat;
+    background-clip: padding-box;
+    background-position: 0px;
+}
+
+.checkbox-grayout {
+    opacity: 0.8;     
+    color: #d9d9dd;
+}
+
+.checkbox-checked {
+    background-image: url("../resources/verified.svg");
+}
+
+.checkbox-notchecked {    
+    background-image: url("../resources/gif.svg");
+}

@@ -1,0 +1,8 @@
+.btn-hidden {
+    opacity: 0;
+}
+
+.btn-visible { 
+    border: 0;
+    background: transparent;
+}

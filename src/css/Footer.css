@@ -1,17 +1,25 @@
 .row {
     display: inline;
-    align-content: center;    
 }
 
-.box {
+.filter-btn {
     background-color: transparent;    
-    border: 1;
+    border: 1px solid  #d6d6d6;
+    border-radius: 10%;
     min-width: 50px;
-    height: 20px;
-    margin: 10px;
+    margin: 5px;
+    padding: 5px;
+    font-size: 16px;
 }
 
-.list-input {
+.filter-active {
+    border: 2px solid #add8e6;
+}
+
+
+.list-count-input {
     width: 200px;
     height: 30px;
+    margin: 5px;
+    font-size: 16px;
 }

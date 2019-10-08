@@ -2,12 +2,13 @@ import React from 'react';
 import '../css/Footer.css';
 
 function Footer(props) {
+
     return (
         <div className="row">
-            <input className="list-input" value={props.count} readOnly={true} />
-            <button className="box" value="All" onClick={props.onFiltAll}>All</button>
-            <button className="box" value="Active" onClick={props.onFiltActive}>Act</button>
-            <button className="box" value="Completed" onClick={props.onFiltComp}>Comp</button>
+            <label className="list-count-input">Items: {props.count}</label>
+            <button className={props.activeFilter == 0 ? "filter-btn filter-active" : "filter-btn"} onClick={props.onFiltAll}>All</button>
+            <button className={props.activeFilter == 1 ? "filter-btn filter-active" : "filter-btn"} onClick={props.onFiltActive}>Act</button>
+            <button className={props.activeFilter == 2 ? "filter-btn filter-active" : "filter-btn"} onClick={props.onFiltComp}>Completed</button>
         </div>
     );
 }

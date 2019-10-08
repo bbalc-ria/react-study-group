@@ -1,119 +1,128 @@
 import React from 'react';
 import '../css/CheckList.css';
-import ListItem from './ListItem'
 import Footer from './Footer'
-import { stat } from 'fs';
+import List from './List'
+import Checkbox from './Checkbox';
+import VisibleButton from './VisibleButton';
 
 class CheckList extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
-      items: []
+      text: '',
+      checkAllItems: false,
+      items: [],
+      filter: (v) => v,
+      filteredItems: [],
+      length: 0,
+      activeFilter: 0
     };
-
-    this.onInputChanged = this.onInputChanged.bind(this);
-    this.addListItem = this.addListItem.bind(this);
-    this.createList = this.createList.bind(this);
-    this.checkListItem = this.checkListItem.bind(this);
-    this.onInputKeyPress = this.onInputKeyPress.bind(this);
-    this.filterAll = this.filterAll.bind(this);
-    this.filterActive = this.filterActive.bind(this);
-    this.filterComp = this.filterComp.bind(this);
   }
 
   deleteListItem = (key) => {
-    console.log("Delete list item " + key);
-    this.state.items.splice(key, 1);
-    this.setState(this.state);
+    console.log("Delete list item ", key);
+    let newItems = [...this.state.items];
+    newItems.splice(key, 1);
+
+    this.redoItemKeys(newItems);
+    this.refreshState({ newItems: newItems });
   }
 
-  checkListItem(key) {
-    console.log("Check list item " + key);
-    let items = this.state.items;
-    let item = items.find((v, i) => i === key);
-
+  checkListItem = (key) => {
+    console.log("Check list item ", key);
+    let items = [...this.state.items];
+    let item = items[key];
     item.checked = !item.checked;
-    items[key] = item;
-
-    this.setState({ items: items });
+    this.refreshState({ newItems: items });
   }
 
-  addListItem() {
-    console.log("Add list item " + this.state.value);
-    this.state.items.push({ value: this.state.value, checked: false, hide: false });
-    this.setState(this.state);
+  redoItemKeys = (items) => {
+    for (let i = 0; i < items.length; i++) {
+      items[i].index = i;
+    }
   }
 
-  createList() {
-    const items = this.state.items.map((v, i) => {
-      if (v.hide === false) {
-        return (<ListItem key={i} index={i} value={v.value} checked={v.checked} onCheck={this.checkListItem} onDelete={this.deleteListItem} />)
-      }
-    });
-    console.log("Items count " + items.length)
+  addListItem = () => {
+    console.log("Add list item ", this.state.text);
+    var newItems = [...this.state.items];
+    newItems.push({ index: newItems.length, text: this.state.text, checked: false });
 
-    return (
-      <ul>{items}</ul>
-    );
+    this.redoItemKeys(newItems);
+    this.refreshState({ newItems: newItems });
   }
 
-  onInputChanged(event) {
+  onInputChanged = (event) => {
     console.log("Input changed " + event.target.value);
-    this.setState({ value: event.target.value });
+    this.setState({ text: event.target.value });
   }
 
-  onInputKeyPress(event) {
+  onInputKeyPress = (event) => {
     if (event.key === 'Enter') {
       this.addListItem();
     }
   }
 
-  filterAll() {
-    for (let index = 0; index < this.state.items.length; index++) {
-      this.state.items[index].hide = false;
-    }
-    this.setState(this.state);
+  showAll = () => {
+    this.setFilter((items) => { return items.filter(v => v) }, 0);
   }
 
-  filterActive() {
-    for (let index = 0; index < this.state.items.length; index++) {
-      const item = this.state.items[index];
-      item.hide = item.checked;
-      console.log("Hide ", item.hide);
-    }
-    this.setState(this.state);
+  showActive = () => {
+    this.setFilter((items) => { return items.filter(v => !v.checked) }, 1);
   }
 
-  filterComp() {
-    for (let index = 0; index < this.state.items.length; index++) {
-      const item = this.state.items[index];
-      item.hide = !item.checked;
-      console.log("Hide ", item.hide);
-    }
-    this.setState(this.state);
+  showCompleted = () => {
+    this.setFilter((items) => { return items.filter(v => v.checked) }, 2);
   }
 
-  getCount() {
-    let count = 0;
-    this.state.items.map((v, i) => {
-      if (!v.hide) {
-        count++;
-      }
+  setFilter = (filter, name) => {
+    this.refreshState({ filter: filter, activeFilter: name });
+  }
+
+  checkAll = () => {
+    var check = !this.state.checkAllItems;
+    var newItems = this.state.items.map(v => {
+      v.checked = check;
+      return v;
     });
-    return count;
+
+    this.refreshState({ newItems: newItems });
   }
 
+  refreshState = ({ newItems = this.state.items, filter = this.state.filter, activeFilter = this.state.activeFilter }) => {
+    var filtered = filter(newItems);
+    if (filtered === undefined)
+      filtered = [];
+
+    console.log("Refresh", newItems, "Filtered:", filtered, "Filter:", filter);
+
+    let checkAll = newItems.length > 0 && newItems.every(v => v.checked);
+
+    this.setState({ items: newItems, filteredItems: filtered, filter: filter, length: filtered.length, checkAllItems: checkAll, activeFilter: activeFilter });
+  }
+
+
+  onDeleteCompleted = () => {
+    console.log("Deleted Completed")
+
+    let newItems = this.state.items.filter(v => !v.checked);
+    this.refreshState({ newItems: newItems });
+  }
 
   render() {
     return (
-      <div className="list">
+      <div className="checklist-container">
         <div className="input-container">
-          <input onChange={this.onInputChanged} onKeyPress={this.onInputKeyPress} />
+          <Checkbox visible={this.state.items.length > 0} checked={this.state.checkAllItems} onCheck={this.checkAll} index={0} />
+          <input className="checklist-input" onChange={this.onInputChanged} onKeyPress={this.onInputKeyPress} />
         </div>
-        {this.createList()}
-        <Footer count={this.getCount()} onFiltAll={this.filterAll} onFiltActive={this.filterActive} onFiltComp={this.filterComp} />
+        <div className="list-container">
+          <List items={this.state.filteredItems} onCheck={this.checkListItem} onDelete={this.deleteListItem} />
+        </div>
+        <div className="footer-container">
+          <Footer activeFilter={this.state.activeFilter} count={this.state.length} onFiltAll={this.showAll} onFiltActive={this.showActive} onFiltComp={this.showCompleted} />
+          <VisibleButton visible={this.state.items.length > 1} onClick={this.onDeleteCompleted} />
+        </div>
       </div>
     );
   }
