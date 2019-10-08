@@ -6,12 +6,15 @@ export default function ToDoElement(props) {
   };
   return (
     <S.Li>
-      <S.Element
-        type="checkbox"
-        checked={props.todo.completed}
-        onChange={handleChange}
-      ></S.Element>{" "}
-      {props.todo.text}
+      <ThemeProvider theme={theme}>
+        <S.Element
+          type="checkbox"
+          checked={props.todo.completed}
+          onChange={handleChange}
+        >
+          {props.todo.text}
+        </S.Element>
+      </ThemeProvider>
     </S.Li>
   );
 }
