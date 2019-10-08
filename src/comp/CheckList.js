@@ -121,7 +121,7 @@ class CheckList extends React.Component {
         </div>
         <div className="footer-container">
           <Footer activeFilter={this.state.activeFilter} count={this.state.length} onFiltAll={this.showAll} onFiltActive={this.showActive} onFiltComp={this.showCompleted} />
-          <VisibleButton visible={this.state.items.length > 1} onClick={this.onDeleteCompleted} />
+          <VisibleButton visible={this.state.items.some(v => v.checked)} onClick={this.onDeleteCompleted} />
         </div>
       </div>
     );
