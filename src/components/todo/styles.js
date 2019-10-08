@@ -10,8 +10,7 @@ export const Input = styled.input`
     border: 0px;
     border-radius: 4px;
     box-sizing: border-box;
-}
-`
+}`
 export const Element = styled.div`
 width: 1.3em;
 height: 1.3em;
@@ -22,7 +21,18 @@ border: 1px solid #ddd;
 -webkit-appearance: none;
 outline: none;
 cursor: pointer;
+color: ${props => props.theme.main}; 
 `
+Element.defaultProps = {
+  theme: {
+    main: "palevioletred"
+  }
+}
+const theme = {
+  main: "mediumseagreen"
+};
+
+// Define what props.theme will look like
 export const Li = styled.li
   ` border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 margin-top: 3px;

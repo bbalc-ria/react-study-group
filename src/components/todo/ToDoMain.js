@@ -13,7 +13,7 @@ const filterTypes = {
 export function ToDo(props) {
   const [listTodos, setListTodos] = useState([]);
   const [lastId, setLastId] = useState(0);
-  const [customListTodos, setCustomListTodos] = useState([]);
+  const [visibleListTodos, setCustomListTodos] = useState([]);
   const [filterType, setFilterType] = useState(filterTypes.ALL);
 
   let AddTodo = text => {
@@ -68,28 +68,20 @@ export function ToDo(props) {
   };
   let handleChangeAll = () => {
     //TODO
-    let nrOfCompletedTodos = customListTodos.filter(x => x.completed === true).length;
+    let allSame = listTodos.filter(x => x.completed === true).length === listTodos.length || listTodos.filter(x => x.completed === true).length === 0;
 
-    let allCompleted = nrOfCompletedTodos === customListTodos.length || nrOfCompletedTodos === 0;
     let newArray = [];
-    if (allCompleted) {
+
+    if (allSame) {
       listTodos.forEach(element => {
-        let newElement = { ...element, completed: !customListTodos[0].completed ? true : !listTodos[0] };
+        let newElement = { ...element, completed: !element.completed };
         newArray.push(newElement);
       });
-      // } else 
-      // if (nrOfCompletedTodos===0 || ){
-      //   this.state.listTodos.forEach(element => {
-      //     let newElement = { ...element, completed: true };
-      //     newArray.push(newElement);
-      // })
     }
     else {
-      customListTodos.forEach(element => {
-        let newElement = { ...element, completed: true };
-        newArray.push(newElement);
-      });
     }
+
+
     setListTodos(newArray);
     refreshCustomList();
   };
@@ -115,7 +107,7 @@ export function ToDo(props) {
           clear={clearCompleted}
         ></ToDoFooter>
         <ToDoList
-          listTodos={customListTodos}
+          listTodos={visibleListTodos}
           changeCompleted={changeCompleted}
         >
           THERE is the List

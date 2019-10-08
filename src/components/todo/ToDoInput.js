@@ -16,7 +16,7 @@ export default function TodoInput(props) {
 
   return (
     <S.Input
-      name="text"
+      // them={"theme"}
       placeholder="Input text of the todo"
       type="text"
       value={text}
