@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         {
           <ToDoList items={[{name:"name 1", complete:true, selected:true},{name:"name 2"}]} 
-            itemCount={2} filterValue={"All"}/>
+            itemCount={2} filterValue={"Active"}/>
         }
       </header>
     </div>

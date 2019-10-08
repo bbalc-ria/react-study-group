@@ -1,5 +1,6 @@
 import React from 'react';
 import FilterOptions from './FilterOptions/filterOptions';
+import './footer.css'
 
 class Footer extends React.Component {
     render() {
@@ -7,10 +8,10 @@ class Footer extends React.Component {
         const itemCount = this.props.itemCount;
         
         return (
-            <div>
-                {itemCount} items left
+            <div class="footer">
+                <div class="itemCount">{itemCount} items left</div>
                 <FilterOptions filterValue={filterValue}/>
-                <button>Clear completed</button>
+                <button class="clearCompletedButton">Clear completed</button>
             </div>
       );
     }

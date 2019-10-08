@@ -1,0 +1,21 @@
+.footer{
+    font-size: 18px;
+    height:30px;
+    border-top: 1px solid lightgrey;
+    padding-top: 10px;
+}
+
+.clearCompletedButton{
+    background-color: transparent; 
+    border: none; 
+    color: white; 
+    padding: 2px; 
+    padding-top:5px;
+    font-size: 15px; 
+    cursor: pointer; 
+    float: right;
+}
+
+.itemCount{
+    display:inline-block;
+}
