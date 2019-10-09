@@ -52,7 +52,7 @@ export function ToDo(props) {
 
   let showAll = () => {
     setFilterType(filterTypes.ALL);
-    setCustomListTodos(listTodos);
+    setCustomListTodos([...listTodos]);
   };
   let showActive = () => {
     setFilterType(filterTypes.ACTIVE);
@@ -79,12 +79,19 @@ export function ToDo(props) {
       });
     }
     else {
+      listTodos.forEach(element => {
+        let newElement = { ...element, completed: true};
+        newArray.push(newElement);
+      });
     }
-
-
     setListTodos(newArray);
     refreshCustomList();
   };
+  let deleteTodo =(id)=>{
+    setListTodos(listTodos.filter(x=>x.id!==id));
+    refreshCustomList();
+
+  }
 
 
   return (
@@ -109,6 +116,7 @@ export function ToDo(props) {
         <ToDoList
           listTodos={visibleListTodos}
           changeCompleted={changeCompleted}
+          delete={deleteTodo}
         >
           THERE is the List
             </ToDoList>

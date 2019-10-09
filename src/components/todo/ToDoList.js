@@ -9,7 +9,9 @@ export function ToDoList(props) {
           <ToDoElement
             key={x.id}
             todo={x}
+            completed={x.completed}
             changeCompleted={props.changeCompleted}
+            delete={props.delete}
           ></ToDoElement>
         ))}
       </S.ToDoListElement>

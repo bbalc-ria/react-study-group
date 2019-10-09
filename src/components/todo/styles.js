@@ -1,17 +1,29 @@
 import styled from 'styled-components';
 
 export const Input = styled.input`
-&:placeholder{   
-    font-size: 3em;
+&::placeholder{   
+    
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 0px;
-    border-radius: 4px;
+    opacity:0.2;
     box-sizing: border-box;
-}`
-export const Element = styled.div`
+}
+font-size:2em;
+width: 45%;
+  padding: 12px 20px;
+  border:none;
+&:focus{
+  outline:none;
+}
+`
+export const DeleteImage =styled.img`
+float:right;
+height:15px;
+width:15px;
+
+`
+
+
+export const CheckBox = styled.input`
 width: 1.3em;
 height: 1.3em;
 background-color: white;
@@ -21,23 +33,13 @@ border: 1px solid #ddd;
 -webkit-appearance: none;
 outline: none;
 cursor: pointer;
-color: ${props => props.theme.main}; 
+background: ${props => props.checked ? 'salmon' : 'papayawhip'};
 `
-Element.defaultProps = {
-  theme: {
-    main: "palevioletred"
-  }
-}
-const theme = {
-  main: "mediumseagreen"
-};
-
-// Define what props.theme will look like
-export const Li = styled.li
-  ` border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+export const Li = styled.li`
+border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 margin-top: 3px;
 padding-left: 10px;
-${props => props.completed && `opacity: 0.3; background-color: gray;
+${props => props.completed && `opacity: 0.3 ;
 text-decoration: line-through`}
 `
 
@@ -53,15 +55,6 @@ margin-left: 10px;
 export const Button = styled.button`
   margin: 5px;
 `
-// export const Input = styled.input`
-//     float: left;
-//     border-bottom: 2px solid rgba($color: #000000, $alpha: 0.2);
-//     width: $base-width;
-//   `
-
-
-
-
 export const Title = styled.h1`
   text-align: center;
 `;
