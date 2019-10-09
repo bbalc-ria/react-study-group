@@ -6,12 +6,22 @@ export default class TodoList extends React.Component {
         super(props);
         this.state = { items: this.props.items };
     }    
+
+    deleteItem = (id) => {
+        let tempState = [...this.state.items];
+        tempState.splice(id, 1);
+        this.setState( 
+            {
+                items : tempState
+            });
+      }
+    
     render() {
         return (
             <ul>
             {
                 this.state.items.map((item) => 
-                     <TodoItem key={item.id} name={item.name} status={item.status} />)
+                     <TodoItem key={item.id} name={item.name} status={item.status} delete={this.deleteItem}/>)
             }
             </ul>
       );
