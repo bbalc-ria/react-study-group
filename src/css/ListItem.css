@@ -9,7 +9,7 @@
 
 li {
     border-bottom: 1px solid gray;
-    width: 100%;    
+    width: 100%;
     display: flex;
     align-content: center;
     margin-top: 5px;
@@ -20,4 +20,9 @@ li {
     background-size: 100%;
     background-position: center;
     cursor: pointer;
+    opacity: 0.1;
+}
+
+li:hover .box-delete {
+    opacity: 1;
 }

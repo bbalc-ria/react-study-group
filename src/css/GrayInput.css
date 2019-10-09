@@ -1,6 +1,7 @@
 .grayout {
-    opacity: 0.;     
+    opacity: 0.7;     
     text-decoration: line-through;
+    color: #d6d6d6;
 }
 
 .row-label {

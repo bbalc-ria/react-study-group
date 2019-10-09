@@ -2,14 +2,12 @@ import React from 'react';
 import '../css/Checkbox.css';
 
 function Checkbox(props) {
-    console.log(props.visible)
-
     let visible = props.visible === undefined ? true : props.visible;
     let className = visible ? "checkbox" : "checkbox checkbox-grayout";
-    let onClick = visible ? () => props.onCheck(props.index) : undefined;
+    let onClick = () => props.onCheck(props.index);
 
     return (
-        <input type="checkbox" checked={props.checked} className={className} onClick={onClick} />
+        <input type="checkbox" disabled={!visible} onChange={onClick} checked={props.checked} className={className} />
     );
 }
 

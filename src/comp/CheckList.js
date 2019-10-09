@@ -14,25 +14,23 @@ class CheckList extends React.Component {
       items: [],
       filter: (v) => v,
       filteredItems: [],
-      length: 0,
       activeFilter: 0
     };
   }
 
   deleteListItem = (key) => {
-    console.log("Delete list item ", key);
     let newItems = [...this.state.items];
     newItems.splice(key, 1);
-
     newItems = this.redoItemKeys(newItems);
+
     this.refreshState({ newItems: newItems });
   }
 
   checkListItem = (key) => {
-    console.log("Check list item ", key);
     let items = [...this.state.items];
     let item = items[key];
     item.checked = !item.checked;
+
     this.refreshState({ newItems: items });
   }
 
@@ -44,11 +42,10 @@ class CheckList extends React.Component {
   }
 
   addListItem = (value) => {
-    console.log("Add list item ", value);
     var newItems = [...this.state.items];
     newItems.push({ index: newItems.length, text: value, checked: false });
-
     newItems = this.redoItemKeys(newItems);
+
     this.refreshState({ newItems: newItems });
   }
 
@@ -87,14 +84,9 @@ class CheckList extends React.Component {
 
   refreshState = ({ newItems = this.state.items, filter = this.state.filter, activeFilter = this.state.activeFilter }) => {
     var filtered = filter(newItems);
-    if (filtered === undefined)
-      filtered = [];
-
     console.log("Refresh", newItems, "Filtered:", filtered, "Filter:", filter);
-
     let checkAll = newItems.length > 0 && newItems.every(v => v.checked);
-
-    this.setState({ items: newItems, filteredItems: filtered, filter: filter, length: filtered.length, checkAllItems: checkAll, activeFilter: activeFilter });
+    this.setState({ items: newItems, filteredItems: filtered, filter: filter, checkAllItems: checkAll, activeFilter: activeFilter });
   }
 
   onDeleteCompleted = () => {
@@ -108,16 +100,17 @@ class CheckList extends React.Component {
       <div className="checklist-container">
         <div className="input-container">
           <Checkbox visible={this.state.items.length > 0} checked={this.state.checkAllItems} onCheck={this.checkAll} index={0} />
-          <input className="checklist-input" onKeyPress={this.onInputKeyPress} />
+          <input className="checklist-input" onKeyPress={this.onInputKeyPress} placeholder="What needs to be done?" />
         </div>
         <div className="list-container">
           <List items={this.state.filteredItems} onCheck={this.checkListItem} onDelete={this.deleteListItem} />
         </div>
         <div className="footer-container">
-          <label className="list-count-input">Items: {this.state.length}</label>
-          <Filter className="filter-comp" getActiveFilter={() => this.state.activeFilter} setFilter={this.setFilter} />
-          {this.state.items.some(v => v.checked) &&
-            <Button className="clear-completed-comp" onClick={this.onDeleteCompleted} text="Clear Completed" />
+          <label className="list-count-input">Items: {this.state.items.length}</label>
+          <Filter getActiveFilter={() => this.state.activeFilter} setFilter={this.setFilter} />
+          {this.state.items.some(v => v.checked)
+            ? <Button className="clear-completed-comp" onClick={this.onDeleteCompleted} text="Clear Completed" />
+            : <Button className="invisible" onClick={this.onDeleteCompleted} text="Clear Completed" />
           }
         </div>
       </div>

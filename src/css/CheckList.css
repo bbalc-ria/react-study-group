@@ -21,13 +21,9 @@
     display: flex;
     justify-content: center;
     padding: 0;
+    margin: 0;
     width: 100%;
-    /* margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px; */
-    /* border: groove; */
-    border-bottom: 1px solid gray;
+    border-bottom: 2px solid gray;
 }
 
 .footer-container {
@@ -46,17 +42,17 @@ ul {
 .list-count-input {
     font-size: 16px;
     height: 100%;
+    float: left;
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 10px;
     margin-left: 10px;
 }
 
-.filter-comp {
-    margin: auto;
+.clear-completed-comp {
+    margin-right: 10px;
 }
 
-.clear-completed-comp {
-    margin-left: 50px;
-    margin-right: 10px;
+.invisible {
+    opacity: 0;
 }
