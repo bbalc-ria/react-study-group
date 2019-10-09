@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import TodoMain from './components/todoMain';
 import data from './json/items.json';
