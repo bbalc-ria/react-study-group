@@ -3,7 +3,7 @@ import ToDoElement from "./ToDoElement";
 import * as S from './styles';
 export function ToDoList(props) {
   return (
-    <div className="list">
+    <div >
       <S.ToDoListElement>
         {props.listTodos.map(x => (
           <ToDoElement
@@ -12,7 +12,7 @@ export function ToDoList(props) {
             completed={x.completed}
             changeCompleted={props.changeCompleted}
             delete={props.delete}
-          ></ToDoElement>
+          />
         ))}
       </S.ToDoListElement>
     </div>

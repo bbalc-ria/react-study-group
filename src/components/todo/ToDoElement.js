@@ -14,7 +14,8 @@ export default function ToDoElement(props) {
     <S.Li
       onMouseEnter={() => { setHovered(true); console.log("enter") }}
       onMouseLeave={() => { setHovered(false); console.log("leave") }}
-      completed={props.todo.completed}>
+      completed={props.todo.completed}
+    >
       <S.CheckBox
         type="checkbox"
         checked={props.todo.completed}

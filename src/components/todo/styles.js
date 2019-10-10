@@ -23,7 +23,7 @@ export const DeleteImage = styled.img`
 float:right;
 height:15px;
 width:15px;
-opacity: ${props => !props.hovered ? 1 : 0};
+opacity: ${props => props.hovered ? 1 : 0};
 `
 
 
@@ -63,18 +63,18 @@ export const Title = styled.h1`
   text-align: center;
 `;
 
-export const SelectAllButton = styled.input`
+export const SelectAllButton = styled.div`
+display:flex;
 float:left;
 width: 1.3em;
 height: 1.3em;
-background-color: white;
 border-radius: 50%;
 vertical-align: middle;
 border: 1px solid #ddd;
--webkit-appearance: none;
 outline: none;
 cursor: pointer;
 background: ${props => props.checked ? 'salmon' : 'papayawhip'};
+margin-right:10px;  
 `
 export const FullBody = styled.div`
 display: flex;
@@ -88,5 +88,6 @@ background: rgba(109, 130, 143, 0.1)`
 
 export const InputWrapper = styled.div`
 display:flex;
-
+align-items:center;
+justify-content:center;
 `

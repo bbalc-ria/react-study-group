@@ -3,7 +3,7 @@ import React from "react";
 import ToDo from "./components/todo/ToDoMain";
 
 function App() {
-  return <ToDo> </ToDo>;
+  return <ToDo/>;
 }
 
 export default App;

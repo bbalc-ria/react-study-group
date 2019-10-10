@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import * as S from './styles';
 export default function TodoInput(props) {
   const [text, setText] = useState("");
-
   let handleChange = e => {
     setText(e.target.value);
   };
@@ -16,17 +15,17 @@ export default function TodoInput(props) {
 
   return (
     <S.InputWrapper>
+
+      <S.SelectAllButton checked={props.allChecked} onClick={props.handleChangeAll}/> 
       <S.Input
-        // them={"theme"}
         placeholder="Input text of the todo"
         type="text"
         value={text}
         onChange={handleChange}
         onKeyPress={handlePress}
         isActive
-      ></S.Input >
+      />
 
-      <S.SelectAllButton onClick={props.handleChangeAll} />
     </S.InputWrapper>
 
 
