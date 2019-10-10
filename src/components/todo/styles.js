@@ -1,25 +1,29 @@
 import styled from 'styled-components';
 
 export const Input = styled.input`
+font-size:2em;
+width: 45%;
+padding: 12px 20px;
+border:none;
+float:right;
+display:flex
+
 &::placeholder{   
     
     width: 100%;
     opacity:0.2;
     box-sizing: border-box;
 }
-font-size:2em;
-width: 45%;
-  padding: 12px 20px;
-  border:none;
+
 &:focus{
   outline:none;
 }
 `
-export const DeleteImage =styled.img`
+export const DeleteImage = styled.img`
 float:right;
 height:15px;
 width:15px;
-
+opacity: ${props => !props.hovered ? 1 : 0};
 `
 
 
@@ -59,10 +63,18 @@ export const Title = styled.h1`
   text-align: center;
 `;
 
-export const SelectAllButton = styled.button`
-float: left;
-opacity: 1;
-font-size: 3em;
+export const SelectAllButton = styled.input`
+float:left;
+width: 1.3em;
+height: 1.3em;
+background-color: white;
+border-radius: 50%;
+vertical-align: middle;
+border: 1px solid #ddd;
+-webkit-appearance: none;
+outline: none;
+cursor: pointer;
+background: ${props => props.checked ? 'salmon' : 'papayawhip'};
 `
 export const FullBody = styled.div`
 display: flex;
@@ -72,3 +84,9 @@ align-items: center;
 width: 100%;
 height: 100%;
 background: rgba(109, 130, 143, 0.1)`
+
+
+export const InputWrapper = styled.div`
+display:flex;
+
+`

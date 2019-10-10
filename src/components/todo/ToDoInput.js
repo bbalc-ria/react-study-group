@@ -15,15 +15,20 @@ export default function TodoInput(props) {
   };
 
   return (
-    <S.Input
-      // them={"theme"}
-      placeholder="Input text of the todo"
-      type="text"
-      value={text}
-      onChange={handleChange}
-      onKeyPress={handlePress}
-      isActive
-    ></S.Input >
+    <S.InputWrapper>
+      <S.Input
+        // them={"theme"}
+        placeholder="Input text of the todo"
+        type="text"
+        value={text}
+        onChange={handleChange}
+        onKeyPress={handlePress}
+        isActive
+      ></S.Input >
+
+      <S.SelectAllButton onClick={props.handleChangeAll} />
+    </S.InputWrapper>
+
 
   );
 }

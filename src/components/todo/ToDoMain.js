@@ -80,15 +80,15 @@ export function ToDo(props) {
     }
     else {
       listTodos.forEach(element => {
-        let newElement = { ...element, completed: true};
+        let newElement = { ...element, completed: true };
         newArray.push(newElement);
       });
     }
     setListTodos(newArray);
     refreshCustomList();
   };
-  let deleteTodo =(id)=>{
-    setListTodos(listTodos.filter(x=>x.id!==id));
+  let deleteTodo = (id) => {
+    setListTodos(listTodos.filter(x => x.id !== id));
     refreshCustomList();
 
   }
@@ -98,9 +98,8 @@ export function ToDo(props) {
     <>
       <S.FullBody>
         <S.Title>ToDo</S.Title>
-        <S.SelectAllButton onClick={handleChangeAll}>SetAll></S.SelectAllButton>
 
-        <TodoInput addTodo={AddTodo}></TodoInput>
+        <TodoInput addTodo={AddTodo} handleChangeAll={handleChangeAll}></TodoInput>
 
         <ToDoFooter
           total={listTodos.length}
