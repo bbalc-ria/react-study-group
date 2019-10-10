@@ -6,9 +6,9 @@ import Checkbox from "./Checkbox";
 import Button from "./Button";
 
 function ToDoList() {
-  const [items = [], setItems] = useState([]);
-  const [filtered = [], setFiltered] = useState([]);
-  const [filter = v => v, setFilter] = useState(v => v);
+  const [items, setItems] = useState(() => []);
+  const [filtered, setFiltered] = useState(() => []);
+  const [filterFunc = (v) => v !== undefined, setFilterFunc] = useState();
   const [activeFilter = 0, setActiveFilter] = useState(0);
   const [checkall = false, setCheckall] = useState(false);
 
@@ -23,7 +23,7 @@ function ToDoList() {
               v.checked = !checkall;
             });
             console.log("Check all", items);
-            setFiltered(items.filter(filter));
+            setFiltered(items.filter(filterFunc));
             setCheckall(!checkall);
           }}
         />
@@ -34,8 +34,8 @@ function ToDoList() {
               var newItems = addNewItem(items, e.target.value);
               setItems(newItems);
               console.log("Enter all", newItems);
-              setFiltered(newItems.filter(filter));
-              e.target.value = '';
+              setFiltered(newItems.filter(filterFunc));
+              e.target.value = "";
             }
           }}
           placeholder="What needs to be done?"
@@ -44,15 +44,17 @@ function ToDoList() {
       <div className="list-container">
         <List
           items={filtered}
-          onCheck={(i) => {
-              items[i].checked = !items[i].checked;
-              setFiltered(items.filter(filter)); 
-              setCheckall(items.length > 0 && items.every(v => v.checked)); 
+          onCheck={i => {
+            console.log("CheckItem index", i, "Filter", filterFunc);
+            items[i].checked = !items[i].checked;
+            setFiltered(items.filter(filterFunc));
+            setCheckall(items.length > 0 && items.every(v => v.checked));
           }}
           onDelete={i => {
             var newItems = filterItems(items, v => v.index !== i);
+            setCheckall(newItems.length > 0 && newItems.every(v => v.checked));
             setItems(newItems);
-            setFiltered(newItems.filter(filter));
+            setFiltered(newItems.filter(filterFunc));
           }}
         />
       </div>
@@ -62,11 +64,11 @@ function ToDoList() {
         </label>
         <Filter
           activeFilter={activeFilter}
-          setFilter={(f, a) => {
-            console.log("Filter", f, "Items", items);
-            setFiltered(items.filter(f));
-            setFilter(f);
+          setFilter={(filterFunc, a) => {
+            console.log("Active", a, "Filter", filterFunc, "Items", items);
             setActiveFilter(a);
+            setFiltered(items.filter(filterFunc));
+            setFilterFunc(filterFunc);
           }}
         />
         <Button
@@ -74,8 +76,9 @@ function ToDoList() {
           visible={items.some(v => v.checked)}
           onClick={() => {
             var newItems = filterItems(items, v => !v.checked);
+            setCheckall(false);
             setItems(newItems);
-            setFiltered(newItems.filter(filter));
+            setFiltered(newItems.filter(filterFunc));
           }}
           text="Clear Completed"
         />
@@ -123,17 +126,16 @@ function isNullOrWhiteSpace(value) {
 export default ToDoList;
 
 // class CheckList extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       checkAllItems: false,
-//       items: [],
-//       filter: v => v,
-//       filteredItems: [],
-//       activeFilter: 0
-//     };
-//   }
+// constructor(props) {
+//   super(props);
+//   this.state = {
+//     checkAllItems: false,
+//   };
+// }
 
+//  const [checkAllItems, setCheckAllItems] = useState(false);
+
+// setCheckAllItems(!checkAllItems);
 //   deleteListItem = key => {
 //     let newItems = [...this.state.items];
 //     newItems.splice(key, 1);
