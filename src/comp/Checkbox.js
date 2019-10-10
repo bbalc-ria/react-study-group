@@ -1,14 +1,16 @@
-import React from 'react';
-import '../css/Checkbox.css';
+import React from "react";
+import "../css/Checkbox.css";
 
-function Checkbox(props) {
-    let visible = props.visible === undefined ? true : props.visible;
-    let className = visible ? "checkbox" : "checkbox checkbox-grayout";
-    let onClick = () => props.onCheck(props.index);
-
-    return (
-        <input type="checkbox" disabled={!visible} onChange={onClick} checked={props.checked} className={className} />
-    );
+function Checkbox({ index = 0, checked, onCheck, visible = true }) {
+  return (
+    <input
+      type="checkbox"
+      disabled={!visible}
+      onChange={() => onCheck(index)}
+      checked={checked}
+      className={`checkbox ${visible ? "" : "checkbox-grayout"}`}
+    />
+  );
 }
 
 export default Checkbox;

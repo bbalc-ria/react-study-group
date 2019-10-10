@@ -1,14 +1,24 @@
-import React from 'react';
-import '../css/Button.css';
+import React from "react";
+import "../css/Button.css";
 
-function Button(props) {
-    let className = props.active ? "btn-style btn-style-active" : "btn-style";
-    className += " ";
-    className += props.className;
-
-    return (
-        <button className={className} onClick={props.onClick}>{props.text}</button>
-    );
+function Button({
+  active,
+  styleClass,
+  visible = true,
+  text = "Click",
+  onClick
+}) {
+  return (
+    <button
+      className={`btn-style 
+      ${active ? "btn-style-active" : ""} 
+      ${styleClass} 
+      ${!visible ? "btn-invisible" : ""}`}
+      onClick={onClick}
+    >
+      {text}
+    </button>
+  );
 }
 
 export default Button;
