@@ -6,10 +6,15 @@ class Item extends React.Component {
     constructor(props) {
         super(props);
         this.handleItemRemoved = this.handleItemRemoved.bind(this);
+        this.handleItemCompleted = this.handleItemCompleted.bind(this);
       }
 
     handleItemRemoved() {
-      this.props.onItemRemoved();
+        this.props.onItemRemoved();
+    }
+
+    handleItemCompleted() {
+        this.props.onItemCompleted();
     }
 
     render() {
@@ -25,11 +30,15 @@ class Item extends React.Component {
         return (
             <li class="listItem">
                     <div class="round">
-                        <input type="checkbox" id={id} checked={checkedValue} />
+                        <input type="checkbox" id={id} checked={checkedValue}
+                            onClick={this.handleItemCompleted} />
                         <label for={id}></label>
                     </div>
                     {name}
-                    <button class="deleteButton" onClick={this.handleItemRemoved}>X</button>
+                    <button class="deleteButton" 
+                        onClick={this.handleItemRemoved}>
+                        X
+                    </button>
             </li>
       );
     }

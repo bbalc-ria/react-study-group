@@ -6,6 +6,7 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.handleCheckAll = this.handleCheckAll.bind(this);
       }
 
     handleKeyDown(e) {
@@ -15,11 +16,16 @@ class Header extends React.Component {
         }
     }
 
+    handleCheckAll(e) {
+        this.props.onCheckAll(e.target.checked);
+    }
+
     render() {
         return (
             <div class="header">
                 <div class="round">
-                    <input type="checkbox" id="checkbox" />
+                    <input type="checkbox" id="checkbox"
+                        onChange={this.handleCheckAll} />
                     <label for="checkbox"></label>
                 </div>
                 <input class="borderlessInput" id="addNewItem" placeholder="What needs to be done?"

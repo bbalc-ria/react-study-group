@@ -7,11 +7,16 @@ class ItemList extends React.Component {
         super(props);
 
         this.handleItemRemoved = this.handleItemRemoved.bind(this);
+        this.handleItemCompleted = this.handleItemCompleted.bind(this);
       }
 
     handleItemRemoved(index) {
       this.props.onItemRemoved(index);
     }
+
+    handleItemCompleted(index) {
+        this.props.onItemCompleted(index);
+      }
 
     render() {
         const items = this.props.items;
@@ -28,7 +33,8 @@ class ItemList extends React.Component {
 
         let listItems = filteredItems.map((item, index) =>
             <Item name={item.name} key={index} id={index} complete={item.complete} 
-                            onItemRemoved={() => this.handleItemRemoved(index)} />
+                            onItemRemoved={() => this.handleItemRemoved(index)}
+                            onItemCompleted={() => this.handleItemCompleted(index)} />
         );
 
         return (

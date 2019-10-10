@@ -15,6 +15,8 @@ class ToDoList extends React.Component {
         this.handleItemRemoved = this.handleItemRemoved.bind(this);
         this.handleFilterOptionChanged = this.handleFilterOptionChanged.bind(this);
         this.handleClearCompleted = this.handleClearCompleted.bind(this);
+        this.handleItemCompleted = this.handleItemCompleted.bind(this);
+        this.handleCheckAll = this.handleCheckAll.bind(this);
       }
 
     handleItemAdded(itemName){
@@ -45,7 +47,23 @@ class ToDoList extends React.Component {
         this.setState(stateUpdates)
     }
 
-    handleClearCompleted() {
+    handleItemCompleted(itemIndex) {
+        let stateUpdates = {
+            items: this.state.items.map(function(item, index)
+                {
+                    if (index === itemIndex){
+                        item.complete = !item.complete;
+                    }
+
+                    return item;
+                }
+            )
+        }
+
+        this.setState(stateUpdates)
+    }
+
+    handleClearCompleted(itemIndex) {
         let stateUpdates = {
             items: this.state.items.filter(function(item, index)
                 {
@@ -56,15 +74,31 @@ class ToDoList extends React.Component {
 
         this.setState(stateUpdates)
     }
+
+    handleCheckAll(checkAll){
+        let stateUpdates = {
+            items: this.state.items.map(function(item, index)
+                {
+                    item.complete = checkAll;
+                    return item;
+                }
+            )
+        }
+
+        this.setState(stateUpdates)
+    }
     
     render() {
         return (
             <div>
-                <Header onItemAdded={this.handleItemAdded}/>
-                <ItemList items={this.state.items} filterValue={this.state.filterValue} onItemRemoved={this.handleItemRemoved}/>
+                <Header onItemAdded={this.handleItemAdded}
+                    onCheckAll={this.handleCheckAll} />
+                <ItemList items={this.state.items} filterValue={this.state.filterValue} 
+                    onItemRemoved={this.handleItemRemoved}
+                    onItemCompleted={this.handleItemCompleted} />
                 <Footer items={this.state.items} filterValue={this.state.filterValue} 
                     onFilterOptionChanged={this.handleFilterOptionChanged} 
-                    onClearCompleted={this.handleClearCompleted}/>
+                    onClearCompleted={this.handleClearCompleted} />
             </div>
       );
     }
