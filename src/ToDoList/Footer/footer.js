@@ -3,6 +3,15 @@ import FilterOptions from './FilterOptions/filterOptions';
 import './footer.css'
 
 class Footer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleFilterOptionChanged = this.handleFilterOptionChanged.bind(this);
+    }
+
+    handleFilterOptionChanged(filterValue) {
+      this.props.onFilterOptionChanged(filterValue);
+    }
+
     render() {
         const filterValue = this.props.filterValue;
         const items = this.props.items;
@@ -28,7 +37,7 @@ class Footer extends React.Component {
         return (
             <div class="footer">
                 <div class="itemCount">{itemCountText}</div>
-                <FilterOptions filterValue={filterValue}/>
+                <FilterOptions filterValue={filterValue} onFilterOptionChanged={this.handleFilterOptionChanged} />
                 <button class={clearCompleteButtonClassName}>Clear completed</button>
             </div>
       );

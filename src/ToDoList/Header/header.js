@@ -11,6 +11,7 @@ class Header extends React.Component {
     handleKeyDown(e) {
         if (e.key === "Enter"){
             this.props.onItemAdded(e.target.value);
+            e.target.value = "";
         }
     }
 

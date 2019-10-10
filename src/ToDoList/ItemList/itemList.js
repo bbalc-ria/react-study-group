@@ -10,7 +10,6 @@ class ItemList extends React.Component {
       }
 
     handleItemRemoved(index) {
-      alert(index);
       this.props.onItemRemoved(index);
     }
 
@@ -22,8 +21,9 @@ class ItemList extends React.Component {
             if (filterValue === "All" || 
                 (filterValue === "Completed" && item.complete) ||
                 (filterValue === "Active" && !item.complete)){
-                    return item;
+                    return true;
                 }
+            return false;
         });
 
         let listItems = filteredItems.map((item, index) =>
