@@ -3,15 +3,13 @@ import TodoAdd from './todoAdd';
 import TodoList from './todoList';
 import TodoFooter from './todoFooter';
 
-export default class TodoMain extends React.Component{
-    render(){
-        const items = this.props.items;
-        return(
-        <>
+const TodoMain = (props) => {
+        const items = props.items;
+        return  <>
             <TodoAdd />
             <TodoList items={items} />
             <TodoFooter />
-        </>
-        );
+        </>;
     }
-}
+
+export default TodoMain;
