@@ -2,46 +2,29 @@ import React from 'react';
 import './../../round_checkbox.css';
 import './item.css';
 
-class Item extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleItemRemoved = this.handleItemRemoved.bind(this);
-        this.handleItemCompleted = this.handleItemCompleted.bind(this);
-      }
-
-    handleItemRemoved() {
-        this.props.onItemRemoved();
+function Item(props) {
+    function handleItemRemoved() {
+        props.onItemRemoved();
     }
 
-    handleItemCompleted() {
-        this.props.onItemCompleted();
+    function handleItemCompleted() {
+        props.onItemCompleted();
     }
-
-    render() {
-        const name = this.props.name;
-        const complete = this.props.complete;
-        const id = this.props.id + "_checkbox";
-
-        let checkedValue = "";
-        if (complete){
-            checkedValue = "checked";
-        }
 
         return (
             <li class="listItem">
                     <div class="round">
-                        <input type="checkbox" id={id} checked={checkedValue}
-                            onClick={this.handleItemCompleted} />
-                        <label for={id}></label>
+                        <input type="checkbox" id={props.id} checked={props.complete?"checked":""}
+                            onClick={handleItemCompleted} />
+                        <label for={props.id}></label>
                     </div>
-                    {name}
+                    {props.name}
                     <button class="deleteButton" 
-                        onClick={this.handleItemRemoved}>
+                        onClick={handleItemRemoved}>
                         X
                     </button>
             </li>
       );
-    }
 }
 
 export default Item;

@@ -2,26 +2,17 @@ import React from 'react';
 import FilterOptions from './FilterOptions/filterOptions';
 import './footer.css'
 
-class Footer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleFilterOptionChanged = this.handleFilterOptionChanged.bind(this);
-        this.handleClearCompleted = this.handleClearCompleted.bind(this);
+function Footer(props) {
+    function handleFilterOptionChanged(filterValue) {
+      props.onFilterOptionChanged(filterValue);
     }
 
-    handleFilterOptionChanged(filterValue) {
-      this.props.onFilterOptionChanged(filterValue);
+    function handleClearCompleted() {
+        props.onClearCompleted();
     }
 
-    handleClearCompleted() {
-        this.props.onClearCompleted();
-    }
-
-    render() {
-        const filterValue = this.props.filterValue;
-        const items = this.props.items;
-
-        let activeItems = items.filter(function(item){
+    function getItemCountText() {
+        let activeItems = props.items.filter(function(item){
             return !item.complete;
         });
 
@@ -30,7 +21,11 @@ class Footer extends React.Component {
             itemCountText = "1 item left";
         }
 
-        let completeItems = items.filter(function(item){
+        return itemCountText;
+    }
+
+    function getClearCompletedButtonClass() {
+        let completeItems = props.items.filter(function(item){
             return item.complete;
         });
 
@@ -38,15 +33,17 @@ class Footer extends React.Component {
         if (completeItems.length === 0){
             clearCompleteButtonClassName = "hidden";
         }
-        
+
+        return clearCompleteButtonClassName;
+    }
+
         return (
             <div class="footer">
-                <div class="itemCount">{itemCountText}</div>
-                <FilterOptions filterValue={filterValue} onFilterOptionChanged={this.handleFilterOptionChanged} />
-                <button class={clearCompleteButtonClassName} onClick={this.handleClearCompleted} >Clear completed</button>
+                <div class="itemCount">{getItemCountText()}</div>
+                <FilterOptions filterValue={props.filterValue} onFilterOptionChanged={handleFilterOptionChanged} />
+                <button class={getClearCompletedButtonClass()} onClick={handleClearCompleted} >Clear completed</button>
             </div>
       );
-    }
 }
 
 export default Footer;
