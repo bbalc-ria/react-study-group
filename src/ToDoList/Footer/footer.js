@@ -6,10 +6,15 @@ class Footer extends React.Component {
     constructor(props) {
         super(props);
         this.handleFilterOptionChanged = this.handleFilterOptionChanged.bind(this);
+        this.handleClearCompleted = this.handleClearCompleted.bind(this);
     }
 
     handleFilterOptionChanged(filterValue) {
       this.props.onFilterOptionChanged(filterValue);
+    }
+
+    handleClearCompleted() {
+        this.props.onClearCompleted();
     }
 
     render() {
@@ -38,7 +43,7 @@ class Footer extends React.Component {
             <div class="footer">
                 <div class="itemCount">{itemCountText}</div>
                 <FilterOptions filterValue={filterValue} onFilterOptionChanged={this.handleFilterOptionChanged} />
-                <button class={clearCompleteButtonClassName}>Clear completed</button>
+                <button class={clearCompleteButtonClassName} onClick={this.handleClearCompleted} >Clear completed</button>
             </div>
       );
     }

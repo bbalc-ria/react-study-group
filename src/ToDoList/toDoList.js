@@ -14,6 +14,7 @@ class ToDoList extends React.Component {
         this.handleItemAdded = this.handleItemAdded.bind(this);
         this.handleItemRemoved = this.handleItemRemoved.bind(this);
         this.handleFilterOptionChanged = this.handleFilterOptionChanged.bind(this);
+        this.handleClearCompleted = this.handleClearCompleted.bind(this);
       }
 
     handleItemAdded(itemName){
@@ -43,13 +44,27 @@ class ToDoList extends React.Component {
 
         this.setState(stateUpdates)
     }
+
+    handleClearCompleted() {
+        let stateUpdates = {
+            items: this.state.items.filter(function(item, index)
+                {
+                    return !item.complete;
+                }
+            )
+        }
+
+        this.setState(stateUpdates)
+    }
     
     render() {
         return (
             <div>
                 <Header onItemAdded={this.handleItemAdded}/>
                 <ItemList items={this.state.items} filterValue={this.state.filterValue} onItemRemoved={this.handleItemRemoved}/>
-                <Footer items={this.state.items} filterValue={this.state.filterValue} onFilterOptionChanged={this.handleFilterOptionChanged}/>
+                <Footer items={this.state.items} filterValue={this.state.filterValue} 
+                    onFilterOptionChanged={this.handleFilterOptionChanged} 
+                    onClearCompleted={this.handleClearCompleted}/>
             </div>
       );
     }
