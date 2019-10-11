@@ -2,15 +2,12 @@ import styled from 'styled-components';
 
 export const Input = styled.input`
 font-size:2em;
-width: 45%;
 padding: 12px 20px;
 border:none;
 float:right;
-display:flex
 
 &::placeholder{   
     
-    width: 100%;
     opacity:0.2;
     box-sizing: border-box;
 }
@@ -24,6 +21,9 @@ float:right;
 height:15px;
 width:15px;
 opacity: ${props => props.hovered ? 1 : 0};
+:hover{
+  cursor: pointer;
+}
 `
 
 
@@ -40,6 +40,7 @@ cursor: pointer;
 background: ${props => props.checked ? 'salmon' : 'papayawhip'};
 `
 export const Li = styled.li`
+width:90%;
 border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 margin-top: 3px;
 padding-left: 10px;
@@ -48,12 +49,10 @@ text-decoration: line-through`}
 `
 
 export const ToDoListElement = styled.ul`
-float: left;
-padding-top: 0vh;
+
 list-style-type: none;
-margin: 0;
-padding: 0;
-width: 500px;
+min-width:100px;
+/* width: 500px; */
 margin-left: 10px;
 `
 export const Button = styled.button`
@@ -64,12 +63,9 @@ export const Title = styled.h1`
 `;
 
 export const SelectAllButton = styled.div`
-display:flex;
-float:left;
 width: 1.3em;
 height: 1.3em;
 border-radius: 50%;
-vertical-align: middle;
 border: 1px solid #ddd;
 outline: none;
 cursor: pointer;
@@ -77,12 +73,12 @@ background: ${props => props.checked ? 'salmon' : 'papayawhip'};
 margin-right:10px;  
 `
 export const FullBody = styled.div`
-display: flex;
+
+flex-grow: 2;
+flex-wrap:wrap;
 flex-direction: column;
 justify-content: flex-start;
 align-items: center;
-width: 100%;
-height: 100%;
 background: rgba(109, 130, 143, 0.1)`
 
 
@@ -90,4 +86,21 @@ export const InputWrapper = styled.div`
 display:flex;
 align-items:center;
 justify-content:center;
+min-width:80px;
+`
+
+export const CenteredContainer = styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+`
+export const Filler=styled.div`
+  flex-grow:2;
+`
+export const All=styled.div`
+display:flex 1;
+flex-direction:row;
+align-items: center;
+height:100%;
 `
