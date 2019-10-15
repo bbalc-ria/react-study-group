@@ -42,27 +42,37 @@ function ToDoList() {
     refreshState({ newItems: itemsCopy });
   };
 
-  const deleteItem = index => {
+  const invokeFunctionOnItems = func => {
     let itemsCopy = [...state.items];
-    itemsCopy.splice(index, 1);
+    itemsCopy = func(itemsCopy);
     itemsCopy.forEach((element, i) => (element.index = i));
     refreshState({ newItems: itemsCopy });
   };
 
+  const deleteFromItemsWhere = predicate => {
+    invokeFunctionOnItems(items =>
+      items.filter(element => predicate(element) === false)
+    );
+  };
+
+  const deleteItem = index => {
+    deleteFromItemsWhere(item => item.index === index);
+  };
+
   const deleteCheckedItems = () => {
-    let itemsCopy = state.items.filter(e => !e.checked);
-    refreshState({ newItems: itemsCopy });
+    deleteFromItemsWhere(item => item.checked);
   };
 
   const addItem = event => {
     if (event.key !== "Enter") return;
-    if (!event.target.value) return;
+    if (!event.target.value.trim()) return;
+    let text = event.target.value;
 
-    let itemsCopy = [...state.items];
-    itemsCopy.push({ index: 0, text: event.target.value, checked: false });
-    itemsCopy.forEach((element, i) => (element.index = i));
     event.target.value = "";
-    refreshState({ newItems: itemsCopy });
+    invokeFunctionOnItems(items => {
+      items.push({ index: 0, text: text, checked: false });
+      return items;
+    });
   };
 
   console.log("Rendering.");
