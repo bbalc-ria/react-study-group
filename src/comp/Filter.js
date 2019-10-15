@@ -8,19 +8,17 @@ function Filter({ setFilter, activeFilter }) {
     <div className="list-filter-container">
       <Button
         active={activeFilter === 0}
-        onClick={() => setFilter(v => v !== undefined, 0)}
+        onClick={() => setFilter(element => element, 0)}
         text="All"
       />
       <Button
         active={activeFilter === 1}
-        onClick={() => {
-          setFilter(v => v !== undefined && !v.checked, 1);
-        }}
+        onClick={() => setFilter(element => !element.checked, 1)}
         text="Active"
       />
       <Button
         active={activeFilter === 2}
-        onClick={() => setFilter(v => v !== undefined && v.checked, 2)}
+        onClick={() => setFilter(element => element.checked, 2)}
         text="Completed"
       />
     </div>
