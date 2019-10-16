@@ -6,7 +6,7 @@ function Checkbox({ index = 0, checked, onCheck, visible = true }) {
     <input
       type="checkbox"
       disabled={!visible}
-      onChange={() => onCheck(index)}
+      onChange={(v) => onCheck(index, v.target.checked)}
       checked={checked}
       className={`checkbox ${visible ? "" : "checkbox-grayout"}`}
     />

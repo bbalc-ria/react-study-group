@@ -6,47 +6,23 @@ import Checkbox from "./Checkbox";
 import Button from "./Button";
 
 function ToDoList() {
-  const [state, setState] = useState({
-    items: [],
-    filteredItems: [],
+  const [items, setItems] = useState([]);
+  const [filter, setFilter] = useState({
     filterFunction: v => v,
-    filterActive: 0,
-    checkAll: false
+    filterActive: 0
   });
 
-  const refreshState = ({
-    newItems = state.items,
-    newFilterFunction = state.filterFunction,
-    newFilterActive = state.filterActive,
-    newCheckAll = state.checkAll
-  }) => {
-    if (newCheckAll !== state.checkAll)
-      newItems.forEach(element => (element.checked = newCheckAll));
-
-    let filtered = newItems.filter(newFilterFunction);
-    let haveToCheckAll =
-      newItems.length > 0 && !newItems.some(element => !element.checked);
-
-    setState({
-      items: newItems,
-      filteredItems: filtered,
-      filterFunction: newFilterFunction,
-      filterActive: newFilterActive,
-      checkAll: haveToCheckAll
-    });
-  };
-
   const checkItem = index => {
-    let itemsCopy = [...state.items];
+    let itemsCopy = [...items];
     itemsCopy[index].checked = !itemsCopy[index].checked;
-    refreshState({ newItems: itemsCopy });
+    setItems(itemsCopy);
   };
 
   const invokeFunctionOnItems = func => {
-    let itemsCopy = [...state.items];
+    let itemsCopy = [...items];
     itemsCopy = func(itemsCopy);
     itemsCopy.forEach((element, i) => (element.index = i));
-    refreshState({ newItems: itemsCopy });
+    setItems(itemsCopy);
   };
 
   const deleteFromItemsWhere = predicate => {
@@ -75,19 +51,24 @@ function ToDoList() {
     });
   };
 
+  const checkAll = checkAll => {
+    invokeFunctionOnItems(items => {
+      items.forEach(item => (item.checked = checkAll));
+      return items;
+    });
+  };
+
   console.log("Rendering.");
-  console.log("Items", state.items);
-  console.log("Filter", state.filterFunction);
-  console.log("Filtered", state.filteredItems);
-  console.log("CheckAll", state.checkAll);
+  console.log("Items", items);
+  console.log("Filter", filter.filterFunction);
 
   return (
     <div className="checklist-container">
       <div className="input-container">
         <Checkbox
-          visible={state.items.length > 0}
-          checked={state.checkAll}
-          onCheck={() => refreshState({ newCheckAll: !state.checkAll })}
+          visible={items.length > 0}
+          checked={items.length > 0 && !items.some(element => !element.checked)}
+          onCheck={(index, checked) => checkAll(checked)}
         />
         <input
           className="checklist-input"
@@ -97,28 +78,28 @@ function ToDoList() {
       </div>
       <div className="list-container">
         <List
-          items={state.filteredItems}
+          items={items.filter(filter.filterFunction)}
           onCheck={i => checkItem(i)}
           onDelete={i => deleteItem(i)}
         />
       </div>
       <div className="footer-container">
         <label className="list-count-input">
-          Items Left: {count(state.items, v => !v.checked)}
+          Items Left: {count(items, v => !v.checked)}
         </label>
         <Filter
-          activeFilter={state.filterActive}
+          activeFilter={filter.filterActive}
           setFilter={(filterFunc, filterActive) => {
             console.log("Setting new filter function", filterFunc);
-            refreshState({
-              newFilterFunction: filterFunc,
-              newFilterActive: filterActive
+            setFilter({
+              filterFunction: filterFunc,
+              filterActive: filterActive
             });
           }}
         />
         <Button
           className="clear-completed-comp"
-          visible={state.items.some(v => v.checked)}
+          visible={items.some(v => v.checked)}
           onClick={() => deleteCheckedItems()}
           text="Clear Completed"
         />
