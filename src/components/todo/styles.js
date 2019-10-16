@@ -52,7 +52,7 @@ export const ToDoListElement = styled.ul`
 
 list-style-type: none;
 min-width:100px;
-/* width: 500px; */
+width:50%;
 margin-left: 10px;
 `
 export const Button = styled.button`
@@ -79,7 +79,11 @@ flex-wrap:wrap;
 flex-direction: column;
 justify-content: flex-start;
 align-items: center;
-background: rgba(109, 130, 143, 0.1)`
+background: rgba(109, 130, 143, 0.1);
+@media only screen and (max-width: 600px) {
+    flex:1;
+    background:red;
+  }`
 
 
 export const InputWrapper = styled.div`
@@ -95,12 +99,16 @@ align-items:center;
 justify-content:center;
 flex-direction:column;
 `
-export const Filler=styled.div`
+export const Filler = styled.div`
   flex-grow:2;
 `
-export const All=styled.div`
+export const All = styled.div`
 display:flex 1;
 flex-direction:row;
 align-items: center;
 height:100%;
+@media only screen and (max-width: 600px) {
+    /* flex:1; */
+    background:red;
+  }
 `
