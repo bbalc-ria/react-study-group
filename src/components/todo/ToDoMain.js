@@ -95,34 +95,34 @@ export function ToDo(props) {
 
 
   return (
-    
+
     <S.All>
-    <S.Filler/>
+      <S.Filler />
       <S.FullBody>
         <S.Title>ToDo</S.Title>
 
-        <TodoInput allChecked={listTodos.filter(x=>x.completed===false).length===0 && listTodos.length!==0} addTodo={AddTodo} handleChangeAll={handleChangeAll}></TodoInput>
+        <TodoInput allChecked={listTodos.filter(x => x.completed === false).length === 0 && listTodos.length !== 0} addTodo={AddTodo} handleChangeAll={handleChangeAll}></TodoInput>
 
         <S.CenteredContainer>
-        <ToDoFooter
-          total={listTodos.length}
-          completed={listTodos.filter(x => x.completed === true).length}
-          showAll={showAll}
-          show={refreshCustomList}
-          showActive={showActive}
-          showCompleted={showCompleted}
-          clear={clearCompleted}/>
-      
+          <ToDoFooter
+            total={listTodos.length}
+            completed={listTodos.filter(x => x.completed === true).length}
+            showAll={showAll}
+            show={refreshCustomList}
+            showActive={showActive}
+            showCompleted={showCompleted}
+            clear={clearCompleted} />
 
-        <ToDoList
-          listTodos={visibleListTodos}
-          changeCompleted={changeCompleted}
-          delete={deleteTodo}/>
+
+          <ToDoList
+            listTodos={visibleListTodos}
+            changeCompleted={changeCompleted}
+            delete={deleteTodo} />
 
         </S.CenteredContainer>
       </S.FullBody>
-  <S.Filler/>
-  </S.All>
+      <S.Filler />
+    </S.All>
   );
 }
 

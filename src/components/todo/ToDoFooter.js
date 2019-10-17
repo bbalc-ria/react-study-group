@@ -6,7 +6,7 @@ export default function ToDoFooter(props) {
     props.show();
   });
   return (
-    <div>
+    <>
       <S.Button name="all" onClick={props.showAll}>
         All
         </S.Button>
@@ -30,6 +30,6 @@ export default function ToDoFooter(props) {
           Clear
           </S.Button>
       )}
-    </div>
+    </>
   );
 }
