@@ -2,13 +2,15 @@ import styled from 'styled-components';
 
 export const Input = styled.input`
 /* font-size:2em; */
-padding: 12px 20px;
+padding: 22px 22px;
+line-height:20x;
 border:none;
+font-size:3em;
 float:right;
-width:80%;
+width:70%;
 margin-right:3px;
+box-shadow:inset 0 -1px 3px rgba(0,0,0,0.3);
 &::placeholder{   
-    
     opacity:0.2;
     box-sizing: border-box;
 }
@@ -29,8 +31,9 @@ opacity: ${props => props.hovered ? 1 : 0};
 
 
 export const CheckBox = styled.input`
-width: 1.3em;
-height: 1.3em;
+height: 2em;
+width:2em;
+padding-top:10px;
 background-color: white;
 border-radius: 50%;
 vertical-align: middle;
@@ -38,10 +41,11 @@ border: 1px solid #ddd;
 -webkit-appearance: none;
 outline: none;
 cursor: pointer;
-background: ${props => props.checked ? 'salmon' : 'papayawhip'};
+background: ${props => props.checked ? 'silver' : 'snow'};
 `
 export const Li = styled.li`
 width:90%;
+font-size:2em;
 border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 margin-top: 3px;
 padding-left: 10px;
@@ -51,26 +55,36 @@ text-decoration: line-through`}
 
 export const ToDoListElement = styled.ul`
 list-style-type: none;
+
+box-shadow:inset 0 -1px 3px rgba(0,0,0,0.4);
+
 min-width:50px;
 width:70%;
 margin-left: 2%;`
 
 
-export const Button = styled.button`
-  margin: 1%;
+export const Button = styled.div`
+  margin: 3%;
+  cursor: pointer;
+  padding:5px;
+  ${props => props.selected && `
+  border: 2px inset rgba(122,22,1,0.2);`}
 `
-export const Title = styled.h1`
+export const Title = styled.div`
+  color:indianred;
+  opacity:0.4;
+  font-size:8em;
   text-align: center;
 `;
 
 export const SelectAllButton = styled.div`
-width: 1rem;
-height: 1rem;
+width: 2rem;
+height: 2rem;
 border-radius: 50%;
 border: 1px solid #ddd;
 outline: none;
 cursor: pointer;
-background: ${props => props.checked ? 'salmon' : 'papayawhip'};
+background: ${props => props.checked ? 'silver' : 'snow'};
 margin-right:10px;  
 `
 export const FullBody = styled.div`
@@ -81,7 +95,6 @@ min-width:200px;
 flex-direction: column;
 justify-content: flex-start;
 align-items: center;
-background: rgba(109, 130, 143, 0.1);
 @media  (max-width: 800px) {
     display:flex;
     background:grey;
@@ -92,9 +105,13 @@ export const InputWrapper = styled.div`
 display:flex;
 align-items:center;
 justify-content:center;
-/* min-width:80px; */
 `
-
+export const Footer = styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:row;
+`
 export const CenteredContainer = styled.div`
 display:flex;
 align-items:center;
@@ -105,7 +122,6 @@ export const Filler = styled.div`
   flex-grow:2;
   @media  (max-width: 800px) {
    display:none;
-   /* flex-grow:0; */
   }
 `
 export const All = styled.div`
@@ -114,7 +130,6 @@ flex-direction:row;
 align-items: center;
 height:100%;
 @media (max-width: 600px) {
-    /* flex:1; */
     background:red;
   }
 `

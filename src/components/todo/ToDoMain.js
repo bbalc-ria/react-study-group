@@ -4,7 +4,7 @@ import ToDoList from "./ToDoList";
 import ToDoFooter from "./ToDoFooter";
 import * as S from './styles';
 
-const filterTypes = {
+export const filterTypes = {
   ALL: 0,
   ACTIVE: 1,
   COMPLETED: 2
@@ -99,12 +99,17 @@ export function ToDo(props) {
     <S.All>
       <S.Filler />
       <S.FullBody>
-        <S.Title>ToDo</S.Title>
+        <S.Title>todos</S.Title>
 
         <TodoInput allChecked={listTodos.filter(x => x.completed === false).length === 0 && listTodos.length !== 0} addTodo={AddTodo} handleChangeAll={handleChangeAll}></TodoInput>
 
         <S.CenteredContainer>
+          <ToDoList
+            listTodos={visibleListTodos}
+            changeCompleted={changeCompleted}
+            delete={deleteTodo} />
           <ToDoFooter
+            filterType={filterType}
             total={listTodos.length}
             completed={listTodos.filter(x => x.completed === true).length}
             showAll={showAll}
@@ -112,12 +117,6 @@ export function ToDo(props) {
             showActive={showActive}
             showCompleted={showCompleted}
             clear={clearCompleted} />
-
-
-          <ToDoList
-            listTodos={visibleListTodos}
-            changeCompleted={changeCompleted}
-            delete={deleteTodo} />
 
         </S.CenteredContainer>
       </S.FullBody>

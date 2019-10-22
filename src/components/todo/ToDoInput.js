@@ -16,7 +16,7 @@ export default function TodoInput(props) {
   return (
     <S.InputWrapper>
 
-      <S.SelectAllButton checked={props.allChecked} onClick={props.handleChangeAll}/> 
+      <S.SelectAllButton checked={props.allChecked} onClick={props.handleChangeAll} />
       <S.Input
         placeholder="Input text of the todo"
         type="text"

@@ -1,19 +1,23 @@
 import React, { useEffect } from "react";
 import * as S from './styles';
+import { filterTypes } from "./ToDoMain";
 
 export default function ToDoFooter(props) {
   useEffect(() => {
     props.show();
   });
   return (
-    <>
-      <S.Button name="all" onClick={props.showAll}>
+    <S.Footer>
+      <S.Button name="all" onClick={props.showAll}
+        selected={props.filterType === filterTypes.ALL}
+      >
         All
         </S.Button>
       <S.Button
         name="active"
         className="S.Button"
         onClick={props.showActive}
+        selected={props.filterType === filterTypes.ACTIVE}
       >
         Active
         </S.Button>
@@ -21,6 +25,7 @@ export default function ToDoFooter(props) {
         name="completed"
         className="S.Button"
         onClick={props.showCompleted}
+        selected={props.filterType === filterTypes.COMPLETED}
       >
         Completed
         </S.Button>
@@ -30,6 +35,6 @@ export default function ToDoFooter(props) {
           Clear
           </S.Button>
       )}
-    </>
+    </S.Footer>
   );
 }
