@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./Styles";
 
-function ListItem({ onCheck, onDelete, onDoubleClick, index, checked, text }) {
+function EditableListItem({ onCheck, onDelete, onSave, index, checked, text }) {
   return (
     <S.Li>
       <S.ToDoItemCheckbox
@@ -10,12 +10,15 @@ function ListItem({ onCheck, onDelete, onDoubleClick, index, checked, text }) {
         onChange={v => onCheck(index, v.target.checked)}
         index={index}
       />
-      <S.ToDoItemLabel onDoubleClick={e => onDoubleClick(index)}>
-        {text}
-      </S.ToDoItemLabel>
+      <S.Input
+        onKeyPress={e => {
+          if (e.key === "Enter") onSave(index, e.target.value);
+        }}
+        defaultValue={text}
+      />
       <S.ToDoItemDeleteButton onClick={() => onDelete(index)} />
     </S.Li>
   );
 }
 
-export default ListItem;
+export default EditableListItem;

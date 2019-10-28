@@ -1,14 +1,16 @@
 import React from "react";
-import "../css/List.css";
 import ListItem from "./ListItem";
+import EditableListItem from "./EditableListItem";
+import * as S from "./Styles";
 
 function List(props) {
   return (
-    <ul className="list">
+    <S.Ul>
       {props.items.map((v, i) => {
-        return <ListItem key={i} {...props} {...v} />;
+        if (v.editable) return <EditableListItem key={i} {...props} {...v} />;
+        else return <ListItem key={i} {...props} {...v} />;
       })}
-    </ul>
+    </S.Ul>
   );
 }
 

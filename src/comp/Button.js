@@ -1,23 +1,16 @@
 import React from "react";
-import "../css/Button.css";
+import * as S from "./Styles";
 
 function Button({
-  active,
-  styleClass,
+  active,  
   visible = true,
   text = "Click",
   onClick
 }) {
   return (
-    <button
-      className={`btn-style 
-      ${active ? "btn-style-active" : ""} 
-      ${styleClass} 
-      ${!visible ? "btn-invisible" : ""}`}
-      onClick={onClick}
-    >
+    <S.SButton primary={active} visible={visible} onClick={onClick}>
       {text}
-    </button>
+    </S.SButton>
   );
 }
 

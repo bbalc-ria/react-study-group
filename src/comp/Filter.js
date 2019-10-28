@@ -1,11 +1,10 @@
 import React from "react";
-import "../css/Filter.css";
 import Button from "./Button";
+import * as S from "./Styles";
 
 function Filter({ setFilter, activeFilter }) {
-  console.log("Filter active filter", activeFilter);
   return (
-    <div className="list-filter-container">
+    <S.FilterContainer>
       <Button
         active={activeFilter === 0}
         onClick={() => setFilter(element => element, 0)}
@@ -21,7 +20,7 @@ function Filter({ setFilter, activeFilter }) {
         onClick={() => setFilter(element => element.checked, 2)}
         text="Completed"
       />
-    </div>
+    </S.FilterContainer>
   );
 }
 
