@@ -1,6 +1,30 @@
 import React from 'react';
 import FilterOptions from './FilterOptions/filterOptions';
-import './footer.css'
+import styled from 'styled-components';
+
+const FooterContainer = styled.div`
+    font-size: 18px;
+    height:30px;
+    border-top: 1px solid lightgrey;
+    padding-top: 10px;
+`;
+
+const ClearCompleteButton = styled.button`
+    background-color: transparent; 
+    border: none; 
+    color: white; 
+    padding: 2px; 
+    padding-top:5px;
+    font-size: 15px; 
+    cursor: pointer; 
+    float: right;
+    display: ${props => props.hidde ? "hidden" :"" };
+`;
+
+const ItemCounter = styled.div`
+    display:inline-block;
+    width:100px;
+`;
 
 function Footer(props) {
     function handleFilterOptionChanged(filterValue) {
@@ -24,25 +48,24 @@ function Footer(props) {
         return itemCountText;
     }
 
-    function getClearCompletedButtonClass() {
+    function hideClearCompletedButton() {
         let completeItems = props.items.filter(function(item){
             return item.complete;
         });
 
-        let clearCompleteButtonClassName = "clearCompletedButton";
         if (completeItems.length === 0){
-            clearCompleteButtonClassName = "hidden";
+            return true;
         }
 
-        return clearCompleteButtonClassName;
+        return false;
     }
 
         return (
-            <div class="footer">
-                <div class="itemCount">{getItemCountText()}</div>
+            <FooterContainer>
+                <ItemCounter>{getItemCountText()}</ItemCounter>
                 <FilterOptions filterValue={props.filterValue} onFilterOptionChanged={handleFilterOptionChanged} />
-                <button class={getClearCompletedButtonClass()} onClick={handleClearCompleted} >Clear completed</button>
-            </div>
+                <ClearCompleteButton hidden={hideClearCompletedButton()} onClick={handleClearCompleted} >Clear completed</ClearCompleteButton>
+            </FooterContainer>
         );
 }
 

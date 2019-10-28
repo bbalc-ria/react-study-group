@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const FilterOptionsContainer = styled.div`
     display: inline-block;
-    padding-left: 40px;
+    padding-left: 20px;
     font-size: 16px;
 `;
 
