@@ -76,6 +76,12 @@ export const Title = styled.div`
   font-size:8em;
   text-align: center;
 `;
+export const LeftCounter = styled.div`
+  display:block;
+  width:fit-content;
+  float:left;
+
+`
 
 export const SelectAllButton = styled.div`
 width: 2rem;
