@@ -5,7 +5,7 @@ import Footer from './Footer/footer';
 
 function ToDoList(props) {
     const [filterValue, setFilterValue] = useState('All');
-    const [items, setItems] = useState([{name:"name 1", complete:true},{name:"name 2"}]);
+    const [items, setItems] = useState([{name:"name 1", complete:true}, {name:"name 2"}]);
 
     function handleItemAdded(itemName){
         let updatedItems = items.concat([{name: itemName}]);
@@ -13,20 +13,29 @@ function ToDoList(props) {
     }
 
     function handleItemRemoved(itemIndex) {
-        let remainingItems = items.filter(function(item, index)
-                {
-                    return index !== itemIndex
-                });
+        let remainingItems = items.filter(function(item, index) {
+            return index !== itemIndex
+        });
         setItems(remainingItems);
     }
+
+    /*function handleItemNameChanged(itemIndex, newName) {
+        let updatedItems = items.map(function(item, index) {
+            if (index === itemIndex){
+                item.name = newName;
+            }
+
+            return item;
+        });
+        setItems(updatedItems);
+    }*/
 
     function handleFilterOptionChanged(filterValue) {
         setFilterValue(filterValue);
     }
 
     function handleItemCompleted(itemIndex) {
-        let updatedItems = items.map(function(item, index)
-        {
+        let updatedItems = items.map(function(item, index) {
             if (index === itemIndex){
                 item.complete = !item.complete;
             }
@@ -38,8 +47,7 @@ function ToDoList(props) {
     }
 
     function handleClearCompleted(itemIndex) {
-        let remainingItems = items.filter(function(item, index)
-        {
+        let remainingItems = items.filter(function(item, index) {
             return !item.complete;
         });
         
@@ -47,26 +55,26 @@ function ToDoList(props) {
     }
 
     function handleCheckAll(checkAll) {
-        let updatedItems = items.map(function(item, index)
-        {
+        let updatedItems = items.map(function(item, index) {
             item.complete = checkAll;
             return item;
         });
         setItems(updatedItems);
     }
     
-        return (
-            <div>
-                <Header onItemAdded={handleItemAdded}
-                    onCheckAll={handleCheckAll} />
-                <ItemList items={items} filterValue={filterValue} 
-                    onItemRemoved={handleItemRemoved}
-                    onItemCompleted={handleItemCompleted} />
-                <Footer items={items} filterValue={filterValue} 
-                    onFilterOptionChanged={handleFilterOptionChanged} 
-                    onClearCompleted={handleClearCompleted} />
-            </div>
-        );
+    return (
+        <div>
+            <Header items={items} onItemAdded={handleItemAdded}
+                onCheckAll={handleCheckAll} />
+            <ItemList items={items} filterValue={filterValue} 
+                onItemRemoved={handleItemRemoved}
+                onItemCompleted={handleItemCompleted}
+                /*onItemNameChanged={handleItemNameChanged}*/ />
+            <Footer items={items} filterValue={filterValue} 
+                onFilterOptionChanged={handleFilterOptionChanged} 
+                onClearCompleted={handleClearCompleted} />
+        </div>
+    );
 }
 
 export default ToDoList;

@@ -1,6 +1,6 @@
 import React from 'react';
-import Item from './Item/item';
 import styled from 'styled-components';
+import Item from './Item/item';
 
 const ToDoItems = styled.ul`
     list-style-type:none;
@@ -17,6 +17,10 @@ function ItemList(props)  {
         props.onItemCompleted(index);
     }
 
+    /*function handleItemNameChanged(index, newName) {
+        props.onItemNameChanged(index, newName);
+    }*/
+
     function getListItems() {
         const items = props.items;
             const filterValue = props.filterValue;
@@ -32,8 +36,9 @@ function ItemList(props)  {
     
             let listItems = filteredItems.map((item, index) => 
                 <Item name={item.name} key={index} id={index} complete={item.complete} 
-                                onItemRemoved={() => handleItemRemoved(index)}
-                                onItemCompleted={() => handleItemCompleted(index)} />
+                    onItemRemoved={() => handleItemRemoved(index)}
+                    onItemCompleted={() => handleItemCompleted(index)} 
+                    /*onItemNameChanged={(newName) => handleItemNameChanged(index, newName)}*/ />
             );
 
             return listItems;

@@ -1,6 +1,6 @@
 import React from 'react';
-import FilterOptions from './FilterOptions/filterOptions';
 import styled from 'styled-components';
+import FilterOptions from './FilterOptions/filterOptions';
 
 const FooterContainer = styled.div`
     font-size: 18px;

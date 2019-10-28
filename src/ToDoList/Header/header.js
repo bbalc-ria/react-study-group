@@ -1,6 +1,6 @@
 import React from 'react';
-import RoundCheckbox from '../roundCheckbox';
 import styled from 'styled-components';
+import RoundCheckbox from '../roundCheckbox';
 
 const HeaderContainer = styled.div`
     border-bottom:1px solid lightgrey;
@@ -18,6 +18,10 @@ const BorderlessInput = styled.input`
     color: lightgray;
     padding-left: 10px;
     padding-right: 10px;
+
+    ::placeholder {
+        color: darkgrey;
+    }
 `;
 
 function Header(props) {
@@ -31,12 +35,24 @@ function Header(props) {
     function handleCheckAll(e) {
         props.onCheckAll(e.target.checked);
     }
+    
+    function allItemsChecked(items) {
+        let incompleteItems = props.items.filter(function(item){
+            return !item.complete;
+        });
 
-        return (
-            <HeaderContainer>
-                <RoundCheckbox>
+        if (incompleteItems.length === 0){
+            return true;
+        }
+
+        return false;
+    }
+
+    return (
+        <HeaderContainer>
+            <RoundCheckbox>
                     <input type="checkbox" id="checkbox"
-                        onChange={handleCheckAll} />
+                        onChange={handleCheckAll} checked={allItemsChecked()} />
                     <label for="checkbox"></label>
                 </RoundCheckbox>
                 <BorderlessInput id="addNewItem" placeholder="What needs to be done?"
