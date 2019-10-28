@@ -43,7 +43,7 @@ function Footer(props) {
                 <FilterOptions filterValue={props.filterValue} onFilterOptionChanged={handleFilterOptionChanged} />
                 <button class={getClearCompletedButtonClass()} onClick={handleClearCompleted} >Clear completed</button>
             </div>
-      );
+        );
 }
 
 export default Footer;
