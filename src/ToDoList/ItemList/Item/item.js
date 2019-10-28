@@ -1,6 +1,7 @@
 import React from 'react';
-import './../../round_checkbox.css';
+import './../../roundCheckbox';
 import './item.css';
+import RoundCheckbox from './../../roundCheckbox';
 
 function Item(props) {
     function handleItemRemoved() {
@@ -13,11 +14,11 @@ function Item(props) {
 
         return (
             <li class="listItem">
-                    <div class="round">
+                    <RoundCheckbox>
                         <input type="checkbox" id={props.id} checked={props.complete?"checked":""}
                             onClick={handleItemCompleted} />
                         <label for={props.id}></label>
-                    </div>
+                    </RoundCheckbox>
                     {props.name}
                     <button class="deleteButton" 
                         onClick={handleItemRemoved}>
