@@ -1,6 +1,12 @@
 import React from 'react';
 import Item from './Item/item';
-import './itemList.css'
+import styled from 'styled-components';
+
+const ToDoItems = styled.ul`
+    list-style-type:none;
+    padding-inline-start: 0px;
+    font-size: 20px;
+`;
 
 function ItemList(props)  {
     function handleItemRemoved(index) {
@@ -34,9 +40,9 @@ function ItemList(props)  {
     }
 
     return (
-        <ul class="itemList">
+        <ToDoItems>
             {getListItems()}
-        </ul>
+        </ToDoItems>
     );
 }
 
