@@ -1,26 +1,69 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 
+import * as S from './SearchPageStyle';
 const mapStyles = {
-    width: '100%',
-    height: '100%'
+
+
 };
 
-export class SimpleMap extends Component {
-    render() {
-        return (
+export function SimpleMap(props) {
+    const [lat, setLat] = useState(0);
+    const [lng, setLng] = useState(0);
 
-            <Map
-                google={this.props.google}
-                zoom={14}
-                style={mapStyles}
-                initialCenter={{
-                    lat: -1.2884,
-                    lng: 36.8233
-                }}
-            />
+
+    let location = () => {
+        navigator.geolocation.getCurrentPosition(
+            displayLocationInfo,
+            console.log("ERROR"),
+            { maximumAge: 150000, timeout: 0 }
         );
+
+        function displayLocationInfo(position) {
+            setLng(position.coords.longitude);
+            setLat(position.coords.latitude);
+
+            console.log(`longitude: ${lng} | latitude: ${lat}`);
+        }
     }
+    location();
+    return (
+        <S.Container>
+            <S.List>
+                <S.ListItem>Test</S.ListItem>
+                <S.ListItem>222</S.ListItem>
+                <S.ListItem>3333</S.ListItem>
+                <S.ListItem>4444</S.ListItem>
+                <S.ListItem>6666</S.ListItem>
+                <S.ListItem>6666</S.ListItem>
+                <S.ListItem>6666</S.ListItem>
+                <S.ListItem>6666</S.ListItem>
+                <S.ListItem>6666</S.ListItem>
+                <S.ListItem>6666</S.ListItem>
+                <S.ListItem>6666</S.ListItem>
+                <S.ListItem>6666</S.ListItem>
+                <S.ListItem>6666</S.ListItem>
+                <S.ListItem>6666</S.ListItem>
+
+
+            </S.List>
+
+
+            <S.Map>
+                <Map
+                    google={props.google}
+                    zoom={14}
+                    style={mapStyles}
+                    center={{
+                        lat: lat,
+                        lng: lng
+                    }}
+
+                />
+            </S.Map>
+        </S.Container>
+
+    );
 }
 
 export default GoogleApiWrapper({
