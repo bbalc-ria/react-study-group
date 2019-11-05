@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as S from "./style";
+import * as S from "./styles";
 import { resources } from "../utils/Resources";
 
 const AddTodoItem = props => {

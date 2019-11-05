@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import TodoList from "./TodoList";
 
-export const Container = styled.div`
+export const Container = styled(TodoList)`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   flex-direction: column;
 `;
 
@@ -56,4 +57,28 @@ export const Button = styled.div`
   align-items: center;
   cursor: ${props => (props.disabled ? "initial" : "pointer")};
   margin-left: 13px;
+  color: white;
+`;
+
+export const ButtonLarge = styled(Button)`
+  width: 200px;
+  background: red;
+`;
+
+export const LinkContainer = styled.div`
+  display: flex;
+`;
+
+export const Link = styled.div`
+  background: white;
+  width: auto;
+  margin-left: auto;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 4px;
+  border: 1px solid white;
+  cursor: pointer;
+  &:hover {
+    border-color: grey;
+  }
 `;
