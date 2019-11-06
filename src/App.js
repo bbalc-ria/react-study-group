@@ -1,36 +1,21 @@
-import { 
-  BrowserRouter as Router, 
-  Route, 
-  Switch 
-} from 'react-router-dom';
-import React from 'react';
-import styled from 'styled-components';
-import Home from './home'
-import BookDetail from './bookDetail'
-
-const AppHeader = styled.div`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-`;
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React from "react";
+import Home from "./components/home";
+import BookDetail from "./components/bookDetail";
+import * as S from "./styles";
 
 function App() {
   return (
-    <AppHeader>
+    <S.AppContainer>
       <Router>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/book/detail">
-              <BookDetail/>
-            </Route>
-          </Switch>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/book/detail/:bookId" component={BookDetail} />
+        </Switch>
       </Router>
-    </AppHeader>
+    </S.AppContainer>
   );
 }
 
