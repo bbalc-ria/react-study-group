@@ -1,89 +1,113 @@
-import React, { useState, useEffect } from 'react';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import React, { useState, useEffect } from "react";
+import GoogleMapReact from "google-map-react";
 
-import * as S from './SearchPageStyle';
-import { MapService } from '../services/MapsService';
-import { API_KEY } from '../Sensitive';
-const mapStyles = {
+import * as S from "./SearchPageStyle";
+import { MapService } from "../services/MapsService";
+import { API_KEY } from "../Sensitive";
 
 
-};
+const Marker = ({ text }) => <div>{text}</div>;
 
 export function SimpleMap(props) {
-    const [lat, setLat] = useState();
-    const [lng, setLng] = useState();
+	const [lat, setLat] = useState();
+	const [lng, setLng] = useState();
+	const [locations, setLocations] = useState("");
+	const [markers, setMarkers] = useState("");
 
 
 
-    useEffect(() => {
-        location();
-        if (lat && lng) MapService.RequestRestaurants(lat, lng, 20000);
-    });
-    let location = () => {
-        navigator.geolocation.getCurrentPosition(
-            displayLocationInfo,
-            x => console.log(x),
-            { maximumAge: 150000, timeout: 1000000 }
-        );
+	useEffect(() => {
+		if (!lat) {
+			location();
+		}
+		if (lat && lng && locations === "")
+			MapService.RequestRestaurants(lat, lng, 20000).then(x => setLocations(x));
+		else {
+			if (markers === "")
 
-        function displayLocationInfo(position) {
-            setLng(position.coords.longitude);
-            setLat(position.coords.latitude);
-
-            console.log(`longitude: ${lng} | latitude: ${lat}`);
-        }
-    }
-
-
-    return (
-        <S.Container>
-            <S.List>
-                <S.ListItem>Test</S.ListItem>
-                <S.ListItem>222</S.ListItem>
-                <S.ListItem>3333</S.ListItem>
-                <S.ListItem>4444</S.ListItem>
-                <S.ListItem>6666</S.ListItem>
-                <S.ListItem>6666</S.ListItem>
-                <S.ListItem>6666</S.ListItem>
-                <S.ListItem>6666</S.ListItem>
-                <S.ListItem>6666</S.ListItem>
-                <S.ListItem>6666</S.ListItem>
-                <S.ListItem>6666</S.ListItem>
-                <S.ListItem>6666</S.ListItem>
-                <S.ListItem>6666</S.ListItem>
-                <S.ListItem>6666</S.ListItem>
+				setMarkers(locations && locations.map(x => (
+					<Marker
+						key={x.name}
+						position={x.geometry.location}
+						label={x.name}
+						icon={
+							x.selected === true
+								? {
+									url:
+										"http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+								}
+								: ""
+						}
+					></Marker>
+				)))
+		}
 
 
-            </S.List>
+	});
+	let location = () => {
+		navigator.geolocation.getCurrentPosition(
+			displayLocationInfo,
+			x => console.log("ERREREER", x),
+			{ maximumAge: 150000, timeout: 1000000 }
+		);
 
+		function displayLocationInfo(position) {
+			console.log("GET POS", position)
+			setLng(position.coords.longitude);
+			setLat(position.coords.latitude);
 
-            <S.Map>
-                <Map
-                    google={props.google}
-                    zoom={14}
-                    style={mapStyles}
-                    center={{
-                        lat: lat,
-                        lng: lng
-                    }}
+		}
+	};
 
-                >
-                    <Marker
-                        icon={{
-                            url: "https://saneenergyproject.files.wordpress.com/2014/03/map-pin.png?w=176&h=300",
-                            anchor: new props.google.maps.Point(30, 60),
-                            scaledSize: new props.google.maps.Size(30, 60)
-                        }}
+	const handleApiLoaded = (map, maps) => {
+		// use map and maps objects
+	};
 
-                        position={{ lat, lng }}
-                        name={'Current location'} />
-                </Map>
-            </S.Map>
-        </S.Container>
+	const select = index => {
+		let modified = { ...locations[index], selected: true };
+		console.log("MODIFIED", modified);
+		let auxlocations = locations;
+		auxlocations[index] = modified;
+		setLocations([...auxlocations]);
+		console.log(locations[index]);
+		console.log("selected", index);
+	};
+	const deselect = index => {
+		let modified = { ...locations[index], selected: false };
+		let auxlocations = locations;
+		auxlocations[index] = modified;
+		setLocations([...auxlocations]);
+		console.log("deselected", index);
+	};
+	return (
+		<S.Container>
+			<S.List>
+				{locations && locations.map((x, index) => (
+					<S.ListItem
+						key={x.name}
+						onMouseEnter={() => select(index)}
+						onMouseLeave={() => deselect(index)}
+					>
+						{x.name}
+					</S.ListItem>
+				))}
+			</S.List>
+			<div style={{ height: '100vh', width: '100%' }}>
+				<GoogleMapReact
+					bootstrapURLKeys={{ key: API_KEY }}
+					defaultCenter={{
+						lat: lat,
+						lng: lng
+					}}
+					defaultZoom={11}
+					yesIWantToUseGoogleMapApiInternals
 
-    );
+				>
+					{markers}
+
+				</GoogleMapReact>
+			</div>
+		</S.Container >
+	);
 }
 
-export default GoogleApiWrapper({
-    apiKey: API_KEY
-})(SimpleMap);

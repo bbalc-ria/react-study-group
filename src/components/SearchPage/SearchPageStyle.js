@@ -12,7 +12,7 @@ display:flex ;
 export const List = styled.ul`
 display:flex;
 flex-direction:column;
-flex-grow: 60;
+flex-grow: 50;
 align-items:center;
 justify-content:center;
 `
@@ -30,7 +30,7 @@ export const Map = styled.div`
 margin-right:16px;
 margin-top:16px;
 display:block;
-flex-grow:30;
+flex-grow:50;
 min-height:300px;
 /* height:50vh; */
 /* align-self:flex-end; */
