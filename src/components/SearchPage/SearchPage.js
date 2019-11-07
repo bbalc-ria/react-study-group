@@ -55,4 +55,5 @@ export default function SearchPage() {
     </S.Container >
 
   )
+
 }

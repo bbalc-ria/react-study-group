@@ -25,7 +25,8 @@ width:100%;
 padding:3px;
 `
 export const Marker = styled.div`
-top: 50%;
+position:absolute;
+top: 100%;
 left: 50%;
 transform: translate(-50%, -50%)
 
@@ -33,7 +34,7 @@ transform: translate(-50%, -50%)
 export const Map = styled.div`
 margin-right:16px;
 height: '100vh';
- width: '100%';
+width: '100%';
 margin-top:16px;
 display:block;
 flex-grow:50;
