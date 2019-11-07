@@ -1,17 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router";
 import * as S from "../styles";
+import UpdatesFeedItem from "./updatesFeedItem"
+import { books } from "../data/books";
+
 
 function UpdatesFeed(props) {
+
+  function getFeedItems() {
+        let feedItems = books.map((book, index) => 
+            <UpdatesFeedItem book={book} key={index} />
+        );
+
+        return feedItems;
+  }
+
   return (
     <S.ColumnFlex>
-      Updates feed
-      <Link to="/book/detail/25883848">The Hating Game</Link>
-      <Link to="/book/detail/34441271">Tell Me (Me, #1)</Link>
-      <Link to="/book/detail/43319680">Tarnished Are the Stars</Link>
+      <div>UPDATES</div>
+      <div>Customize</div>
+      <ul>
+        {getFeedItems()}
+      </ul>
     </S.ColumnFlex>
   );
 }
 
-export default withRouter(UpdatesFeed);
+export default UpdatesFeed;
