@@ -16,11 +16,12 @@ function UpdatesFeed(props) {
 
   return (
     <S.ColumnFlex>
-      <div>UPDATES</div>
-      <div>Customize</div>
-      <ul>
+      <S.BookUpdatesTitle>
+        UPDATES
+      </S.BookUpdatesTitle>
+      <S.BookUpdatesContainer>
         {getFeedItems()}
-      </ul>
+      </S.BookUpdatesContainer>
     </S.ColumnFlex>
   );
 }

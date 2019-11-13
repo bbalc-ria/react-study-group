@@ -5,11 +5,24 @@ import * as S from "../styles";
 
 
 function UpdatesFeedItem(props) {
+  const book = props.book;
+  const bookUrl = "/book/detail/" + props.book.bookId;
+
   return (
-      <li>
-        <Link to={"/book/detail/" + props.book.bookId}>{props.book.title}</Link>          
-      </li> 
+    <S.BookUpdateItemContainer>
+    <S.RowFlex>
+      <Link to={bookUrl}>
+        <S.BookImage src={book.imageUrl}></S.BookImage>
+      </Link>          
+      <S.ColumnFlex>
+        <Link to={bookUrl}>
+          <S.BookTitleLink>{book.title}</S.BookTitleLink>
+        </Link>          
+        <S.BookAuthor>by {book.author.name}</S.BookAuthor>
+      </S.ColumnFlex>
+    </S.RowFlex>
+  </S.BookUpdateItemContainer>
   );
-  }
+}
 
 export default withRouter(UpdatesFeedItem);
