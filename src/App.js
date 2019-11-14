@@ -1,11 +1,11 @@
-import React from 'react';
-import './App.css';
-import ToDoList from './comp/ToDoList';
+import React from "react";
+import "./App.css";
+import GameManager from "./comp/GameManager";
 
 function App() {
   return (
     <div className="App">
-      <ToDoList />
+      <GameManager />
     </div>
   );
 }
