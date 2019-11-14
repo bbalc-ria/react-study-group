@@ -18,11 +18,13 @@ justify-content:center;
 `
 export const ListItem = styled.li`
 list-style-type: none;
-margin:5px;
+margin:10px;
 border:1px red solid;
 margin-right:16px;
-width:100%;
+width:200px;
 padding:3px;
+background: ${props => props.selected ? "palevioletred" : "white"};
+margin-right:5vw;
 `
 export const Marker = styled.div`
 position:absolute;
@@ -33,14 +35,17 @@ transform: translate(-50%, -50%)
 `
 export const Map = styled.div`
 margin-right:16px;
-height: '100vh';
+height: '80vh';
+max-height:500px;
 width: '100%';
 margin-top:16px;
 display:block;
 flex-grow:50;
+position: -webkit-sticky; /* Safari & IE */
+position: sticky !important;
+top: 20px;
 min-height:300px;
 /* height:50vh; */
 /* align-self:flex-end; */
 /* overflow:hidden; */
-position:relative!important;
 `

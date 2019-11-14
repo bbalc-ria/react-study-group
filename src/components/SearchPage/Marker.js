@@ -4,7 +4,7 @@ import { ReactComponent as PinSvg } from '../../resources//pin.svg';
 import { ReactComponent as HomeSvg } from '../../resources//homeA.svg';
 import { ReactComponent as SelectedSvg } from '../../resources//selected.svg';
 export default function Marker(props) {
-  console.log(props.selected, props.label)
+
   return (
     <S.Marker>
       {
@@ -12,7 +12,7 @@ export default function Marker(props) {
           props.home === true ? (<HomeSvg height="50px" width="50px"></HomeSvg>)
             : (<PinSvg height="15px" width="15px"></PinSvg>))
       }
-      {props.selected === true && <SelectedSvg height="30px" width="30px"></SelectedSvg>}
+      {props.selected === true && <SelectedSvg height="25px" width="25px"></SelectedSvg>}
 
 
     </S.Marker>

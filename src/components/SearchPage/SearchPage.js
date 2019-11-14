@@ -6,16 +6,46 @@ import { MapService } from "../services/MapsService";
 export default function SearchPage() {
   const [coords, setCoords] = useState("")
   const [locations, setLocations] = useState("");
+  const [nextLink, setNextLink] = useState("")
+
+  let radius = 2000;
 
   useEffect(() => {
     if (coords === "") {
       location();
     }
     if (coords && locations === "")
-      MapService.RequestRestaurants(coords.latitude, coords.longitude, 20000).then(x => setLocations(x));
-
+      MapService.RequestRestaurants(coords.latitude, coords.longitude, radius).then(x => {
+        setLocations(x.results)
+        if (x)
+          setNextLink(x.next_page_token);
+        else { setNextLink(undefined) }
+      })
   });
 
+  const getData = () => {
+
+    // fetch('https://dog.ceo/api/breeds/image/random/15')
+    //   .then(res => {
+    //     return !res.ok
+    //       ? res.json().then(e => Promise.reject(e))
+    //       : res.json();
+    //   })
+    //   .then(res => {
+    //     props.setState([...props.state, ...res.message]);
+    //   });
+    debugger;
+    MapService.RequestRestaurants(coords.latitude, coords.longitude, radius, nextLink
+    ).then(x => {
+      if (x) {
+        setNextLink(x.next_page_token);
+        setLocations([...locations, ...x.results]);
+      }
+      else { setNextLink(undefined) }
+
+    }).then(console.log("Received data"))
+
+  };
   let location = () => {
     console.log("locations")
     navigator.geolocation.getCurrentPosition(
@@ -50,7 +80,7 @@ export default function SearchPage() {
 
   return (
     <S.Container>
-      {locations && <SimpleList locations={locations} select={select} deselect={deselect}></SimpleList>}
+      {locations && <SimpleList hasMore={nextLink} locations={locations} select={select} deselect={deselect} getData={getData}></SimpleList>}
       {locations && <SimpleMap coords={coords} locations={locations}></SimpleMap>}
     </S.Container >
 

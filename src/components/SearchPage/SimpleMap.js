@@ -11,13 +11,13 @@ export default function SimpleMap(props) {
   console.log("Assdf")
   const mapOptions = {
     styles: mapStyles // straight out of something like snazzymaps
-};
+  };
 
   return (
     <S.Map>
 
       <GoogleMapReact
-        bootstrapURLKeys={{ key: API_KEY,v: '3.31' }}
+        bootstrapURLKeys={{ key: API_KEY, v: '3.38' }}
         defaultCenter={{ lat: props.coords.latitude, lng: props.coords.longitude }}
         defaultZoom={14}
         options={mapOptions}

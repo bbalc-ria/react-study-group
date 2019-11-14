@@ -1,30 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as S from './SearchPageStyle';
+import InfiniteScroll from 'react-infinite-scroller';
 
 export default function SimpleList(props) {
-  const [selected, setSelected] = useState(false);
 
   let handleSelect = (index) => {
-    if (selected) {
-      props.deselect(index);
-      setSelected(false);
-    }
-    else {
-      props.select(index);
-      setSelected(true);
-    }
-
+    props.select(index);
+  }
+  let handleDeselect = (index) => {
+    props.deselect(index);
   }
   return (
     <S.List>
-      {props.locations && props.locations.map((x, index) => (
-        <S.ListItem
-          key={x.name}
-          onClick={() => handleSelect(index)}
-        >
-          {x.name}
-        </S.ListItem>
-      ))}
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={props.getData}
+        hasMore={props.hasMore != undefined}
+        loader={<div className="loader" key={0}>Loading ...</div>}
+      // useWindow={true}
+      >
+        {props.locations && props.locations.map((x, index) => (
+          <S.ListItem
+            key={x.geometry}
+            onMouseEnter={() => handleSelect(index)}
+            onMouseLeave={() => handleDeselect(index)}
+            selected={x.selected}
+          >
+            {x.name}
+          </S.ListItem>
+        ))}
+      </InfiniteScroll>
     </S.List>
   )
 }
