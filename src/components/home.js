@@ -1,5 +1,5 @@
 import React from "react";
-import UpdatesFeed from "./updatesFeed";
+import UpdatesFeed from "./updatesFeed/updatesFeed";
 
 function Home(props) {
   return (
