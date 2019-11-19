@@ -25,8 +25,13 @@ export const Answer = styled.h3`
   font-size: 1.2em;
   line-height: 1.5;
   color: #000;
-  opacity: ${props => (props.disabled ? "0.2" : "1")};
-  background-color: #f1f0f0;
+  opacity: ${props => (props.disabled ? "0.5" : "1")};
+  background-color: ${props => {
+    if (props.correct) return "#a6f1a6";
+    if (props.incorrect) return "red";
+    if (props.selected) return "#ccc";
+    return "#f1f0f0";
+  }}  
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;

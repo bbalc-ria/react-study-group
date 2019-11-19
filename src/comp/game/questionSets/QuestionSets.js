@@ -1,48 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import * as S from "./QuestionSetsStyle";
+import * as store from "../GameStore";
+import AnswerCollection from "./AnswerCollection";
 
-function QuestionSet({ onSelect, questionSet, selected, correct }) {
-  if (!questionSet) questionSet = { question: "", answers: [] };
+function QuestionSet() {
+  const [state, setState] = useState({
+    questions: undefined,
+    selected: undefined,
+    correct: undefined
+  });
 
-  const renderAnswers = () => {
-    return questionSet.answers.map((element, index) => {
-      return (
-        <S.AnswerWrapper key={index}>
-          {getAnswer(element, index)}
-        </S.AnswerWrapper>
-      );
+  const handleRefresh = () => {
+    let newRound = store.getRound();
+    console.log("QuestionSet - handleRefresh - round:", newRound);
+    setState({
+      questions: newRound.questions,
+      selected: newRound.selected,
+      correct: newRound.correct
     });
   };
 
-  const getAnswer = (element, index) => {
-    if (correct && index === correct) {
-      return <S.CorrectAnswer>{element}</S.CorrectAnswer>;
-    }
-
-    if (index === selected) {
-      if (correct) return <S.IncorrectAnswer>{element}</S.IncorrectAnswer>;
-      return <S.SelectedAnswer>{element}</S.SelectedAnswer>;
-    }
-
-    console.log("disabled", selected !== undefined);
-
-    return (
-      <S.Answer
-        onClick={() => (selected === undefined ? onSelect(index) : null)}
-        disabled={selected !== undefined}
-      >
-        {element}
-      </S.Answer>
-    );
+  const subscribe = () => {
+    store.registerRefreshCallback(handleRefresh);
   };
+
+  const unsubscribe = () => {
+    store.removeRefreshCallback();
+  };
+
+  useEffect(() => {
+    subscribe();
+    return unsubscribe;
+  });
+
+  const handleAnswerSelect = index => {
+    store.selectAnswer(index);
+  };
+
+  console.log("QuestionSet - Rendering QuestionSet, state:", state);
 
   return (
     <S.Container>
       <S.QuestionSet>
         <S.QuestionWrapper>
-          <S.Question>{questionSet.question}</S.Question>
+          <S.Question>{state.questions && state.questions.question}</S.Question>
         </S.QuestionWrapper>
-        <S.AnswersContainers>{renderAnswers()}</S.AnswersContainers>
+        <AnswerCollection
+          onSelect={handleAnswerSelect}
+          answers={state.questions && state.questions.answers}
+          selected={state.selected}
+          correct={state.correct}
+        ></AnswerCollection>
       </S.QuestionSet>
     </S.Container>
   );

@@ -2,6 +2,11 @@ import * as signalR from "@aspnet/signalr";
 import * as urls from "./Urls";
 
 let HubConnection;
+let onClose;
+
+export const setOnCloseFunction = onClose => {
+  onClose = onClose;
+};
 
 export const eventNames = {
   playerJoinedGroup: "playerJoinedGroup",
@@ -65,10 +70,10 @@ export const verifyConnection = (onSuccess, onFail) => {
 const invokeHubconnection = (functionName, args, onSucces, onFail) => {
   console.log("invokeHubconnection - args", args);
   let promise = getPromise(functionName, args);
-  console.log("invokeHubconnection - promise", promise);
+  //console.log("invokeHubconnection - promise", promise);
   promise
     .then(() => {
-      console.log("invokeHubconnection - promise then");
+      //console.log("invokeHubconnection - promise then");
       onSucces && onSucces();
     })
     .catch(err => {
@@ -116,9 +121,12 @@ const connectToServer = (onSuccessFunction, onFailFunction) => {
       .build();
   }
 
-  //console.log("connection", hubConnection);
+  hubConnection.onclose(err => {
+    console.log("Connection with serverclosed", err);
+    onClose && onClose(err);
+  });
+
   hubConnection
-    //.start({ withCredentials: false })
     .start()
     .then(() => {
       console.log("Connection started!", hubConnection);

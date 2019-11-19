@@ -26,7 +26,7 @@ export const SButton = styled.button`
   font-size: 1.2em;
   margin: 0.2em;
   padding: 0.25em 0.2em;
-  border: 2px solid #2779a7;
+  border: 1px solid #2779a7;
   border-radius: 3px;
   min-width: 3em;
   outline: none;
@@ -59,8 +59,4 @@ export const Input = styled.input`
   outline: none;
 `;
 
-
-
 export const GameManagerContainer = styled.div``;
-
-

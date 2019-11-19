@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Wrapper, Input, SButton } from "../styles";
+import refreshSvg from "../../resources/refresh.svg";
 
 export const GamesLobbyContainer = styled.div`
   position: absolute;
@@ -48,6 +49,10 @@ export const GamesRefreshButton = styled(SButton)`
   grid-row: 1;
   grid-column-start: 2;
   grid-column-end: 3;
+  background-image: url(${refreshSvg});
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 export const GameListFooter = styled.div`

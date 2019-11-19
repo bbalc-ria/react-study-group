@@ -1,41 +1,37 @@
 import styled from "styled-components";
 
 export const TopicsContainer = styled.div`
-  grid-row-start: 3;
-  display: grid;
-  grid-template-columns: auto auto auto;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  align-content: left;
-  margin: auto;
+  display: flex;
+  justify-content: center;
   overflow: auto;
 `;
 
 export const Topic = styled.div`
-  /*float: left;*/
-  /*margin: auto;*/
-  margin: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   padding: 3px;
-  width: auto;
-  max-width: 100px;
-  height: auto;
+  width: 100px;
+  height: 100px;
   border-style: solid;
   border-color: ${props => (props.active ? "#2779a7" : "transparent")};
   border-width: 1px;
   cursor: pointer;
   text-align: center;
+  margin: 3px;
 `;
 
 export const TopicImage = styled.div`
   width: 30px;
   height: 30px;
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
+  box-sizing: border-box;
+  margin-top: auto;
+
 `;
 
 export const TopicLabel = styled.label`
-  position: relative;
-  width: auto;
+box-sizing: border-box;
+margin-bottom: auto;
+
   overflow-wrap: break-word;
 `;
