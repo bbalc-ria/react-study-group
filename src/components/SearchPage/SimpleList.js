@@ -12,24 +12,21 @@ export default function SimpleList(props) {
   }
   return (
     <S.List>
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={props.getData}
-        hasMore={props.hasMore != undefined}
-        loader={<div className="loader" key={0}>Loading ...</div>}
-      // useWindow={true}
-      >
-        {props.locations && props.locations.map((x, index) => (
-          <S.ListItem
-            key={x.geometry}
-            onMouseEnter={() => handleSelect(index)}
-            onMouseLeave={() => handleDeselect(index)}
-            selected={x.selected}
-          >
+
+      {props.locations && props.locations.map((x, index) => (
+        <S.ListItem
+          key={x.name}
+          onMouseEnter={() => handleSelect(index)}
+          onMouseLeave={() => handleDeselect(index)}
+          selected={x.selected}
+        >
+          <di>
             {x.name}
-          </S.ListItem>
-        ))}
-      </InfiniteScroll>
+          </di>
+          <S.Rating>{x.rating}</S.Rating>
+        </S.ListItem>
+      ))}
+
     </S.List>
   )
 }

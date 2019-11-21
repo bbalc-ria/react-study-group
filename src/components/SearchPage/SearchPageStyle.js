@@ -18,13 +18,15 @@ justify-content:center;
 `
 export const ListItem = styled.li`
 list-style-type: none;
+cursor: pointer;
+display:flex;
+width:80%;
 margin:10px;
-border:1px red solid;
+border:1px rgba(0,0,0,0.1) solid;
 margin-right:16px;
-width:200px;
-padding:3px;
-background: ${props => props.selected ? "palevioletred" : "white"};
-margin-right:5vw;
+padding:7px;
+background: ${props => props.selected ? 'grey' : "white"};
+
 `
 export const Marker = styled.div`
 position:absolute;
@@ -45,7 +47,8 @@ position: -webkit-sticky; /* Safari & IE */
 position: sticky !important;
 top: 20px;
 min-height:300px;
-/* height:50vh; */
-/* align-self:flex-end; */
-/* overflow:hidden; */
+`
+export const Rating = styled.div`
+float:right;
+align-self:right;
 `

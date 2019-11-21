@@ -4,48 +4,38 @@ import SimpleMap from './SimpleMap';
 import SimpleList from "./SimpleList";
 import { MapService } from "../services/MapsService";
 export default function SearchPage() {
+
   const [coords, setCoords] = useState("")
   const [locations, setLocations] = useState("");
   const [nextLink, setNextLink] = useState("")
 
-  let radius = 2000;
 
   useEffect(() => {
-    if (coords === "") {
-      location();
-    }
-    if (coords && locations === "")
-      MapService.RequestRestaurants(coords.latitude, coords.longitude, radius).then(x => {
-        setLocations(x.results)
-        if (x)
-          setNextLink(x.next_page_token);
-        else { setNextLink(undefined) }
-      })
-  });
 
-  const getData = () => {
-
-    // fetch('https://dog.ceo/api/breeds/image/random/15')
-    //   .then(res => {
-    //     return !res.ok
-    //       ? res.json().then(e => Promise.reject(e))
-    //       : res.json();
-    //   })
-    //   .then(res => {
-    //     props.setState([...props.state, ...res.message]);
-    //   });
     debugger;
-    MapService.RequestRestaurants(coords.latitude, coords.longitude, radius, nextLink
-    ).then(x => {
-      if (x) {
-        setNextLink(x.next_page_token);
-        setLocations([...locations, ...x.results]);
-      }
-      else { setNextLink(undefined) }
+    location();
 
-    }).then(console.log("Received data"))
+  }, []);
+  let radius = 2000;
 
-  };
+
+
+  // let getData = (page) => {
+  //   debugger;
+  //   if (page < 3) {
+  //     MapService.RequestRestaurants(coords.latitude, coords.longitude, radius, nextLink
+  //     ).then(x => {
+  //       if (x) {
+  //         setNextLink(x.next_page_token);
+  //         setLocations([...locations, ...x.results]);
+  //       }
+  //       else { setNextLink(undefined) }
+
+  //     }).then(console.log("Received data"))
+  //   }
+  //   else setNextLink(undefined);
+
+  // };
   let location = () => {
     console.log("locations")
     navigator.geolocation.getCurrentPosition(
@@ -56,8 +46,17 @@ export default function SearchPage() {
 
     function displayLocationInfo(position) {
       console.log("GET POS", position)
+      debugger;
       setCoords(position.coords);
-      console.log(coords)
+      MapService.RequestRestaurants(position.coords.latitude, position.coords.longitude, radius).then(x => {
+        setLocations(x.results)
+        if (x) {
+          debugger;
+          setNextLink(x.next_page_token);
+        }
+        else { setNextLink(undefined) }
+
+      })
     }
   };
 
@@ -80,10 +79,11 @@ export default function SearchPage() {
 
   return (
     <S.Container>
-      {locations && <SimpleList hasMore={nextLink} locations={locations} select={select} deselect={deselect} getData={getData}></SimpleList>}
-      {locations && <SimpleMap coords={coords} locations={locations}></SimpleMap>}
+      {locations !== "" && <SimpleList hasMore={nextLink} locations={locations} select={select} deselect={deselect}></SimpleList>}
+      {locations !== "" && <SimpleMap coords={coords} locations={locations}></SimpleMap>}
     </S.Container >
 
   )
 
 }
+
