@@ -1,25 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
 import * as S from "../styles";
-import { books } from "../data/books";
+import TopBar from "./topBar/topBar";
 
 function BookDetail(props) {
   const {
     match: { params }
   } = props;
 
-  const book = books.find(book => book.bookId === params.bookId);
+  const [volumeInfo, setVolumeInfo] = useState({imageLinks: {smallThumbnail: ""}, title: "", authors: "", description: ""});
+  
+  useEffect(() => {
+    Axios
+     .get(
+       "https://www.googleapis.com/books/v1/volumes/" + params.bookId
+     )
+     .then(({ data }) => {
+       //console.log(data);
+       setVolumeInfo(data.volumeInfo);
+     });
+  }, [params.bookId])
 
   return (
-    <S.BookDetailContainer>
-      <S.RowFlex>
-        <S.BookImage src={book.imageUrl}></S.BookImage>
-        <S.ColumnFlex>
-          <S.BookTitle>{book.title}</S.BookTitle>
-          <S.BookAuthor>by {book.author.name}</S.BookAuthor>
-          <S.BookDescription>{book.description.html}</S.BookDescription>
-        </S.ColumnFlex>
-      </S.RowFlex>
+    <div>
+      <TopBar/>
+      <S.BookDetailContainer>
+        <S.RowFlex>
+          <div>
+            <S.BookImage src={volumeInfo.imageLinks.thumbnail}></S.BookImage>
+          </div>
+          <S.ColumnFlex>
+            <S.BookTitle>{volumeInfo.title}</S.BookTitle>
+            <S.BookAuthor>by {volumeInfo.authors}}</S.BookAuthor>
+            <S.BookDescription dangerouslySetInnerHTML={{__html: volumeInfo.description}}/>
+          </S.ColumnFlex>
+        </S.RowFlex>
     </S.BookDetailContainer>
+    </div>
   );
 }
 

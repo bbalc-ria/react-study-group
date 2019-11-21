@@ -12,7 +12,8 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/book/detail/:bookId" component={BookDetail} />
+          <Route path="/book/detail/:bookId"  component={BookDetail}>
+          </Route> />
         </Switch>
       </Router>
     </S.AppContainer>

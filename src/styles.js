@@ -10,11 +10,11 @@ export const AppContainer = styled.div`
 `;
 
 export const BookDetailContainer = styled.div`
-  width: 40%;
+  padding: 10px;
+  width: 540px;
 `;
 
 export const BookImage = styled.img`
-  src: ${props => props.src};
   height: 230px;
   width: 150px;
   margin: 10px;
