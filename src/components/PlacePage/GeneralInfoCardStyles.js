@@ -33,5 +33,5 @@ export const ButtonsRow = styled.div`
 margin-bottom:20px;
 display:flex;
 justify-content:space-around;
-
 `
+
