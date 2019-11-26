@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as S from './SearchPageStyle';
 import InfiniteScroll from 'react-infinite-scroller';
+import { maxHeaderSize } from "http";
 
 export default function SimpleList(props) {
 
@@ -15,18 +16,20 @@ export default function SimpleList(props) {
 
       {props.locations && props.locations.map((x, index) => (
         <S.ListItem
-          key={x.name}
+          key={x.name + x.geometry.location.lat + x.geometry.location.lng}
           onMouseEnter={() => handleSelect(index)}
           onMouseLeave={() => handleDeselect(index)}
           selected={x.selected}
         >
-          <di>
-            {x.name}
-          </di>
-          <S.Rating>{x.rating}</S.Rating>
+          <S.T>{x.name}</S.T>
+          <S.AdditionalInfoContainer>
+            <S.Rating>{x.rating} {x.types[0]}</S.Rating>
+            with {x.user_ratings_total} ratings
+          </S.AdditionalInfoContainer>
         </S.ListItem>
-      ))}
+      ))
+      }
 
-    </S.List>
+    </S.List >
   )
 }

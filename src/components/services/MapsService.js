@@ -26,7 +26,6 @@ function RequestRestaurants(lat, long, radius, pageLink) {
   // Make a request for a user with a given ID
   return axios.get(url, data, config)
     .then(x => {
-      debugger;
       let aux = { ...x.data };
       console.log("TOKEN", aux.next_page_token);
       return { next_page_token: aux.next_page_token, results: [...aux.results] }

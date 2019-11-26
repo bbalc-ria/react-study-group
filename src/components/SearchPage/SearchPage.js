@@ -12,30 +12,11 @@ export default function SearchPage() {
 
   useEffect(() => {
 
-    debugger;
     location();
 
   }, []);
   let radius = 2000;
 
-
-
-  // let getData = (page) => {
-  //   debugger;
-  //   if (page < 3) {
-  //     MapService.RequestRestaurants(coords.latitude, coords.longitude, radius, nextLink
-  //     ).then(x => {
-  //       if (x) {
-  //         setNextLink(x.next_page_token);
-  //         setLocations([...locations, ...x.results]);
-  //       }
-  //       else { setNextLink(undefined) }
-
-  //     }).then(console.log("Received data"))
-  //   }
-  //   else setNextLink(undefined);
-
-  // };
   let location = () => {
     console.log("locations")
     navigator.geolocation.getCurrentPosition(
@@ -46,12 +27,10 @@ export default function SearchPage() {
 
     function displayLocationInfo(position) {
       console.log("GET POS", position)
-      debugger;
       setCoords(position.coords);
       MapService.RequestRestaurants(position.coords.latitude, position.coords.longitude, radius).then(x => {
         setLocations(x.results)
         if (x) {
-          debugger;
           setNextLink(x.next_page_token);
         }
         else { setNextLink(undefined) }
