@@ -64,19 +64,16 @@ function GeneralInfoCard() {
                 <Tooltip title="Add a review!">
                   <Button
                     variant="outlined"
-                    color="darkcyan"
                     onClick={handleOpen}
-                  ><RateReviewIcon colorPrimary={"red"} />Review</Button>
+                  ><RateReviewIcon />Review</Button>
                 </Tooltip>
                 <Tooltip title="Add a photo!">
                   <Button
                     variant="outlined"
-                    color="grey"
                   ><AddAPhotoIcon /> </Button></Tooltip>
                 <Tooltip title="Share this Location">
                   <Button
                     variant="outlined"
-                    color="grey"
                   ><ShareIcon /></Button>
                 </Tooltip>
 

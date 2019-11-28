@@ -3,11 +3,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import Modal from '@material-ui/core/Modal';
 import GradeIcon from '@material-ui/icons/Grade';
-import { TextareaAutosize, Tooltip, Button } from '@material-ui/core';
+import { TextareaAutosize, Tooltip, Button, Input } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-import ImageUploader from 'react-images-upload';
+import ImagePreviewer from '../Resuables/ImagePreviewer/ImagePreviewer';
 
 
 const labels = {
@@ -32,6 +32,7 @@ const StyledRating = withStyles({
 
 const useStyles = makeStyles(theme => ({
   paper: {
+    overflow: "scroll",
     top: "15%",
     height: "70%",
     left: "20%",
@@ -48,9 +49,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: "1em",
     marginTop: "30px",
     width: "500px",
+    marginBottom: "5px",
   },
   title: {
-    marginTop: "5%"
   },
   ratingName: {
     position: "absolute"
@@ -77,11 +78,17 @@ export default function AddReview(props) {
   const classes = useStyles();
   const [hover, setHover] = React.useState(-1);
   const [pictures, setPictures] = React.useState([])
-  let onDrop = (pictureFiles, pictureDataURLs) => {
-    setPictures({
-      pictures: pictures.concat(pictureFiles),
-    });
+
+  let handleImageChange = (event) => {
+    let images = event.target.files.map(x => URL.createObjectURL(x))
+    setPictures(...pictures, ...images);
   }
+  let deleteImage = (key) => {
+    let auxPictures;
+    pictures.forEach((x, i) => { if (i != key) auxPictures.push(x) });
+    setPictures(auxPictures)
+  }
+
   return (
 
     <Modal
@@ -111,27 +118,30 @@ export default function AddReview(props) {
 
             />
           </Box>
-          <TextareaAutosize className={classes.textArea} width={"300px"} rowsMax={30} aria-label="minimum height" rows={20} placeholder="Tell us about your experience" />
+          <TextareaAutosize className={classes.textArea} width={"300px"} rowsMax={30} aria-label="minimum height" rows={10} placeholder="Tell us about your experience" />
 
         </div>
         <Box>
           <Tooltip title="Add a photo!">
             <Button
-              variant="outlined"
-              color="grey"
+              variant="contained"
+              component="label"
               className={classes.addPhotoButton}
-            ><AddAPhotoIcon /> </Button></Tooltip>
+            >
+              <AddAPhotoIcon />
+              <input
+                type="file"
+                style={{ display: "none" }}
+                onChange={handleImageChange}
+              />
+            </Button>
+          </Tooltip>
 
-          <Button variant="contained" customColor="0, 54.5, 40.8">
+          <Button variant="contained">
             Submit</Button>
+
         </Box>
-        <ImageUploader
-          withIcon={true}
-          buttonText='Choose images'
-          onChange={onDrop}
-          imgExtension={['.jpg, ', '.gif, ', '.png, ', '.gif']}
-          maxFileSize={5242880}
-        />
+        {pictures.map((image, i) => <ImagePreviewer image={image} id={i} deleteImage={deleteImage}></ImagePreviewer>)}
       </div>
     </Modal >
   )
