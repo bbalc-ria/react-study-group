@@ -1,32 +1,81 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as S from './CommentStyle';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import Rating from '@material-ui/lab/Rating';
+import GradeIcon from '@material-ui/icons/Grade';
+import { withStyles } from '@material-ui/core/styles';
+import EditableImagePreviewer from '../EditableImagePreviewer/ImagePreviewer';
+import ImagePreviewer from '../ImagePreviewer/ImagePreviewer';
 
+const StyledRating = withStyles({
+  iconFilled: {
+    color: '#005858 ',
+  },
+  iconHover: {
+    color: '#005858 ',
+  },
+  width: "fitContet",
+})(Rating);
+const pictures = [
+  "https://s3-media0.fl.yelpcdn.com/bphoto/F25yrKgW3p5TFLoZ8FYUKw/o.jpg",
+  "https://s3-media0.fl.yelpcdn.com/bphoto/mD6Jws_iBBds2uRxefv1Fg/o.jpg"]
 function Comment(props) {
-  return (
-    <S.Container>
-      <S.CommentContaier>
-        <S.Avatar src="https://picsum.photos/id/272/200/200" />
+  const [date, setdate] = useState(new Date());
 
-        <S.Details>
+
+  return (
+
+    <S.Container>
+      <S.CommentContainer>
+
+        <S.AvatarContainer>
+          <S.Avatar src="https://picsum.photos/id/272/200/200" />
           <S.Author>
             Istvan Borwinmingerr
-        </S.Author>
-          <S.Date>
-            {let x=Date.now();
-            return (x => x.getDate() + "/" + x.getMonth() + "/" + x.getFullYear}
-          </S.Date>
-        </S.Details>
+          <S.Badge count={1001}>
+              20022
+            </S.Badge>
+          </S.Author>
 
-        <S.Content>
-          This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!
+
+
+        </S.AvatarContainer>
+
+        <S.CommentContaierBody>
+          <S.DetailsContainer>
+            <S.Details>
+
+              <StyledRating
+                readOnly
+                name="customized-color"
+                value={3}
+                precision={0.2}
+                icon={<GradeIcon fontSize="inherit" />}
+              />
+              <S.Date>
+                {console.log(date)}
+                {date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()}
+              </S.Date>
+
+            </S.Details>
+
+
+          </S.DetailsContainer>
+
+          <S.Content>
+
+
+            This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!
         </S.Content>
 
-      </S.CommentContaier>
+        </S.CommentContaierBody>
+      </S.CommentContainer>
       <S.GalleryContaier>
-
+        {pictures.map((image, i) => <ImagePreviewer image={image} id={i}></ImagePreviewer>)}
       </S.GalleryContaier>
 
     </S.Container>
+
   )
 }
 

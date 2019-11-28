@@ -7,7 +7,7 @@ import { TextareaAutosize, Tooltip, Button, Input } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-import ImagePreviewer from '../Resuables/ImagePreviewer/ImagePreviewer';
+import EditableImagePreviewer from '../Resuables/EditableImagePreviewer/ImagePreviewer';
 
 
 const labels = {
@@ -141,7 +141,7 @@ export default function AddReview(props) {
             Submit</Button>
 
         </Box>
-        {pictures.map((image, i) => <ImagePreviewer image={image} id={i} deleteImage={deleteImage}></ImagePreviewer>)}
+        {pictures.map((image, i) => <EditableImagePreviewer image={image} id={i} deleteImage={deleteImage}></EditableImagePreviewer>)}
       </div>
     </Modal >
   )
