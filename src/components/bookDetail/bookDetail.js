@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Axios from "axios";
 import * as S from "../../styles";
 import * as DS from "../bookDetail/bookDetailStyles";
@@ -32,10 +32,10 @@ function BookDetail(props) {
   };
 
   return (
-    <div>
+    <Fragment>
       <TopBar />
-      <DS.BookDetailContainer>
-        <S.RowFlex>
+      <S.CenteredContainer>
+        <DS.BookDetailContainer>
           <S.ColumnFlex>
             <S.BookImage
               src={volumeInfo.imageLinks.smallThumbnail}
@@ -53,9 +53,9 @@ function BookDetail(props) {
               {showMoreDescription ? Res.ShowLessCaption : Res.ShowMoreCaption}
             </S.TextLink>
           </S.ColumnFlex>
-        </S.RowFlex>
-      </DS.BookDetailContainer>
-    </div>
+        </DS.BookDetailContainer>
+      </S.CenteredContainer>
+    </Fragment>
   );
 }
 

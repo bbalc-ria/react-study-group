@@ -1,0 +1,53 @@
+import React, { useState, Fragment } from "react";
+import Axios from "axios";
+import * as S from "../../../styles";
+import * as SS from "../searchBox/searchBoxStyles";
+import SearchResultItem from "../searchBox/searchResultItem";
+
+function SearchBox(props) {
+  const [searchValue, setSearchValue] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const onSearchChange = event => {
+    let value = event.target.value;
+    setSearchValue(value);
+
+    Axios.get(
+      "https://www.googleapis.com/books/v1/volumes?q=" +
+        value +
+        "&orderBy=newest"
+    ).then(({ data }) => {
+      setSearchResults(data.items);
+    }).catch(error => {
+      console.log(error);
+    });
+  };
+
+  const onSelectBook = (book) =>{
+    setSearchValue("");
+    setSearchResults([]);
+    props.onSelect(book);
+  }
+
+  return (
+    <Fragment>
+      <SS.Input
+        placeholder={props.placeholder}
+        onChange={onSearchChange}
+        value={searchValue}
+      ></SS.Input>
+
+      {searchResults && (
+        <S.ColumnFlex>
+          {searchResults.map((book, index) => (
+            <SS.ResultListItem key={index} onClick={() => onSelectBook(book)}>
+              <SearchResultItem book={book} />
+            </SS.ResultListItem>
+          ))}
+        </S.ColumnFlex>
+      )}
+    </Fragment>
+  );
+}
+
+export default SearchBox;

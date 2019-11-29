@@ -1,0 +1,1 @@
+export const SearchPlaceholder = "Search books";

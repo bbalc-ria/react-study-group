@@ -6,29 +6,23 @@ import UpdatesFeedItem from "./updatesFeedItem";
 
 function UpdatesFeed(props) {
   const [books, setBooks] = useState([]);
-  
+
   useEffect(() => {
-    Axios
-     .get(
-       "https://www.googleapis.com/books/v1/volumes?q=react&orderBy=newest"
-     )
-     .then(({ data }) => {
-       //console.log(data);
-       setBooks(data.items);
-     });
-  }, [])
+    Axios.get(
+      "https://www.googleapis.com/books/v1/volumes?q=react&orderBy=newest"
+    ).then(({ data }) => {
+      //console.log(data);
+      setBooks(data.items);
+    });
+  }, []);
 
   return (
-    <S.ColumnFlex>
-      <FS.BookUpdatesTitle>
-        UPDATES
-      </FS.BookUpdatesTitle>
+    <S.ColumnFlex width={props.width}>
+      <S.Title>UPDATES</S.Title>
       <FS.BookUpdatesContainer>
-        {
-          books.map((book, index) => 
-              <UpdatesFeedItem book={book} key={index} />
-          )
-        }
+        {books.map((book, index) => (
+          <UpdatesFeedItem book={book} key={index} />
+        ))}
       </FS.BookUpdatesContainer>
     </S.ColumnFlex>
   );

@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { RowFlex } from "../../styles";
 
-export const BookDetailContainer = styled.div`
+export const BookDetailContainer = styled(RowFlex)`
   padding: 10px;
-  width: 540px;
+  width: 50%;
 `;
 
 export const BookDescription = styled.span`

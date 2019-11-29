@@ -16,7 +16,7 @@ function UpdatesFeedItem(props) {
         </Link>
         <S.ColumnFlex>
           <Link to={bookUrl}>
-            <IS.BookTitleLink>{volumeInfo.title}</IS.BookTitleLink>
+            <S.BookTitleLink>{volumeInfo.title}</S.BookTitleLink>
           </Link>
           <S.BookAuthor>by {volumeInfo.authors}</S.BookAuthor>
         </S.ColumnFlex>
