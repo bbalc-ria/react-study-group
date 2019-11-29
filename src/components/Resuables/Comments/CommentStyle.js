@@ -2,9 +2,13 @@ import styled from 'styled-components'
 export const Container = styled.div`
 display:flex;
 margin:5px;
-background-color:rgba(0,0,0,0.02);
+margin-top:20px;
+border-top:1px solid black;
+background-color:rgba(0,0,0,0.07);
 flex-direction:column;
 width:fit-content;
+position:relative;
+height:fit-content;
 align-items:center;
 `
 export const Avatar = styled.img`
@@ -56,18 +60,21 @@ word-wrap:break-word;
 
 `
 export const GalleryContaier = styled.div`
-border-top:3px solid whitesmoke;
 padding-left:10px;
 width:100%;
-float:center;
-justify-content:cente;
+display:flex;
+flex-direction:column;
+`
+
+export const GalleryBody = styled.div`
+width:100%;
+
 `
 export const CommentContainer = styled.div`
 flex-direction:row;
 display:flex;
 align-items:center;
 justify-content:center;;
-
 width:100%;
 `
 
@@ -83,11 +90,38 @@ export const Badge = styled.div`
 display:flex;
 padding:5px;
 align-items:center;
+margin:2px;
+margin-top:7px;
 justify-content:center;
 background-color:rgba(0,84.7,84.7,${props => props.count * 0.001});
 color:${props => props.count > 700 ? "white" : "black"};
 color:${props => props.count >= 1000 ? "gold" : ""};
-border-radius:50%;
+/* border-radius:50%; */
+`
+export const Feedback = styled.div`
+margin-right:5px;
+margin-bottom:5px;
+display:flex;
+justify-content:center;
+align-items:center;
 
+align-self:flex-end;
+z-index:100;
+`
+export const FeedbackButtons = styled.div`
+display:flex;
 
 `
+export const Score = styled.div`
+float:center;
+display:block;
+color:grey;
+font-size:15px;
+margin-top:3px;
+border:1px solid rgba(0,0,0,0.2);
+display:fit-content;
+background:white;
+padding:2px;
+margin-bottom:3px;
+`
+

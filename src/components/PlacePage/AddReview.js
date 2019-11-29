@@ -8,6 +8,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import EditableImagePreviewer from '../Resuables/EditableImagePreviewer/ImagePreviewer';
+import Comment from '../Resuables/Comments/Comment';
+import { blockStatement } from '@babel/types';
 
 
 const labels = {
@@ -32,32 +34,45 @@ const StyledRating = withStyles({
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    overflow: "scroll",
-    top: "15%",
-    height: "70%",
-    left: "20%",
-    position: 'absolute',
+    top: "10%",
+    height: "80%",
+    left: "15%",
+    position: 'relative',
     justifySelf: "center",
-    width: "60%",
+    width: "70%",
     backgroundColor: "snow",
     outline: "none",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    padding: "15px",
+    display: "flex",
+    overflow: "scroll",
   },
 
   textArea: {
     fontSize: "1em",
-    marginTop: "30px",
-    width: "500px",
-    marginBottom: "5px",
+    marginTop: "50px",
+    width: "100%",
+    marginBottom: "50px",
   },
   title: {
+    top: "0px",
+    flex: 1,
+    flexGrow: 30,
+    flexDirection: "column",
+    position: "sticky",
+    margin: "0 15px",
+  },
+  comments: {
+    flex: 1,
+    flexGrow: "50",
+    flexDirection: "column",
+
   },
   ratingName: {
     position: "absolute"
   },
   addPhotoButton: {
-    marginRight: "10px"
+    marginRight: "15px"
   }
 }));
 
@@ -80,8 +95,10 @@ export default function AddReview(props) {
   const [pictures, setPictures] = React.useState([])
 
   let handleImageChange = (event) => {
-    let images = event.target.files.map(x => URL.createObjectURL(x))
-    setPictures(...pictures, ...images);
+    let images = [];
+    Object.entries(event.target.files).forEach(x => images.push(URL.createObjectURL(x[1])));
+    console.log("imgs", images);
+    setPictures([...pictures, ...images]);
   }
   let deleteImage = (key) => {
     let auxPictures;
@@ -99,6 +116,7 @@ export default function AddReview(props) {
     >
 
       <div className={classes.paper}>
+
         <div className={classes.title}>
 
           <h2 id="simple-modal-title">How was your experience?</h2>
@@ -111,37 +129,45 @@ export default function AddReview(props) {
                 setValue(newValue);
               }}
               onChangeActive={(event, newHover) => {
-                setHover(newHover);
+                setHover(newHover)
               }}
               precision={1}
               IconContainerComponent={IconContainer}
 
             />
           </Box>
-          <TextareaAutosize className={classes.textArea} width={"300px"} rowsMax={30} aria-label="minimum height" rows={10} placeholder="Tell us about your experience" />
+          <TextareaAutosize resize="none" className={classes.textArea} rowsMax={30} aria-label="minimum height" rows={10} placeholder="Tell us about your experience" />
 
+          <Box>
+            <Tooltip title="Add a photo!">
+              <Button
+                variant="contained"
+                component="label"
+                className={classes.addPhotoButton}
+              >
+                <AddAPhotoIcon />
+                <input
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={handleImageChange}
+                />
+              </Button>
+            </Tooltip>
+
+            <Button variant="contained">
+              Submit</Button>
+
+          </Box>
+          {console.log(pictures)}
+          {pictures && pictures.map((image, i) => <EditableImagePreviewer image={image} id={i} deleteImage={deleteImage}></EditableImagePreviewer>)}
         </div>
-        <Box>
-          <Tooltip title="Add a photo!">
-            <Button
-              variant="contained"
-              component="label"
-              className={classes.addPhotoButton}
-            >
-              <AddAPhotoIcon />
-              <input
-                type="file"
-                style={{ display: "none" }}
-                onChange={handleImageChange}
-              />
-            </Button>
-          </Tooltip>
 
-          <Button variant="contained">
-            Submit</Button>
-
-        </Box>
-        {pictures.map((image, i) => <EditableImagePreviewer image={image} id={i} deleteImage={deleteImage}></EditableImagePreviewer>)}
+        <div className={classes.comments}>
+          <Comment></Comment>
+          <Comment></Comment>
+          <Comment></Comment>
+          <Comment></Comment>
+        </div>
       </div>
     </Modal >
   )

@@ -9,6 +9,7 @@ import PlaceMain from './components/PlacePage/PlaceMain';
 import ImageGallery from './components/PlacePage/ImageGallery';
 import Comment from './components/Resuables/Comments/Comment';
 import SearchPage from "../src/components/SearchPage/SearchPage"
+import { addComment } from '@babel/types';
 function App() {
   return (
     <Router>

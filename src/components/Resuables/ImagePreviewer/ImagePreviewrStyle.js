@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 export const Image = styled.img`
-max-width:15%;
+max-width:12%;
 /* padding:3px; */
 height:auto;
 margin:7px;
