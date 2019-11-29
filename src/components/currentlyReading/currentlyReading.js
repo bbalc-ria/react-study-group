@@ -12,6 +12,8 @@ function CurrentlyReading(props) {
   const [showSearchBox, setShowSearchBox] = useState(false);
   const [seeMoreItems, setSeeMoreItems] = useState(false);
   const [currentlyReadings, setCurrentlyReadings] = useState([]);
+  const whenNotSeeMoreItemsCount = 3;
+  const whenSeeMoreItemsCount = 10;
 
   // custom hook to hide the search box when clicking outside of this component
   const ref = useRef(null);
@@ -22,19 +24,20 @@ function CurrentlyReading(props) {
     if (!persistedReadings) persistedReadings = [];
 
     // at the beginning, show only the first 3 items
-    if (persistedReadings.length > 3)
-      persistedReadings = persistedReadings.slice(0, 3);
+    if (persistedReadings.length > whenNotSeeMoreItemsCount)
+      persistedReadings = persistedReadings.slice(0, whenNotSeeMoreItemsCount);
 
     setCurrentlyReadings(persistedReadings);
   }, []);
 
   const onSeeMoreItemsClick = () => {
     let persistedReadings = LocalstorageHelper.getItem("currentlyReadings");
+    if (!persistedReadings) return;
 
     // when See more is clicked, show only the first 10 items
-    if (persistedReadings.length > 10)
-      persistedReadings = persistedReadings.slice(0, 10);
-      
+    if (persistedReadings.length > whenSeeMoreItemsCount)
+      persistedReadings = persistedReadings.slice(0, whenSeeMoreItemsCount);
+
     setCurrentlyReadings(persistedReadings);
     setSeeMoreItems(true);
   };
@@ -51,8 +54,15 @@ function CurrentlyReading(props) {
     if (!persistedReadings) persistedReadings = [];
     let tempReadings = [book, ...persistedReadings];
 
-    setCurrentlyReadings(tempReadings);
+    // add the new book in localstorage, but still show 3 or 10 items, 
+    // depending on the seeMoreItems flag
     LocalstorageHelper.setItem("currentlyReadings", tempReadings);
+
+    tempReadings = seeMoreItems
+      ? tempReadings.slice(0, whenSeeMoreItemsCount)
+      : tempReadings.slice(0, whenNotSeeMoreItemsCount);
+
+    setCurrentlyReadings(tempReadings);
   };
 
   return (
@@ -77,11 +87,7 @@ function CurrentlyReading(props) {
             </S.TextLink>
           )}
 
-          {seeMoreItems && (
-            <S.TextLink>
-              {Res.ViewAllBooksCaption} |
-            </S.TextLink>
-          )}
+          {seeMoreItems && <S.TextLink>{Res.ViewAllBooksCaption} |</S.TextLink>}
 
           <S.TextLink onClick={onAddBookClick} disabled={showSearchBox}>
             {Res.AddBookCaption}
