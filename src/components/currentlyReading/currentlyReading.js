@@ -1,22 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as S from "../../styles";
 import * as CS from "../currentlyReading/currentlyReadingStyles";
 import * as Res from "../currentlyReading/currentyReadingResources";
 import * as SharedRes from "../../resources";
+import * as LocalstorageHelper from "../../helpers/localstorageHelper";
 import SearchBox from "../commonComponents/searchBox/searchBox";
 import SearchResultItem from "../currentlyReading/currentlyReadingItem";
+import { useOutsideClick } from "../../helpers/customHooks";
 
 function CurrentlyReading(props) {
   const [showSearchBox, setShowSearchBox] = useState(false);
+  const [seeMoreItems, setSeeMoreItems] = useState(false);
   const [currentlyReadings, setCurrentlyReadings] = useState([]);
 
+  // custom hook to hide the search box when clicking outside of this component
+  const ref = useRef(null);
+  useOutsideClick(ref, () => setShowSearchBox(false));
+
   useEffect(() => {
-    let persistedReadings = JSON.parse(
-      localStorage.getItem("currentlyReadings")
-    );
+    let persistedReadings = LocalstorageHelper.getItem("currentlyReadings");
     if (!persistedReadings) persistedReadings = [];
+
+    // at the beginning, show only the first 3 items
+    if (persistedReadings.length > 3)
+      persistedReadings = persistedReadings.slice(0, 3);
+
     setCurrentlyReadings(persistedReadings);
   }, []);
+
+  const onSeeMoreItemsClick = () => {
+    let persistedReadings = LocalstorageHelper.getItem("currentlyReadings");
+
+    // when See more is clicked, show only the first 10 items
+    if (persistedReadings.length > 10)
+      persistedReadings = persistedReadings.slice(0, 10);
+      
+    setCurrentlyReadings(persistedReadings);
+    setSeeMoreItems(true);
+  };
 
   const onAddBookClick = () => {
     // if search box is already displayed, return
@@ -25,24 +46,19 @@ function CurrentlyReading(props) {
   };
 
   const onSelectBook = book => {
-    let persistedReadings = JSON.parse(
-      localStorage.getItem("currentlyReadings")
-    );
+    let persistedReadings = LocalstorageHelper.getItem("currentlyReadings");
 
     if (!persistedReadings) persistedReadings = [];
-    let tempReadings = [...persistedReadings, book];
-    setCurrentlyReadings(tempReadings);
+    let tempReadings = [book, ...persistedReadings];
 
-    localStorage.setItem(
-      "currentlyReadings",
-      JSON.stringify(tempReadings)
-    );
+    setCurrentlyReadings(tempReadings);
+    LocalstorageHelper.setItem("currentlyReadings", tempReadings);
   };
 
   return (
     <S.ColumnFlex width={props.width}>
       <S.Title>{Res.CurrentlyReadingCaption.toUpperCase()}</S.Title>
-      <CS.CurrentlyReadingContainer>
+      <CS.CurrentlyReadingContainer ref={ref}>
         {currentlyReadings.map((book, index) => (
           <SearchResultItem book={book} key={index} />
         ))}
@@ -55,7 +71,18 @@ function CurrentlyReading(props) {
         )}
 
         <S.RowFlex>
-          <S.TextLink>{Res.SeeMoreCaption} |</S.TextLink>
+          {!seeMoreItems && (
+            <S.TextLink onClick={onSeeMoreItemsClick}>
+              {!seeMoreItems ? Res.SeeMoreCaption : ""} |
+            </S.TextLink>
+          )}
+
+          {seeMoreItems && (
+            <S.TextLink>
+              {Res.ViewAllBooksCaption} |
+            </S.TextLink>
+          )}
+
           <S.TextLink onClick={onAddBookClick} disabled={showSearchBox}>
             {Res.AddBookCaption}
           </S.TextLink>
