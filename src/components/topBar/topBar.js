@@ -4,12 +4,14 @@ import * as TS from "./topBarStyles";
 import MenuBar from "./menuBar";
 import SearchBar from "./searchBar";
 import UserProfile from "./userProfile";
+import MyBooks from "./myBooks";
 
 function TopBar(props) {
   return (
     <TS.TopBarContainer>
     <S.RowFlex>
-      <MenuBar></MenuBar>       
+      <MenuBar></MenuBar>    
+      <MyBooks></MyBooks>   
       <SearchBar></SearchBar>
       <UserProfile></UserProfile>
     </S.RowFlex>

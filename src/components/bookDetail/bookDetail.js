@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import Axios from "axios";
 import * as S from "../../styles";
 import * as DS from "../bookDetail/bookDetailStyles";
-import * as Res from "../bookDetail/bookDetailResources";
+import * as Res from "../../resources";
 import TopBar from "../topBar/topBar";
 
 function BookDetail(props) {

@@ -55,6 +55,7 @@ export const TextLink = styled.p`
   font-size: 14px;
   font-family: "Merriweather", "Georgia", serif;
   margin-right: 5px;
+  text-decoration: none;
 `;
 
 export const Title = styled.div`

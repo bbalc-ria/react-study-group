@@ -3,6 +3,7 @@ import React from "react";
 import Home from "./components/home";
 import BookDetail from "./components/bookDetail/bookDetail";
 import * as S from "./styles";
+import MyBooks from "./components/topBar/myBooks";
 
 function App() {
   return (
@@ -11,6 +12,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/mybooks">
+            <MyBooks />
           </Route>
           <Route path="/book/detail/:bookId"  component={BookDetail}>
           </Route> />

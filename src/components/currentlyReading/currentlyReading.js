@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import * as S from "../../styles";
 import * as CS from "../currentlyReading/currentlyReadingStyles";
-import * as Res from "../currentlyReading/currentyReadingResources";
-import * as SharedRes from "../../resources";
+import * as Res from "../../resources";
 import * as LocalstorageHelper from "../../helpers/localstorageHelper";
 import SearchBox from "../commonComponents/searchBox/searchBox";
 import SearchResultItem from "../currentlyReading/currentlyReadingItem";
@@ -20,7 +20,9 @@ function CurrentlyReading(props) {
   useOutsideClick(ref, () => setShowSearchBox(false));
 
   useEffect(() => {
-    let persistedReadings = LocalstorageHelper.getItem("currentlyReadings");
+    let persistedReadings = LocalstorageHelper.getItem(
+      Res.CurrentlyReadingCaption
+    );
     if (!persistedReadings) persistedReadings = [];
 
     // at the beginning, show only the first 3 items
@@ -31,7 +33,9 @@ function CurrentlyReading(props) {
   }, []);
 
   const onSeeMoreItemsClick = () => {
-    let persistedReadings = LocalstorageHelper.getItem("currentlyReadings");
+    let persistedReadings = LocalstorageHelper.getItem(
+      Res.CurrentlyReadingCaption
+    );
     if (!persistedReadings) return;
 
     // when See more is clicked, show only the first 10 items
@@ -49,14 +53,16 @@ function CurrentlyReading(props) {
   };
 
   const onSelectBook = book => {
-    let persistedReadings = LocalstorageHelper.getItem("currentlyReadings");
+    let persistedReadings = LocalstorageHelper.getItem(
+      Res.CurrentlyReadingCaption
+    );
 
     if (!persistedReadings) persistedReadings = [];
     let tempReadings = [book, ...persistedReadings];
 
-    // add the new book in localstorage, but still show 3 or 10 items, 
+    // add the new book in localstorage, but still show 3 or 10 items,
     // depending on the seeMoreItems flag
-    LocalstorageHelper.setItem("currentlyReadings", tempReadings);
+    LocalstorageHelper.setItem(Res.CurrentlyReadingCaption, tempReadings);
 
     tempReadings = seeMoreItems
       ? tempReadings.slice(0, whenSeeMoreItemsCount)
@@ -75,7 +81,7 @@ function CurrentlyReading(props) {
 
         {showSearchBox && (
           <SearchBox
-            placeholder={SharedRes.SearchPlaceholder}
+            placeholder={Res.SearchPlaceholder}
             onSelect={onSelectBook}
           ></SearchBox>
         )}
@@ -87,7 +93,11 @@ function CurrentlyReading(props) {
             </S.TextLink>
           )}
 
-          {seeMoreItems && <S.TextLink>{Res.ViewAllBooksCaption} |</S.TextLink>}
+          {seeMoreItems && (
+            <S.TextLink to="/mybooks">
+              <Link to="/mybooks">{Res.ViewAllBooksCaption} |</Link>
+            </S.TextLink>
+          )}
 
           <S.TextLink onClick={onAddBookClick} disabled={showSearchBox}>
             {Res.AddBookCaption}
