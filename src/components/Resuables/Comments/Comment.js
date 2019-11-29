@@ -6,6 +6,8 @@ import GradeIcon from '@material-ui/icons/Grade';
 import { withStyles } from '@material-ui/core/styles';
 import EditableImagePreviewer from '../EditableImagePreviewer/ImagePreviewer';
 import ImagePreviewer from '../ImagePreviewer/ImagePreviewer';
+import Gallery from 'react-grid-gallery';
+
 
 const StyledRating = withStyles({
   iconFilled: {
@@ -16,12 +18,16 @@ const StyledRating = withStyles({
   },
   width: "fitContet",
 })(Rating);
-const pictures = [
+
+const imagesPlaceholder = [
   "https://s3-media0.fl.yelpcdn.com/bphoto/F25yrKgW3p5TFLoZ8FYUKw/o.jpg",
-  "https://s3-media0.fl.yelpcdn.com/bphoto/mD6Jws_iBBds2uRxefv1Fg/o.jpg"]
+  "https://s3-media0.fl.yelpcdn.com/bphoto/mD6Jws_iBBds2uRxefv1Fg/o.jpg",
+  "https://s3-media0.fl.yelpcdn.com/bphoto/9LihxkSH3zdAqtGCkn2VDQ/o.jpg",
+]
 function Comment(props) {
   const [date, setdate] = useState(new Date());
 
+  let images = imagesPlaceholder.map(x => { return { src: x, thumbnail: x, thumbnailWidth: (Math.random() + 0.5) * 400, thumbnailHeight: 300 } });
 
   return (
 
@@ -71,7 +77,9 @@ function Comment(props) {
         </S.CommentContaierBody>
       </S.CommentContainer>
       <S.GalleryContaier>
-        {pictures.map((image, i) => <ImagePreviewer image={image} id={i}></ImagePreviewer>)}
+        {/* {pictures.map((image, i) => <ImagePreviewer image={image} id={i}></ImagePreviewer>)} */}
+        <Gallery images={images} enableImageSelection={false} />
+
       </S.GalleryContaier>
 
     </S.Container>

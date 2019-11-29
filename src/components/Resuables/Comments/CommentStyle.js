@@ -6,7 +6,6 @@ background-color:rgba(0,0,0,0.02);
 flex-direction:column;
 width:fit-content;
 align-items:center;
-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
 `
 export const Avatar = styled.img`
 margin-top:7px;
@@ -53,13 +52,15 @@ export const Content = styled.div`
 border-top:3px solid whitesmoke;
 display:flex;
 margin-top:10px;
-/* padding-left:10px; */
 word-wrap:break-word;
 
 `
 export const GalleryContaier = styled.div`
 border-top:3px solid whitesmoke;
 padding-left:10px;
+width:100%;
+float:center;
+justify-content:cente;
 `
 export const CommentContainer = styled.div`
 flex-direction:row;
