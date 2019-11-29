@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import React from "react";
 import Home from "./components/home";
-import BookDetail from "./components/bookDetail";
+import BookDetail from "./components/bookDetail/bookDetail";
 import * as S from "./styles";
 
 function App() {

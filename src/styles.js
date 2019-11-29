@@ -6,12 +6,7 @@ export const AppContainer = styled.div`
   flex-direction: column;
   align-items: center;
   font-size: calc(10px + 2vmin);
-  background-color: #EBEBEB;
-`;
-
-export const BookDetailContainer = styled.div`
-  padding: 10px;
-  width: 540px;
+  background-color: #ebebeb;
 `;
 
 export const BookImage = styled.img`
@@ -43,8 +38,9 @@ export const BookAuthor = styled.span`
   font-family: "Merriweather", "Georgia", serif;
 `;
 
-export const BookDescription = styled.span`
+export const TextLink = styled.p`
+  color: blue;
   font-size: 14px;
   font-family: "Merriweather", "Georgia", serif;
-  margin-top: 10px;
+  cursor: pointer;
 `;
