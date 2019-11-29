@@ -3,7 +3,6 @@ export const Container = styled.div`
 display:flex;
 margin:5px;
 margin-top:20px;
-border-top:1px solid black;
 background-color:rgba(0,0,0,0.07);
 flex-direction:column;
 width:fit-content;
@@ -99,7 +98,7 @@ color:${props => props.count >= 1000 ? "gold" : ""};
 /* border-radius:50%; */
 `
 export const Feedback = styled.div`
-margin-right:5px;
+margin-right:15px;
 margin-bottom:5px;
 display:flex;
 justify-content:center;

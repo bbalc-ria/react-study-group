@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     justifySelf: "center",
     width: "70%",
-    backgroundColor: "snow",
+    background: "#f2f2f2",
     outline: "none",
     boxShadow: theme.shadows[5],
     padding: "15px",

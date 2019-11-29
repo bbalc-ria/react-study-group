@@ -51,6 +51,6 @@ display:flex;
 flex-grow:20;
 `
 export const Container = styled.div`
-background:rgba(31,230,21,0.1);
+background: #f2f2f2;
 height:100%;
 `

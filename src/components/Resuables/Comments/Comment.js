@@ -10,7 +10,7 @@ import ImagePreviewer from '../ImagePreviewer/ImagePreviewer';
 import Gallery from 'react-grid-gallery';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import { Button } from '@material-ui/core';
+import { Button, Paper } from '@material-ui/core';
 const StyledRating = withStyles({
   iconFilled: {
     color: '#005858 ',
@@ -51,66 +51,68 @@ function Comment(props) {
   return (
 
     <S.Container >
-      <S.CommentContainer>
+      <Paper elevation="2">
 
-        <S.AvatarContainer>
-          <S.Avatar src="https://picsum.photos/id/272/200/200" />
-          <S.Author>
-            Istvan Borwinmingerr
+        <S.CommentContainer>
+
+          <S.AvatarContainer>
+            <S.Avatar src="https://picsum.photos/id/272/200/200" />
+            <S.Author>
+              Istvan Borwinmingerr
           <S.Badge count={1001}>
-              20022
+                20022
             </S.Badge>
-          </S.Author>
+            </S.Author>
 
 
 
-        </S.AvatarContainer>
+          </S.AvatarContainer>
 
-        <S.CommentContaierBody>
-          <S.DetailsContainer>
-            <S.Details>
+          <S.CommentContaierBody>
+            <S.DetailsContainer>
+              <S.Details>
 
-              <StyledRating
-                readOnly
-                name="customized-color"
-                value={3}
-                precision={0.2}
-                icon={<GradeIcon fontSize="inherit" />}
-              />
-              <S.Date>
-                {console.log(date)}
-                {date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()}
-              </S.Date>
+                <StyledRating
+                  readOnly
+                  name="customized-color"
+                  value={3}
+                  precision={0.2}
+                  icon={<GradeIcon fontSize="inherit" />}
+                />
+                <S.Date>
+                  {console.log(date)}
+                  {date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()}
+                </S.Date>
 
-            </S.Details>
-
-
-          </S.DetailsContainer>
-
-          <S.Content>
+              </S.Details>
 
 
-            This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!
+            </S.DetailsContainer>
+
+            <S.Content>
+
+
+              This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!This place was awesome I'dd really want to visit it very soon, I hope it will happen GREAT!
         </S.Content>
 
-        </S.CommentContaierBody>
-      </S.CommentContainer>
-      <S.GalleryContaier>
-        <S.GalleryBody>
-          <Gallery images={images} enableImageSelection={false} />
-        </S.GalleryBody>
-        <S.Feedback>
-          <Button className={classes.Like}>
-            <ThumbUpIcon />
-          </Button>
-          <S.Score>
-            -1
-            </S.Score>
-          <Button className={classes.Dislike} >
-            <ThumbDownIcon />
-          </Button>
-        </S.Feedback>
-      </S.GalleryContaier>
+          </S.CommentContaierBody>
+        </S.CommentContainer>
+        <S.GalleryContaier>
+          <S.GalleryBody>
+            <Gallery images={images} enableImageSelection={false} />
+          </S.GalleryBody>
+          <S.Feedback>
+            <Button className={classes.Like}>
+              <ThumbUpIcon />
+            </Button>
+            <Paper elevation={5}>-1</Paper>
+            <Button className={classes.Dislike} >
+              <ThumbDownIcon />
+            </Button>
+          </S.Feedback>
+        </S.GalleryContaier>
+
+      </Paper>
     </S.Container >
 
   )
