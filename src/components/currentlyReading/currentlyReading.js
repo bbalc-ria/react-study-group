@@ -47,7 +47,7 @@ function CurrentlyReading(props) {
   };
 
   const onViewAllBooksClick = () => {
-    props.history.push("/mybooks");
+    props.history.push("/mybooks/" + Res.AllCaption);
   };
 
   const onAddBookClick = () => {
