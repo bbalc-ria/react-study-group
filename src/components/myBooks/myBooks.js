@@ -8,12 +8,18 @@ import GridView from "./gridView";
 import * as LocalstorageHelper from "../../helpers/localstorageHelper";
 
 function MyBooks(props) {
+  const {
+    match: { params }
+  } = props;
+
   const [books, setBooks] = useState([]);
   const [isCoverView, setIsCoverView] = useState(true);
 
   useEffect(() => {
-    onBookShelfSelected(Res.AllCaption);
-  }, []);
+    let shelfName = params.shelfName;
+    if (!shelfName) shelfName = Res.AllCaption;
+    onBookShelfSelected(shelfName);
+  }, [params.shelfName]);
 
   const onBookShelfSelected = shelfName => {
     if (!shelfName) return;
@@ -34,11 +40,6 @@ function MyBooks(props) {
     setBooks(tempBooks);
   };
 
-  const onSetIsCoverView = state => {
-    console.log(state);
-    setIsCoverView(state);
-  };
-
   return (
     <S.ColumnFlex>
       <TopBar />
@@ -46,7 +47,7 @@ function MyBooks(props) {
         <S.Title>{Res.MyBooksCaption.toUpperCase()}</S.Title>
         <S.RightAlignContainer>
           <S.ButtonIcon
-            onClick={() => onSetIsCoverView(true)}
+            onClick={() => setIsCoverView(true)}
             selected={isCoverView}
           >
             <S.Icon
@@ -56,7 +57,7 @@ function MyBooks(props) {
           </S.ButtonIcon>
 
           <S.ButtonIcon
-            onClick={() => onSetIsCoverView(false)}
+            onClick={() => setIsCoverView(false)}
             selected={!isCoverView}
           >
             <S.Icon
@@ -71,6 +72,7 @@ function MyBooks(props) {
         <BookShelvesEdit
           width="20%"
           onBookShelfSelected={onBookShelfSelected}
+          initialSelectedBookShelf={params.shelfName || Res.AllCaption}
         ></BookShelvesEdit>
 
         {books && (

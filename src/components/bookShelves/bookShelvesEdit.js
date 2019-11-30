@@ -7,7 +7,7 @@ import AddBookShelfItem from "./addBookShelfItem";
 
 function BookShelvesEdit(props) {
   const [bookShelves, setBookShelves] = useState([]);
-  const [selectedBookShelf, setSelectedBookShelf] = useState(Res.AllCaption);
+  const [selectedBookShelf, setSelectedBookShelf] = useState(props.initialSelectedBookShelf);
   const [addShelfClicked, setAddShelfClicked] = useState(false);
 
   useEffect(() => {

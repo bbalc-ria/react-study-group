@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import * as LocalstorageHelper from "../../helpers/localstorageHelper";
 import * as S from "../../styles";
 import * as SS from "../bookShelves/bookShelvesStyles";
@@ -10,7 +11,7 @@ function BookShelvesList(props) {
   useEffect(() => {
     let persistedShelves = LocalstorageHelper.getItem("bookShelves");
 
-    // if the bookShelves persisted collection is empty, initialize it and 
+    // if the bookShelves persisted collection is empty, initialize it and
     // update the localstorage item
     if (!persistedShelves) {
       persistedShelves = [
@@ -33,13 +34,20 @@ function BookShelvesList(props) {
     setBookShelves(tempBookShelveCountPairs);
   }, []);
 
+  const onBookShelfSelected = shelfName => {
+    props.history.push("/mybooks/"+shelfName);
+  };
+
   return (
     <S.ColumnFlex width={props.width}>
       <S.Title>{Res.BookShelvesCaption.toUpperCase()}</S.Title>
       <SS.BookShelvesList>
         {bookShelves.map((item, index) => (
-          <SS.BookShelfItem key={index}>
-              {item.count} {item.name}
+          <SS.BookShelfItem
+            key={index}
+            onClick={() => onBookShelfSelected(item.name)}
+          >
+            {item.count} {item.name}
           </SS.BookShelfItem>
         ))}
       </SS.BookShelvesList>
@@ -47,4 +55,4 @@ function BookShelvesList(props) {
   );
 }
 
-export default BookShelvesList;
+export default withRouter(BookShelvesList);

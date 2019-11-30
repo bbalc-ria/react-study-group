@@ -13,9 +13,8 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route exact path="/mybooks">
-            <MyBooks />
-          </Route>
+          <Route path="/mybooks/:shelfName"  component={MyBooks}>
+          </Route> />
           <Route path="/book/detail/:bookId"  component={BookDetail}>
           </Route> />
         </Switch>
