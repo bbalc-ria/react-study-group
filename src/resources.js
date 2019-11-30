@@ -1,12 +1,14 @@
-// keep it sorted
 export const AddAShelfCaption = "Add a Shelf:";
 export const AddBookCaption = "Add a book";
 export const AddCaption = "add";
 export const AddShelfCaption = "Add shelf";
 export const AllCaption = "All";
 export const BookShelvesCaption = "Book shelves";
+export const CoverViewTitle = "Cover view";
 export const CurrentlyReadingCaption = "Currently Reading";
+export const GridViewTitle = "Grid view";
 export const MyBooksCaption = "My Books";
+export const NoItemsCaption = "No matching items!";
 export const ReadCaption = "Read";
 export const SearchPlaceholder = "Search books";
 export const SeeMoreCaption = "See more";

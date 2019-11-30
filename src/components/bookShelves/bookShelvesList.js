@@ -37,11 +37,9 @@ function BookShelvesList(props) {
     <S.ColumnFlex width={props.width}>
       <S.Title>{Res.BookShelvesCaption.toUpperCase()}</S.Title>
       <SS.BookShelvesList>
-        {bookShelves.map(item => (
-          <SS.BookShelfItem key={item}>
-            <S.TextLink>
+        {bookShelves.map((item, index) => (
+          <SS.BookShelfItem key={index}>
               {item.count} {item.name}
-            </S.TextLink>
           </SS.BookShelfItem>
         ))}
       </SS.BookShelvesList>

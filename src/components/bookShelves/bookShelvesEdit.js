@@ -7,6 +7,7 @@ import AddBookShelfItem from "./addBookShelfItem";
 
 function BookShelvesEdit(props) {
   const [bookShelves, setBookShelves] = useState([]);
+  const [selectedBookShelf, setSelectedBookShelf] = useState(Res.AllCaption);
   const [addShelfClicked, setAddShelfClicked] = useState(false);
 
   useEffect(() => {
@@ -63,15 +64,22 @@ function BookShelvesEdit(props) {
     setBookShelves(tempShelves);
   };
 
+  const onBookShelfSelected = shelfName => {
+    setSelectedBookShelf(shelfName);
+    props.onBookShelfSelected(shelfName);
+  };
+
   return (
     <S.ColumnFlex width={props.width}>
       <S.Title>{Res.BookShelvesCaption}</S.Title>
       <SS.BookShelvesList>
         {bookShelves.map((item, index) => (
-          <SS.BookShelfItem key={index}>
-            <S.TextLink>
-              {item.name} ({item.count})
-            </S.TextLink>
+          <SS.BookShelfItem
+            key={index}
+            onClick={() => onBookShelfSelected(item.name)}
+            selected={item.name === selectedBookShelf}
+          >
+            {item.name} ({item.count})
           </SS.BookShelfItem>
         ))}
       </SS.BookShelvesList>

@@ -4,10 +4,16 @@ export const BookShelvesList = styled.ul`
   padding: 10px;
   margin: 0;
   list-style-type: none;
-  font-size: 12px;
+  font-size: 14px;
 `;
 
-export const BookShelfItem = styled.li``;
+export const BookShelfItem = styled.li`
+  cursor: pointer;
+  color: ${props => (props.selected ? "grey" : "#00635d")};
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 export const Button = styled.button`
   border-radius: 3px;

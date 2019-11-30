@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import * as S from "../../styles";
 import * as CS from "../currentlyReading/currentlyReadingStyles";
 import * as Res from "../../resources";
@@ -46,6 +46,10 @@ function CurrentlyReading(props) {
     setSeeMoreItems(true);
   };
 
+  const onViewAllBooksClick = () => {
+    props.history.push("/mybooks");
+  };
+
   const onAddBookClick = () => {
     // if search box is already displayed, return
     if (showSearchBox) return;
@@ -89,13 +93,13 @@ function CurrentlyReading(props) {
         <S.RowFlex>
           {!seeMoreItems && (
             <S.TextLink onClick={onSeeMoreItemsClick}>
-              {!seeMoreItems ? Res.SeeMoreCaption : ""} |
+              {Res.SeeMoreCaption} |
             </S.TextLink>
           )}
 
           {seeMoreItems && (
-            <S.TextLink to="/mybooks">
-              <Link to="/mybooks">{Res.ViewAllBooksCaption} |</Link>
+            <S.TextLink onClick={onViewAllBooksClick}>
+              {Res.ViewAllBooksCaption} |
             </S.TextLink>
           )}
 
@@ -108,4 +112,4 @@ function CurrentlyReading(props) {
   );
 }
 
-export default CurrentlyReading;
+export default withRouter(CurrentlyReading);

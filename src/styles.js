@@ -50,7 +50,7 @@ export const BookAuthor = styled.span`
 `;
 
 export const TextLink = styled.p`
-  color: ${props => (props.disabled ? "grey" : "blue")};
+  color: ${props => (props.disabled ? "grey" : "#00635d")};
   cursor: ${props => (props.disabled ? "initial" : "pointer")};
   font-size: 14px;
   font-family: "Merriweather", "Georgia", serif;
@@ -103,4 +103,31 @@ export const Input = styled.input`
   height: 26px;
   width: 97%;
   padding-left: 8px;
+`;
+
+export const Icon = styled.img`
+  src = ${props => (props.src ? props.src : "")};
+  width: 30px;
+  height: 30px;
+  title = ${props => props.title};
+  cursor: pointer;
+`;
+
+export const ButtonIcon = styled.button`
+  background-color: #ebebeb;
+  border-radius: 3px;
+  border: ${props =>
+    props.selected ? "#dcd6cc 1px solid" : "#ebebeb 1px solid"};
+  &:hover {
+    border: #dcd6cc 1px solid;
+  }
+`;
+
+export const RightAlignContainer = styled.div`
+  margin-left: auto;
+`;
+
+export const InfoMessage = styled.span`
+  color: grey;
+  font-size: 16px;
 `;
