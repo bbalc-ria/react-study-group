@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from "./GeneralInfoCardStyles";
+import * as S from "./Cards/GeneralInfoCardStylesStyles";
 import { withStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 import GradeIcon from "@material-ui/icons/Grade";
@@ -22,10 +22,6 @@ const StyledRating = withStyles({
     color: "#005858 "
   }
 })(Rating);
-
-function getLabelText(value) {
-  return `${value} Heart${value !== 1 ? "s" : ""}`;
-}
 
 function GeneralInfoCard() {
   const [value, setValue] = React.useState(2.6);
@@ -50,7 +46,6 @@ function GeneralInfoCard() {
                 readOnly
                 name="customized-color"
                 value={value}
-                getLabelText={getLabelText}
                 precision={0.2}
                 icon={<GradeIcon fontSize="inherit" />}
               />

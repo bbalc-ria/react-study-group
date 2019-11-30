@@ -2,7 +2,8 @@ import React from "react";
 import ImageGallery from "./ImageGallery";
 import * as S from "./PlaceStyles";
 import { useHistory } from "react-router-dom";
-import GeneralInfoCard from "./GeneralInfoCard";
+import GeneralInfoCard from "./Cards/GeneralInfoCard";
+import { Paper } from "@material-ui/core";
 const imagesPlaceholder = [
   "https://s3-media0.fl.yelpcdn.com/bphoto/F25yrKgW3p5TFLoZ8FYUKw/o.jpg",
   "https://s3-media0.fl.yelpcdn.com/bphoto/mD6Jws_iBBds2uRxefv1Fg/o.jpg",
@@ -22,19 +23,16 @@ function PlaceMain(props) {
 
   return (
     <S.Container>
-      <S.Gallery onClick={goToGallery}>
-        <img src={imagesPlaceholder[0]} width="24.5%" height="300px"></img>
-        <img src={imagesPlaceholder[1]} width="24.5%" height="300px"></img>
-        <img src={imagesPlaceholder[2]} width="24.5%" height="300px"></img>
-        <img src={imagesPlaceholder[5]} width="24.5%" height="300px"></img>
-      </S.Gallery>
+      <Paper square elevation={4}>
+        <S.Gallery onClick={goToGallery}>
+          <img src={imagesPlaceholder[0]} width="24.5%" height="300px"></img>
+          <img src={imagesPlaceholder[1]} width="24.5%" height="300px"></img>
+          <img src={imagesPlaceholder[2]} width="24.5%" height="300px"></img>
+          <img src={imagesPlaceholder[5]} width="24.5%" height="300px"></img>
+        </S.Gallery>
+      </Paper>
 
-      <S.BodyContainer>
-        <S.Empty />
-        <GeneralInfoCard></GeneralInfoCard>
-
-        <S.Empty />
-      </S.BodyContainer>
+      <GeneralInfoCard></GeneralInfoCard>
     </S.Container>
   );
 }

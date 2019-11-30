@@ -4,11 +4,9 @@ export const Gallery = styled.div`
   border-top: 1px solid black;
   display: flex;
   justify-content: space-between;
-  margin-left: 1%;
-  margin-right: 1%;
+  padding: 10px 10px;
   margin-top: 50px;
   cursor: pointer;
-  padding-top: 10px;
 `;
 export const Title = styled.div`
   display: block;

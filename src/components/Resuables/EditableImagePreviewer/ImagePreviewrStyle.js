@@ -1,8 +1,8 @@
 import styled from "styled-components";
 export const Image = styled.img`
-  max-width: 23%;
+  max-width: 45%;
   height: auto;
-  margin: 7px;
+  margin: 10px;
   margin-left: 0px;
   cursor: pointer;
   :hover {

@@ -1,15 +1,18 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
+import {
+  withStyles,
+  makeStyles,
+  ThemeProvider
+} from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 import Modal from "@material-ui/core/Modal";
-import GradeIcon from "@material-ui/icons/Grade";
 import { TextareaAutosize, Tooltip, Button, Input } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import EditableImagePreviewer from "../Resuables/EditableImagePreviewer/ImagePreviewer";
 import Comment from "../Resuables/Comments/Comment";
-import { blockStatement } from "@babel/types";
+import CloseIcon from "@material-ui/icons/Close";
+import { theme } from "../Resuables/Theme";
 
 const labels = {
   1: "Poor!",
@@ -29,7 +32,20 @@ const StyledRating = withStyles({
 })(Rating);
 
 const useStyles = makeStyles(theme => ({
+  "@global": {
+    "*::-webkit-scrollbar": {
+      width: "0.4em"
+    },
+    "*::-webkit-scrollbar-track": {
+      "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)"
+    },
+    "*::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.1)",
+      outline: "1px solid slategrey"
+    }
+  },
   paper: {
+    overflowX: "hidden",
     top: "10%",
     height: "80%",
     left: "15%",
@@ -56,7 +72,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 30,
     flexDirection: "column",
     position: "sticky",
-    margin: "0 15px"
+    margin: "0 20px"
   },
   comments: {
     flex: 1,
@@ -72,6 +88,13 @@ const useStyles = makeStyles(theme => ({
   },
   squareButton: {
     borderRadius: "0px"
+  },
+  close: {
+    top: "5px",
+    right: "0px",
+    borderRadius: "0px",
+    position: "absolute !important",
+    padding: "0px"
   }
 }));
 
@@ -141,23 +164,28 @@ export default function AddReview(props) {
           />
 
           <Box>
+            <Button
+              color="primary"
+              className={classes.addPhotoButton}
+              variant="contained"
+            >
+              Submit
+            </Button>
             <Tooltip title="Add a photo!">
               <Button
-                variant="contained"
+                color="secondary"
+                variant="outlined"
                 component="label"
                 className={classes.addPhotoButton}
               >
                 <AddAPhotoIcon />
                 <input
-                  className={classes.addPhotoButton}
                   type="file"
                   style={{ display: "none" }}
                   onChange={handleImageChange}
                 />
               </Button>
             </Tooltip>
-
-            <Button variant="contained">Submit</Button>
           </Box>
           {console.log(pictures)}
           {pictures &&
@@ -169,13 +197,15 @@ export default function AddReview(props) {
               ></EditableImagePreviewer>
             ))}
         </div>
-
         <div className={classes.comments}>
           <Comment></Comment>
           <Comment></Comment>
           <Comment></Comment>
           <Comment></Comment>
         </div>
+        <Button className={classes.close}>
+          <CloseIcon />
+        </Button>
       </div>
     </Modal>
   );

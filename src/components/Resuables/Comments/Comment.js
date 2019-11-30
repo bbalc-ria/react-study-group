@@ -5,8 +5,6 @@ import Rating from "@material-ui/lab/Rating";
 import GradeIcon from "@material-ui/icons/Grade";
 import { withStyles } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
-import EditableImagePreviewer from "../EditableImagePreviewer/ImagePreviewer";
-import ImagePreviewer from "../ImagePreviewer/ImagePreviewer";
 import Gallery from "react-grid-gallery";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
@@ -33,15 +31,18 @@ const useStyles = makeStyles(props => ({
     background: props.disliked ? "rgba(0,0,0,0.1)" : "",
     border: "1px solid rgba(0,0,0,0.1)",
     margin: "5px",
-    color: "red"
+    color: "red",
+    borderRadius: "0%"
   }),
   Score: props => ({
-    background: "rgba(0,84.7,84.7,1)",
-    color: props.score > 0 ? "gold" : "rose",
-    padding: "6px"
+    color: props.score > 0 ? "gold" : "darkred",
+    padding: "7px",
+    cursor: "default",
+    borderRadius: "0px"
   }),
   paper: {
-    padding: "10px"
+    padding: "10px",
+    psotion: "relative"
   }
 }));
 
@@ -60,7 +61,7 @@ function Comment(props) {
 
   return (
     <S.Container>
-      <Paper elevation="2" square>
+      <Paper elevation="2" square className={classes.paper}>
         <S.CommentContainer>
           <S.AvatarContainer>
             <S.Avatar src="https://picsum.photos/id/272/200/200" />
@@ -110,9 +111,7 @@ function Comment(props) {
             <Button className={classes.Like}>
               <ThumbUpIcon />
             </Button>
-            <Paper className={classes.Score} elevation={1}>
-              -1
-            </Paper>
+            <div className={classes.Score}>-1</div>
             <Button className={classes.Dislike}>
               <ThumbDownIcon />
             </Button>

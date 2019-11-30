@@ -28,8 +28,6 @@ export const Author = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin-left: 5px;
-  height: fit-content;
 `;
 export const Details = styled.div`
   display: flex;
@@ -54,10 +52,10 @@ export const Content = styled.div`
   border-top: 3px solid whitesmoke;
   display: flex;
   margin-top: 10px;
+  padding-top: 10px;
   word-wrap: break-word;
 `;
 export const GalleryContaier = styled.div`
-  padding-left: 10px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -72,14 +70,16 @@ export const CommentContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-bottom: 10px;
 `;
 
 export const CommentContaierBody = styled.div`
   display: flex;
   flex-direction: column;
   border-left: 3px solid whitesmoke;
-  margin-left: 5px;
+  margin-left: 10 px;
   padding-left: 5px;
+  padding-left: 10px;
   padding-bottom: 5px;
 `;
 export const Badge = styled.div`
@@ -88,11 +88,11 @@ export const Badge = styled.div`
   align-items: center;
   margin: 2px;
   margin-top: 7px;
+  background: grey;
+  border: 1px solid rgba(0, 84.7, 84.7, 0.1);
   justify-content: center;
-  background-color: rgba(0, 84.7, 84.7, ${props => props.count * 0.001});
   color: ${props => (props.count > 700 ? "white" : "black")};
   color: ${props => (props.count >= 1000 ? "gold" : "")};
-  /* border-radius:50%; */
 `;
 export const Feedback = styled.div`
   margin-right: 15px;
@@ -106,16 +106,4 @@ export const Feedback = styled.div`
 `;
 export const FeedbackButtons = styled.div`
   display: flex;
-`;
-export const Score = styled.div`
-  float: center;
-  display: block;
-  color: grey;
-  font-size: 15px;
-  margin-top: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  display: fit-content;
-  background: white;
-  padding: 2px;
-  margin-bottom: 3px;
 `;
