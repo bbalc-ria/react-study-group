@@ -8,8 +8,18 @@ function BookShelvesList(props) {
   const [bookShelves, setBookShelves] = useState([]);
 
   useEffect(() => {
-    //let persistedShelves = LocalstorageHelper.getItem("bookShelves");
-    let persistedShelves = [Res.CurrentlyReadingCaption];
+    let persistedShelves = LocalstorageHelper.getItem("bookShelves");
+
+    // if the bookShelves persisted collection is empty, initialize it and 
+    // update the localstorage item
+    if (!persistedShelves) {
+      persistedShelves = [
+        Res.WantToReadCaption,
+        Res.CurrentlyReadingCaption,
+        Res.ReadCaption
+      ];
+      LocalstorageHelper.setItem("bookShelves", persistedShelves);
+    }
 
     // represents a collection of {bookShelf, bookShelfItemsCount}
     let tempBookShelveCountPairs = [];

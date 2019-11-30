@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as Res from "../../resources";
 
-function MyBooks(props) {
+function MyBooksTopBarItem(props) {
   return <Link to="/mybooks">{Res.MyBooksCaption}</Link>;
 }
 
-export default MyBooks;
+export default MyBooksTopBarItem;

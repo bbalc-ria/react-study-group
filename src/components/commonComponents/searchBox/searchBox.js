@@ -31,11 +31,11 @@ function SearchBox(props) {
 
   return (
     <Fragment>
-      <SS.Input
+      <S.Input
         placeholder={props.placeholder}
         onChange={onSearchChange}
         value={searchValue}
-      ></SS.Input>
+      ></S.Input>
 
       {searchResults && (
         <S.ColumnFlex>

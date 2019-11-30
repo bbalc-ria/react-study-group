@@ -3,7 +3,7 @@ import React from "react";
 import Home from "./components/home";
 import BookDetail from "./components/bookDetail/bookDetail";
 import * as S from "./styles";
-import MyBooks from "./components/topBar/myBooks";
+import MyBooks from "./components/myBooks/myBooks";
 
 function App() {
   return (
