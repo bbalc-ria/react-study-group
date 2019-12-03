@@ -53,11 +53,16 @@ function Login({ onLogin }) {
     var topicNames = selectedTopics.map(t => t.topic);
     console.log("Login - Logging in", userName, topicNames);
 
-    client.invoke(
+    client.getInvoke(
       client.functionNames.login,
       { name: userName, topics: topicNames },
-      () => {
-        onLogin({ name: userName, topics: selectedTopics });
+      res => {
+        if (res === true) onLogin({ name: userName, topics: selectedTopics });
+        else {
+          setErrorMsg(
+            "Can't create player. Probably player name already was taken."
+          );
+        }
       }
     );
   };

@@ -4,11 +4,13 @@ import * as store from "../GameStore";
 
 function GameScores() {
   const [scores, setScores] = useState();
+  const [gameOver, setGameOver] = useState(false);
 
   const handleRefresh = () => {
     let newRound = store.getRound();
     console.log("GameScores - handleRefresh - round:", newRound);
     setScores(newRound.scores);
+    setGameOver(newRound.gameOver);
   };
 
   const subscribe = () => {
@@ -39,9 +41,14 @@ function GameScores() {
     }
   };
 
+  console.log("Score - gameover", gameOver);
+
   return (
-    <S.Container>
-      <S.ScoreSet>{getScores()}</S.ScoreSet>
+    <S.Container className="score-container">
+      <S.MessageWrapper>
+        <S.Message>Scores</S.Message>
+      </S.MessageWrapper>
+      <S.ScoreSet className="score-set">{getScores()}</S.ScoreSet>
     </S.Container>
   );
 }

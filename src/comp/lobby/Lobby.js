@@ -9,10 +9,9 @@ function Lobby({ group, player, onExit, onStart }) {
   const [players, setPlayers] = useState(store.getPlayers());
   const [messages, setMessages] = useState(store.getMessages());
 
-  const handlePlayerJoined = newPlayer => {
-    console.log("new player joined group", newPlayer, "players: ", players);
-    store.addPlayer({ name: newPlayer, ready: false });
-    setPlayers(store.getPlayers());
+  const handlePlayerUpdated = () => {
+    console.log("Lobby - updating player");
+    refreshPlayers();
   };
 
   const handleMessageReceived = message => {
@@ -22,24 +21,28 @@ function Lobby({ group, player, onExit, onStart }) {
 
   const handlePlayersReceived = playersInGroup => {
     console.log("received players in group", playersInGroup);
-    store.addPlayer({ name: player.name, ready: false });
+    store.clearPlayers();
+    //store.addPlayer({ name: player.name, ready: false });
     store.addPlayers(
       playersInGroup.map(p => {
-        return { name: p, ready: false };
+        return { name: p.name, ready: p.ready };
       })
     );
     setPlayers(store.getPlayers());
   };
 
-  useEffect(() => {
-    console.log("GroupLobby - useEffetct");
-    handleSubscribe();
-
+  const refreshPlayers = () => {
     client.getInvoke(
       client.functionNames.getPlayersInGroup,
       undefined,
       handlePlayersReceived
     );
+  };
+
+  useEffect(() => {
+    console.log("GroupLobby - useEffetct");
+    handleSubscribe();
+    refreshPlayers();
 
     return handleUnSubScribe;
   }, []);
@@ -48,7 +51,7 @@ function Lobby({ group, player, onExit, onStart }) {
     console.log("GroupLobby - subscribing to events");
 
     client.subscribeTo(client.eventNames.lobbyEvents, handleLobbyEvents);
-    client.subscribeTo(client.eventNames.playerJoinedGroup, handlePlayerJoined);
+    client.subscribeTo(client.eventNames.playersUpdated, handlePlayerUpdated);
     client.subscribeTo(
       client.eventNames.messageReceived,
       handleMessageReceived
@@ -59,8 +62,8 @@ function Lobby({ group, player, onExit, onStart }) {
     console.log("GroupLobby - unsubscribing from events");
     client.unSubscribeFrom(client.eventNames.lobbyEvents, handleLobbyEvents);
     client.unSubscribeFrom(
-      client.eventNames.playerJoinedGroup,
-      handlePlayerJoined
+      client.eventNames.playersUpdated,
+      handlePlayerUpdated
     );
     client.unSubscribeFrom(
       client.eventNames.messageReceived,
@@ -86,13 +89,16 @@ function Lobby({ group, player, onExit, onStart }) {
       handleAddMessage(`Game starting in ${args}.`);
     else if (name === "gamestartingcancelled")
       handleAddMessage("Game start cancelled.");
-    else if (name === "gamestarted") onStart();
+    else if (name === "gamestarted") {
+      store.clear();
+      setMessages([]);
+      setPlayers([]);
+      onStart();
+    }
   };
 
   const handleBack = () => {
-    client.invoke(client.functionNames.disconnectFromGroup, group, () => {
-      onExit();
-    });
+    onExit();
   };
 
   const handlePlayerMarkReady = () => {

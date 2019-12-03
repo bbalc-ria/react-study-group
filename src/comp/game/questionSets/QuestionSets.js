@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import * as S from "./QuestionSetsStyle";
 import * as store from "../GameStore";
 import AnswerCollection from "./AnswerCollection";
+import Counter from "./Counter";
 
 function QuestionSet() {
   const [state, setState] = useState({
     questions: undefined,
     selected: undefined,
-    correct: undefined
+    correct: undefined,
+    message: ""
   });
 
   const handleRefresh = () => {
@@ -16,7 +18,8 @@ function QuestionSet() {
     setState({
       questions: newRound.questions,
       selected: newRound.selected,
-      correct: newRound.correct
+      correct: newRound.correct,
+      message: newRound.message
     });
   };
 
@@ -40,8 +43,12 @@ function QuestionSet() {
   console.log("QuestionSet - Rendering QuestionSet, state:", state);
 
   return (
-    <S.Container>
-      <S.QuestionSet>
+    <S.Container className="question-set-container">
+      <S.MessageWrapper>
+        <S.Message>{state.message}</S.Message>
+      </S.MessageWrapper>
+      <Counter />
+      <S.QuestionSet className="question-set">
         <S.QuestionWrapper>
           <S.Question>{state.questions && state.questions.question}</S.Question>
         </S.QuestionWrapper>

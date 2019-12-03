@@ -4,12 +4,17 @@ import * as urls from "./Urls";
 let HubConnection;
 let onClose;
 
-export const setOnCloseFunction = onClose => {
-  onClose = onClose;
+export const setOnCloseFunction = onCloseCallback => {
+  onClose = onCloseCallback;
+};
+
+export const callOnClose = () => {
+  onClose && onClose({});
 };
 
 export const eventNames = {
   playerJoinedGroup: "playerJoinedGroup",
+  playersUpdated: "playersUpdated",
   messageReceived: "messageReceived",
   gameEvents: "gameEvents",
   lobbyEvents: "lobbyEvents"
@@ -21,6 +26,7 @@ export const functionNames = {
   sendGameEvent: "sendGameEvent",
   startGame: "startGame",
   enterGameGroup: "enterGameGroup",
+  createGameGroup: "createGameGroup",
   getPlayersInGroup: "getPlayersInGroup",
   getGroups: "getGroups",
   login: "login"

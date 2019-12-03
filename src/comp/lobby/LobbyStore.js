@@ -7,6 +7,11 @@ export const getMessages = () => {
   return copy;
 };
 
+export const clear = () => {
+  messages.splice(0);
+  players.splice(0);
+};
+
 export const addMessage = msg => {
   if (msg) {
     messages.push(msg);
@@ -30,6 +35,10 @@ export const addPlayers = playersToAdd => {
       players
     );
   }
+};
+
+export const clearPlayers = () => {
+  players.splice(0);
 };
 
 export const addPlayer = player => {

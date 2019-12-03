@@ -11,3 +11,12 @@ function App() {
 }
 
 export default App;
+
+/*
+TODO:
+ChatArrea margin top
+Game score width increasing
+Concurency problem
+
+
+*/

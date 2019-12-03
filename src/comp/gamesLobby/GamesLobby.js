@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as client from "../../utils/SocketClient";
 import * as S from "./GamesLobbyStyles";
 import { Title } from "../styles";
@@ -11,10 +11,19 @@ function GamesLobby({ onJoin }) {
   ]);
   const [newGroupName, setNewGroupName] = useState("");
   const [searchGroupName, setSearchGroupName] = useState("");
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    refreshGroups();
+  }, []);
 
   const enterIntoGroup = groupName => {
-    client.invoke(client.functionNames.enterGameGroup, groupName, () => {
-      onJoin(groupName);
+    client.getInvoke(client.functionNames.enterGameGroup, groupName, res => {
+      if (res === true) onJoin(groupName);
+      else {
+        setMessage("Couldn't enter into group.");
+        refreshGroups();
+      }
     });
   };
 
@@ -29,8 +38,10 @@ function GamesLobby({ onJoin }) {
 
   const getGroups = () => {
     if (groups === undefined) return;
-
-    var filtered = groups.filter(g => g.includes(searchGroupName));
+ 
+    var filtered = groups.filter(g =>
+      g.toLowerCase().includes(searchGroupName.toLowerCase())
+    );
     console.log("Filtered groups", filtered);
     var listItems = filtered.map((g, i) => (
       <S.GameListItem key={i} onClick={() => enterIntoGroup(g)}>
@@ -43,10 +54,18 @@ function GamesLobby({ onJoin }) {
 
   const createNewGroup = () => {
     if (newGroupName) {
-      client.invoke(client.functionNames.enterGameGroup, newGroupName, () => {
-        console.log("group created", newGroupName);
-        onJoin(newGroupName);
-      });
+      client.getInvoke(
+        client.functionNames.createGameGroup,
+        newGroupName,
+        res => {
+          console.log("group created", newGroupName);
+          if (res === true) onJoin(newGroupName);
+          else {
+            setMessage("Couldn't create group.");
+            refreshGroups();
+          }
+        }
+      );
     }
   };
 
@@ -57,13 +76,14 @@ function GamesLobby({ onJoin }) {
       </S.GamesLobbyHeader>
       <S.GamesListContainer>
         <S.GameListHeader>
-          <S.GamesSearchInput
-            placeholder={"Search for group"}
-            onChange={e => setSearchGroupName(e.target.value)}
-          ></S.GamesSearchInput>
-          <S.GamesRefreshButton onClick={refreshGroups}>
-            Refresh
-          </S.GamesRefreshButton>
+          <S.GameListErrorInput>{message}</S.GameListErrorInput>
+          <S.GameListSearchCotainer>
+            <S.GamesSearchInput
+              placeholder={"Search for group"}
+              onChange={e => setSearchGroupName(e.target.value)}
+            ></S.GamesSearchInput>
+            <S.GamesRefreshButton onClick={refreshGroups} />
+          </S.GameListSearchCotainer>
         </S.GameListHeader>
         <S.GameListBody>
           <S.GameList>{getGroups()}</S.GameList>
@@ -73,9 +93,7 @@ function GamesLobby({ onJoin }) {
             placeholder={"New group name?"}
             onChange={e => setNewGroupName(e.target.value)}
           ></S.GamesCreateInput>
-          <S.GamesCreateButton onClick={createNewGroup}>
-            Create
-          </S.GamesCreateButton>
+          <S.GamesCreateButton onClick={createNewGroup} />
         </S.GameListFooter>
       </S.GamesListContainer>
     </S.GamesLobbyContainer>

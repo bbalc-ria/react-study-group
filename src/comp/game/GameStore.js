@@ -4,6 +4,10 @@ import { stat } from "fs";
 let scoreRefreshCallback;
 let refreshCallback;
 let refreshMessageCallback;
+let refreshRoundCallback;
+let refreshCountCallback;
+let refreshGameOverCallback;
+
 let state = {
   questionSet: undefined,
   scores: undefined,
@@ -11,10 +15,11 @@ let state = {
   selected: undefined,
   round: 0,
   message: "",
-  counter: "0"
+  counter: "0",
+  gameOver: false
 };
 
-const resetState = () => {
+export const resetState = () => {
   state = {
     questionSet: undefined,
     scores: undefined,
@@ -22,8 +27,13 @@ const resetState = () => {
     selected: undefined,
     round: 0,
     message: "",
-    counter: "0"
+    counter: "0",
+    gameOver: false
   };
+};
+
+export const getGameOver = () => {
+  return state.gameOver;
 };
 
 export const subscribe = () => {
@@ -67,7 +77,7 @@ const handlePlayers = args => {
     scores.push({ player: element, score: 0 });
   }
   state.scores = scores;
-  console.log("handlePlayers - state:", state);
+  //console.log("handlePlayers - state:", state);
   publishScoreRefresh();
 };
 
@@ -84,15 +94,33 @@ const handleGameOver = args => {
   //console.log("GAMESTORE - handleGameOver - Handling Game Over");
   handleCounterMessage("Game over!", "");
   state.scores = args;
+  state.gameOver = true;
   state.questionSet = undefined;
   state.correct = undefined;
+  state.players = undefined;
+  state.selected = undefined;
+  state.round = 0;
+  state.message = "";
+
   publishRefresh();
+  publishGameOverRefresh();
 };
 
 const handleCounterMessage = (msg, count) => {
-  state.message = msg;
+  handleMessage(msg);
+  handleCounter(count);
+};
+
+const handleMessage = msg => {
+  if (state.message !== msg) {
+    state.message = msg;
+    publishRefresh();
+  }
+};
+
+const handleCounter = count => {
   state.counter = count;
-  publishMessageRefresh();
+  publishCountRefresh();
 };
 
 const handleQuestionSetReceived = args => {
@@ -101,13 +129,21 @@ const handleQuestionSetReceived = args => {
   state.correct = undefined;
   state.selected = undefined;
   publishRefresh();
-  //publishMessageRefresh();
+  publishRoundRefresh();
 };
 
 const handleCorrectAnswer = args => {
   state.correct = Number.parseInt(args.correct);
   state.selected = Number.parseInt(args.selected);
   publishRefresh();
+};
+
+const publishRoundRefresh = () => {
+  refreshRoundCallback && refreshRoundCallback();
+};
+
+const publishGameOverRefresh = () => {
+  refreshGameOverCallback && refreshGameOverCallback();
 };
 
 export const registerRefreshCallback = callback => {
@@ -130,6 +166,34 @@ export const registerMessageRefreshCallback = callback => {
   refreshMessageCallback = callback;
 };
 
+export const unregisterMessageRefreshCallback = () => {
+  refreshMessageCallback = undefined;
+};
+
+export const registerGameOverCallback = callback => {
+  refreshGameOverCallback = callback;
+};
+
+export const unregisterGameOverCallback = () => {
+  refreshGameOverCallback = undefined;
+};
+
+export const registerRoundRefreshCallback = callback => {
+  refreshRoundCallback = callback;
+};
+
+export const unregisterRoundRefreshCallback = () => {
+  refreshRoundCallback = undefined;
+};
+
+export const registerCounterRefreshCallback = callback => {
+  refreshCountCallback = callback;
+};
+
+export const unregisterCounterRefreshCallback = () => {
+  refreshCountCallback = undefined;
+};
+
 const publishRefresh = () => {
   //console.log("GAMESTORE - Publishing refresh state", state);
   refreshCallback && refreshCallback();
@@ -144,13 +208,23 @@ const publishMessageRefresh = () => {
   refreshMessageCallback && refreshMessageCallback();
 };
 
+const publishCountRefresh = () => {
+  refreshCountCallback && refreshCountCallback(state.counter);
+};
+
+export const getRoundNb = () => {
+  return state.round;
+};
+
 export const getRound = () => {
   //console.log("GAMESTORE - getRound state:", state);
   return {
+    gameOver: false,
     questions: state.questionSet,
     scores: state.scores,
     correct: state.correct,
-    selected: state.selected
+    selected: state.selected,
+    message: state.message
   };
 };
 

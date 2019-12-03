@@ -1,20 +1,25 @@
 import styled from "styled-components";
-import { Wrapper, Title, Input, Label, SButton } from "../styles";
+import { Wrapper, Title } from "../styles";
 
 export const Container = styled.div``;
 
 export const Body = styled.div`
-  display: grid;
-  grid-template-areas: "score game game game game";
+  height: 90vh;
+  display: flex;
 `;
 
 export const GameContainer = styled.div`
-  grid-area: game;
+  width: 100%;
+  flex: 1;
 `;
 
 export const ScoreContainer = styled.div`
-  grid-area: score;
-  border-right: 1px solid #ccc;
+  display: flex;
+  align-content: center;
+  text-align: center;
+  width: ${props => (props.gameOver ? "" : "350px")};
+  flex: ${props => (props.gameOver ? "1" : "")};
+  border-right: ${props => (props.gameOver ? "0px" : " 1px solid #ccc")};
 `;
 
 export const Header = styled.div`

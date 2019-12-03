@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { Wrapper, Input, Label, SButton } from "../../styles";
 
 export const Container = styled.div`
-  border-top: 1px solid #ced4da;
+  flex: 1;
 `;
 
 export const ScoreSet = styled.div`
@@ -28,5 +27,15 @@ export const Score = styled.h3`
   padding: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  width: 400px;
+  width: 300px;
+  overflow-wrap: break-word;
+`;
+
+export const MessageWrapper = styled.div``;
+
+export const Message = styled.h3`
+  padding: 0;
+  margin: 5px;
+  overflow-wrap: break-word;
+  text-align: center;
 `;
