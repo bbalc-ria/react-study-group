@@ -24,7 +24,7 @@ export const Logo = styled.img`
 export const Guest = styled.img`
   height: 64px;
   width: 64px;
-  padding-left: 20px;
+  padding: 0 20px;
   src: url(${props => props.src})
 `;
 

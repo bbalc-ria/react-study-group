@@ -1,11 +1,13 @@
 import React from "react";
-import SearchBox from "../commonComponents/searchBox/searchBox";
+import { withRouter } from "react-router-dom";
 import * as Res from "../../resources";
 import * as S from "../../styles";
+import SearchBox from "../commonComponents/searchBox/searchBox";
 
 function SearchBar(props) {
-  const onSelect = () => {
-
+  const onSelect = (book) => {
+    console.log(book);
+    props.history.push("book/detail/" + book.id);
   }
 
   return (
@@ -16,4 +18,4 @@ function SearchBar(props) {
   );
 }
 
-export default SearchBar;
+export default withRouter(SearchBar);
