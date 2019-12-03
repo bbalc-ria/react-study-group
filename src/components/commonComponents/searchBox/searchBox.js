@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 import * as S from "../../../styles";
 import * as SS from "../searchBox/searchBoxStyles";
@@ -30,23 +30,23 @@ function SearchBox(props) {
   }
 
   return (
-    <Fragment>
-      <S.Input
-        placeholder={props.placeholder}
-        onChange={onSearchChange}
-        value={searchValue}
-      ></S.Input>
+      <SS.SearchBox>
+        <S.Input
+          placeholder={props.placeholder}
+          onChange={onSearchChange}
+          value={searchValue}
+        ></S.Input>
 
-      {searchResults && (
-        <S.ColumnFlex>
-          {searchResults.map((book, index) => (
-            <SS.ResultListItem key={index} onClick={() => onSelectBook(book)}>
-              <SearchResultItem book={book} />
-            </SS.ResultListItem>
-          ))}
-        </S.ColumnFlex>
-      )}
-    </Fragment>
+        {searchResults && (
+          <SS.SearchDropDown>
+            {searchResults.map((book, index) => (
+              <SS.ResultListItem key={index} onClick={() => onSelectBook(book)}>
+                <SearchResultItem book={book} />
+              </SS.ResultListItem>
+            ))}
+          </SS.SearchDropDown>
+        )}
+      </SS.SearchBox>
   );
 }
 

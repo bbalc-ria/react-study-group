@@ -1,10 +1,14 @@
- 
 import React from "react";
-import { Link } from "react-router-dom";
+import * as TS from "./topBarStyles";
+import * as Res from "../../resources";
+import MenuItem from "./menuItem";
 
 function MenuBar(props) {
-    return (
-        <Link to="/">Home</Link>  
+  return (
+    <TS.MenuBarContainer>
+      <MenuItem to="/" menuName={Res.HomeCaption} activeClassName="selectedMenuItem"/>
+      <MenuItem to="/myBooks/All"  menuName={Res.MyBooksCaption} activeClassName="selectedMenuItem" width={'180px'}/>
+    </TS.MenuBarContainer>
     );
   }
   

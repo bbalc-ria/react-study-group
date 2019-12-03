@@ -1,9 +1,12 @@
- 
 import React from "react";
+import * as TS from "./topBarStyles";
+import GuestIcon from './guest_icon.png';
 
 function UserProfile(props) {
     return (
-        <div>User profile</div>  
+      <TS.UserProfileContainer>
+        <TS.Guest src={GuestIcon}></TS.Guest>
+      </TS.UserProfileContainer>
     );
   }
   
