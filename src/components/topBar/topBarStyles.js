@@ -16,21 +16,21 @@ export const TopBarContainer = styled.div`
 
 export const Logo = styled.img`
   height: 90px;
-  width: 200px;
+  width: auto;
   padding-right: 20px;
   src: url(${props => props.src})
 `;
 
 export const Guest = styled.img`
   height: 64px;
-  width: 64px;
+  width: auto;
   padding: 0 20px;
   src: url(${props => props.src})
 `;
 
 export const MenuBarContainer = styled.div`
   padding-right: 20px;
-  display:flex;
+  display: flex;
 `;
 
 export const MenuItem = styled.div`

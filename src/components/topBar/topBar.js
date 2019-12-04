@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import * as TS from "./topBarStyles";
 import MenuBar from "./menuBar";
 import SearchBar from "./searchBar";
@@ -8,7 +9,9 @@ import Logo from './bookclub_logo.png';
 function TopBar(props) {
   return (
   <TS.TopBarContainer>
-    <TS.Logo src={Logo}></TS.Logo>
+    <Link to="/">
+      <TS.Logo src={Logo}></TS.Logo>
+    </Link>
     <MenuBar></MenuBar>    
     <SearchBar></SearchBar>
     <UserProfile></UserProfile>

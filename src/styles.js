@@ -5,13 +5,13 @@ export const AppContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
+  font-size: 30px;
   background-color: #ebebeb;
   padding: 0 10%;
 `;
 
 export const BookImage = styled.img`
-  height: 230px;
+  height: auto;
   width: 150px;
   margin: 10px;
 `;
@@ -73,7 +73,7 @@ export const CenteredContainer = styled.div`
 `;
 
 export const SmallBookImage = styled(BookImage)`
-  height: 45px;
+  height: auto;
   width: 45px;
   margin: 5px;
 `;
@@ -87,7 +87,7 @@ export const SmallBookAuthor = styled(BookAuthor)`
 `;
 
 export const MidleBookImage = styled(BookImage)`
-  height: 120px;
+  height: auto;
   width: 80px;
   margin: 5px;
 `;
@@ -130,4 +130,21 @@ export const RightAlignContainer = styled.div`
 export const InfoMessage = styled.span`
   color: grey;
   font-size: 16px;
+`;
+
+export const BookTable = styled.table`
+  border-collapse: collapse;
+  
+  th {
+    height: 70px;
+  }
+
+  th, td {
+    border: solid 1px #dcd6cc;
+    font-size: 16px;
+  }
+
+  td {
+    vertical-align: top;
+  }
 `;

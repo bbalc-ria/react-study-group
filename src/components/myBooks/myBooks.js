@@ -51,7 +51,7 @@ function MyBooks(props) {
             selected={isCoverView}
           >
             <S.Icon
-              src="https://s.gr-assets.com/assets/layout/list-fe412c89a6a612c841b5b58681660b82.png"
+              src="https://s.gr-assets.com/assets/layout/grid-2c030bffe1065f73ddca41540e8a267d.png"
               title={Res.CoverViewTitle}
             ></S.Icon>
           </S.ButtonIcon>
@@ -61,7 +61,7 @@ function MyBooks(props) {
             selected={!isCoverView}
           >
             <S.Icon
-              src="https://s.gr-assets.com/assets/layout/grid-2c030bffe1065f73ddca41540e8a267d.png"
+              src="https://s.gr-assets.com/assets/layout/list-fe412c89a6a612c841b5b58681660b82.png"
               title={Res.GridViewTitle}
             ></S.Icon>
           </S.ButtonIcon>
@@ -77,9 +77,9 @@ function MyBooks(props) {
 
         {books && (
           <React.Fragment>
-            {isCoverView && <CoverView width="50%" books={books}></CoverView>}
+            {isCoverView && <CoverView width="70%" books={books}></CoverView>}
 
-            {!isCoverView && <GridView width="50%" books={books}></GridView>}
+            {!isCoverView && <GridView width="70%" books={books}></GridView>}
           </React.Fragment>
         )}
 

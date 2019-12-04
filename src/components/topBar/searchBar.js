@@ -7,7 +7,7 @@ import SearchBox from "../commonComponents/searchBox/searchBox";
 function SearchBar(props) {
   const onSelect = (book) => {
     console.log(book);
-    props.history.push("book/detail/" + book.id);
+    props.history.push("/book/detail/" + book.id);
   }
 
   return (
