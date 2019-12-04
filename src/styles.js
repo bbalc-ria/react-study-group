@@ -134,7 +134,8 @@ export const InfoMessage = styled.span`
 
 export const BookTable = styled.table`
   border-collapse: collapse;
-  
+  text-align: left;
+
   th {
     height: 70px;
   }
@@ -142,6 +143,7 @@ export const BookTable = styled.table`
   th, td {
     border: solid 1px #dcd6cc;
     font-size: 16px;
+    padding-left: 5px;
   }
 
   td {
