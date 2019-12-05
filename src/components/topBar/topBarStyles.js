@@ -19,6 +19,7 @@ export const Logo = styled.img`
   width: auto;
   padding-right: 20px;
   src: url(${props => props.src})
+  
 `;
 
 export const Guest = styled.img`
@@ -31,9 +32,13 @@ export const Guest = styled.img`
 export const MenuBarContainer = styled.div`
   padding-right: 20px;
   display: flex;
+  align-self: stretch;
+  align-items: stretch;
 `;
 
 export const MenuItem = styled.div`
+  display: flex;
+  align-items: center;
   padding: 0 5px;
   font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
   width: ${props => (props.width ? props.width : "auto")};
