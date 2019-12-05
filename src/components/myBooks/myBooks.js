@@ -72,7 +72,7 @@ function MyBooks(props) {
         <BookShelvesEdit
           width="20%"
           initialSelectedBookShelf={params.shelfName || Res.AllCaption}
-        ></BookShelvesEdit>
+        />
 
         {books && (
           <React.Fragment>

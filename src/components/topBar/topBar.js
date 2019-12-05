@@ -12,9 +12,9 @@ function TopBar(props) {
     <Link to="/">
       <TS.Logo src={Logo}></TS.Logo>
     </Link>
-    <MenuBar></MenuBar>    
-    <SearchBar></SearchBar>
-    <UserProfile></UserProfile>
+    <MenuBar/>    
+    <SearchBar/>
+    <UserProfile/>
   </TS.TopBarContainer>
   );
 }

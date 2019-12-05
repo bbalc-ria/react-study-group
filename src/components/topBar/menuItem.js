@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import * as TS from "./topBarStyles";
 
 function MenuItem(props) {
-    let _link: ?HTMLElement;
+    let _link;
 
     const navigateToMenu = () => {
         _link.click();
