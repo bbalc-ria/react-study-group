@@ -49,6 +49,11 @@ export const MenuItem = styled.div`
     background-color: #BBBBBB;
   }
 
+  a {
+    display:flex;
+    align-items: center;
+  }
+
   a:link, a:visited, a:hover, a:active {
     text-decoration: none;
   }

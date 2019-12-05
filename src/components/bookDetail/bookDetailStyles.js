@@ -14,3 +14,7 @@ export const BookDescription = styled.span`
   height: ${props => (props.showMoreDescription ? "auto" : "200px")};
   overflow: ${props => (props.showMoreDescription ? "visible" : "hidden")};
 `;
+
+export const AddBookToShelf= styled(RowFlex)`
+  font-size: 14px;
+`;

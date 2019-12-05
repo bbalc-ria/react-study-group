@@ -3,15 +3,9 @@ import { NavLink } from "react-router-dom";
 import * as TS from "./topBarStyles";
 
 function MenuItem(props) {
-    let _link;
-
-    const navigateToMenu = () => {
-        _link.click();
-    }
-    
     return (      
-        <TS.MenuItem width={props.width} onClick={navigateToMenu}>
-            <NavLink to={props.to} activeStyle={{color:'#f8963d'}} exact ref={c => (_link = c)}>
+        <TS.MenuItem width={props.width}>
+            <NavLink to={props.to} activeStyle={{color:'#f8963d'}} exact>
                 {props.menuName}
             </NavLink>
         </TS.MenuItem>  

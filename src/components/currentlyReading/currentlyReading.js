@@ -56,17 +56,23 @@ function CurrentlyReading(props) {
     setShowSearchBox(!showSearchBox);
   };
 
-  const onSelectBook = book => {
-    let persistedReadings = LocalstorageHelper.getItem(
-      Res.CurrentlyReadingCaption
-    );
-
-    if (!persistedReadings) persistedReadings = [];
-    let tempReadings = [book, ...persistedReadings];
-
+  const addBookToShelf = (shelfName, book) => {
+    let currentBookList = LocalstorageHelper.getItem(shelfName);
+    
+    if (!currentBookList){
+      currentBookList = [];
+    }
+    
+      let updatedBookList = [book, ...currentBookList];
     // add the new book in localstorage, but still show 3 or 10 items,
     // depending on the seeMoreItems flag
-    LocalstorageHelper.setItem(Res.CurrentlyReadingCaption, tempReadings);
+    LocalstorageHelper.setItem(shelfName, updatedBookList);
+
+    return updatedBookList;
+  }
+
+  const onSelectBook = book => {
+    let tempReadings = addBookToShelf(Res.CurrentlyReadingCaption, book);
 
     tempReadings = seeMoreItems
       ? tempReadings.slice(0, whenSeeMoreItemsCount)
