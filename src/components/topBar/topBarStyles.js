@@ -38,6 +38,7 @@ export const MenuBarContainer = styled.div`
 
 export const MenuItem = styled.div`
   display: flex;
+  cursor: pointer;
   align-items: center;
   padding: 0 5px;
   font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;

@@ -11,7 +11,7 @@ export const BookShelvesList = styled.ul`
 export const BookShelfItemLink = styled(NavLink)`
   &:link, &:visited, &:active {
     text-decoration: none;
-    color: "#00635d";
+    color: #00635d;
   }
 
   &:hover {
