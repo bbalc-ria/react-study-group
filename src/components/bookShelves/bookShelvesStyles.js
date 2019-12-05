@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 export const BookShelvesList = styled.ul`
   padding: 10px;
@@ -7,9 +8,12 @@ export const BookShelvesList = styled.ul`
   font-size: 14px;
 `;
 
-export const BookShelfItem = styled.li`
-  cursor: pointer;
-  color: ${props => (props.selected ? "grey" : "#00635d")};
+export const BookShelfItemLink = styled(NavLink)`
+  &:link, &:visited, &:active {
+    text-decoration: none;
+    color: "#00635d";
+  }
+
   &:hover {
     text-decoration: underline;
   }

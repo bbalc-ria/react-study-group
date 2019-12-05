@@ -18,10 +18,10 @@ function MyBooks(props) {
   useEffect(() => {
     let shelfName = params.shelfName;
     if (!shelfName) shelfName = Res.AllCaption;
-    onBookShelfSelected(shelfName);
+    loadBooks(shelfName);
   }, [params.shelfName]);
 
-  const onBookShelfSelected = shelfName => {
+  const loadBooks = shelfName => {
     if (!shelfName) return;
     let tempBooks = [];
 
@@ -71,7 +71,6 @@ function MyBooks(props) {
       <S.RowFlex>
         <BookShelvesEdit
           width="20%"
-          onBookShelfSelected={onBookShelfSelected}
           initialSelectedBookShelf={params.shelfName || Res.AllCaption}
         ></BookShelvesEdit>
 

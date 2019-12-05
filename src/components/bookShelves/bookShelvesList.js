@@ -34,21 +34,16 @@ function BookShelvesList(props) {
     setBookShelves(tempBookShelveCountPairs);
   }, []);
 
-  const onBookShelfSelected = shelfName => {
-    props.history.push("/mybooks/"+shelfName);
-  };
-
   return (
     <S.ColumnFlex width={props.width}>
       <S.Title>{Res.BookShelvesCaption.toUpperCase()}</S.Title>
       <SS.BookShelvesList>
         {bookShelves.map((item, index) => (
-          <SS.BookShelfItem
-            key={index}
-            onClick={() => onBookShelfSelected(item.name)}
-          >
-            {item.count} {item.name}
-          </SS.BookShelfItem>
+          <li key={index}>
+            <SS.BookShelfItemLink to={"/mybooks/"+ item.name} activeStyle={{color:'#f8963d'}}>
+              {item.count} {item.name}
+            </SS.BookShelfItemLink>
+          </li>
         ))}
       </SS.BookShelvesList>
     </S.ColumnFlex>
