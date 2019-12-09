@@ -16,7 +16,7 @@ function App() {
       <Router>
         <Login path="/login"></Login>
         <SearchPage path="/" />
-        <PlaceMain path="/place" />
+        <PlaceMain path="/place/:placeId" />
         <ImageGallery path="gallery" />
       </Router>
     </ThemeProvider>

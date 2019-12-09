@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Gallery = styled.div`
-  margin-top: 20px;
+  margin-top: 2px;
   display: flex;
   justify-content: space-between;
   padding: 10px 10px;

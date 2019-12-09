@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./PlaceStyles";
 import { useHistory } from "react-router-dom";
 import GeneralInfoCard from "./Cards/GeneralInfoCard";
@@ -6,35 +6,42 @@ import { Paper } from "@material-ui/core";
 import Hours from "./Cards/Hours";
 import DishCard from "../Resuables/DishCard/DishCard";
 import { navigate } from "@reach/router";
+import { PlaceService } from "../../services/PlaceService";
+import { ImageService } from "../../services/ImageService";
 
-const imagesPlaceholder = [
-  "https://s3-media0.fl.yelpcdn.com/bphoto/F25yrKgW3p5TFLoZ8FYUKw/o.jpg",
-  "https://s3-media0.fl.yelpcdn.com/bphoto/mD6Jws_iBBds2uRxefv1Fg/o.jpg",
-  "https://s3-media0.fl.yelpcdn.com/bphoto/9LihxkSH3zdAqtGCkn2VDQ/o.jpg",
-  "https://s3-media0.fl.yelpcdn.com/bphoto/6vehCn5qoCLGS2Hce-5BUA/o.jpg",
-  "https://s3-media0.fl.yelpcdn.com/bphoto/UCi_RbxYJGN4jyFQuxUroQ/o.jpg",
-  "https://s3-media0.fl.yelpcdn.com/bphoto/hCnQf92Z_4hXopIx6LTNZQ/o.jpg",
-  "https://s3-media0.fl.yelpcdn.com/bphoto/wA7oxCzcMljVgURAVXKsvw/o.jpg",
-  "https://s3-media0.fl.yelpcdn.com/bphoto/Jfjh22ZMDgY4tz9OeZBj3w/o.jpg"
-];
+
 
 function PlaceMain(props) {
+  const [place, setplace] = useState();
+  const [galleryPreview, setgalleryPreview] = useState()
+  debugger;
+  useEffect(() => {
+    debugger;
+    console.log("INEFFECT")
+    setplace(PlaceService.getPlace(props.placeId))
+    setgalleryPreview(ImageService.getPreviewImages(props.placeId))
+    debugger;
+    console.log("PLACE", place)
+  }, [])
   let goToGallery = () => {
-    navigate("gallery");
+    navigate("/gallery");
   };
+
+
   return (
     <S.Container>
       <Paper square elevation={4}>
-        <S.Gallery onClick={goToGallery}>
-          <img src={imagesPlaceholder[0]} width="24.5%" height="300px"></img>
-          <img src={imagesPlaceholder[1]} width="24.5%" height="300px"></img>
-          <img src={imagesPlaceholder[2]} width="24.5%" height="300px"></img>
-          <img src={imagesPlaceholder[5]} width="24.5%" height="300px"></img>
-        </S.Gallery>
+        {galleryPreview && <S.Gallery onClick={goToGallery}>
+          {galleryPreview.map(x =>
+            <img src={x} width="auto" height="300px"></img>
+          )}
+
+        </S.Gallery>}
       </Paper>
       <S.Cards>
         <S.Column1>
-          <GeneralInfoCard></GeneralInfoCard>
+          {place && <GeneralInfoCard place={place}></GeneralInfoCard>}
+
           <Hours></Hours>
         </S.Column1>
 

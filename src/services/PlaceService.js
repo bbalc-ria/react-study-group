@@ -10,5 +10,5 @@ function getPlaces() {
 }
 
 function getPlace(id) {
-  return Places.filter(x => x.id === id)[0];
+  return Places.filter(x => x.id == id)[0];
 }

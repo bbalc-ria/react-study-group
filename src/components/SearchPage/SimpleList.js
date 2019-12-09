@@ -11,7 +11,7 @@ export default function SimpleList(props) {
     props.deselect(index);
   };
   let handleClick = x => {
-    navigate("/place");
+    navigate("/place/" + x.id);
   };
   return (
     <S.List>
@@ -19,8 +19,7 @@ export default function SimpleList(props) {
         props.locations.map((x, index) => (
           <S.ListItem
             onClick={() => handleClick(x)}
-            // key={x.name + x.geometry.location.lat + x.geometry.location.lng}
-            key={x.id}
+            key={"li" + x.id}
             onMouseEnter={() => handleSelect(index)}
             onMouseLeave={() => handleDeselect(index)}
             selected={x.selected}

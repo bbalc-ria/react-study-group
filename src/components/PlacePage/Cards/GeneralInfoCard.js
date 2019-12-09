@@ -76,7 +76,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function GeneralInfoCard(props) {
-  const [value, setValue] = React.useState(2.6);
   const [openAddReview, setOpenReview] = React.useState(false);
   const [openInfo, setOpenInfo] = React.useState(false);
   const classes = useStyles();
@@ -94,30 +93,40 @@ function GeneralInfoCard(props) {
   const handleCloseInfo = () => {
     setOpenInfo(false);
   };
+  let handleOpenNow = () => {
+
+    let today = new Date();
+    let i = today.getDay();
+    let currentHour = today.getHours() + ":" + today.getMinutes();
+    console.log("currentHour", currentHour);
+    let hours = props.place.hours[i];
+    console.log("hours", hours);
+    return (currentHour.localeCompare(hours.open) > 0 && (currentHour.localeCompare(hours.close) < 0))
+  };
 
   return (
     <>
       <Paper elevation={1} square className={classes.generalInfo}>
         <S.Line>
           <S.EffectiveContainer>
-            <S.Title>"Sad" </S.Title>
+            <S.Title>{props.place.title}</S.Title>
 
             <S.Line>
               <Tooltip title="Current Rating is:">
                 <StyledRating
                   readOnly
                   name="customized-color"
-                  value={value}
+                  value={props.place.rating_mean}
                   precision={0.2}
                   size={"large"}
                   icon={<GradeIcon fontSize="inherit" />}
                 />
               </Tooltip>
-              {true ? (
+              {handleOpenNow() ? (
                 <S.OpenStatus>Open now!</S.OpenStatus>
               ) : (
-                <S.OpenStatus closed>Closed now!</S.OpenStatus>
-              )}
+                  <S.OpenStatus closed>Closed now!</S.OpenStatus>
+                )}
             </S.Line>
             <S.ButtonsRow>
               <Tooltip title="Add a review!">

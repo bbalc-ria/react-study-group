@@ -14,7 +14,7 @@ export default function SimpleMap(props) {
   console.log("Assdf");
   const map = useRef(null);
   const mapOptions = {
-    styles: mapStyles // straight out of something like snazzymaps
+    styles: mapStyles
   };
 
   let animateToLocation = x => {
@@ -36,10 +36,7 @@ export default function SimpleMap(props) {
           }
           return (
             <Marker
-              // key={x.name + x.geometry.location.lat + x.geometry.location.lng}
               key={x.id}
-              // lat={x.geometry.location.lat}
-              // lng={x.geometry.location.lng}
               lat={x.location.lat}
               lng={x.location.lng}
               label={x.name}
