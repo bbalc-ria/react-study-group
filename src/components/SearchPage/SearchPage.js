@@ -3,6 +3,7 @@ import * as S from "./SearchPageStyle";
 import SimpleMap from "./SimpleMap";
 import SimpleList from "./SimpleList";
 import { MapService } from "../services/MapsService";
+import { PlaceService } from "../../services/PlaceService";
 export default function SearchPage() {
   const [coords, setCoords] = useState("");
   const [locations, setLocations] = useState("");
@@ -24,18 +25,19 @@ export default function SearchPage() {
     function displayLocationInfo(position) {
       console.log("GET POS", position);
       setCoords(position.coords);
-      MapService.RequestRestaurants(
-        position.coords.latitude,
-        position.coords.longitude,
-        radius
-      ).then(x => {
-        setLocations(x.results);
-        if (x) {
-          setNextLink(x.next_page_token);
-        } else {
-          setNextLink(undefined);
-        }
-      });
+      setLocations(PlaceService.getPlaces);
+      // MapService.RequestRestaurants(
+      //   position.coords.latitude,
+      //   position.coords.longitude,
+      //   radius
+      // ).then(x => {
+      //   setLocations(x.results);
+      //   if (x) {
+      //     setNextLink(x.next_page_token);
+      //   } else {
+      //     setNextLink(undefined);
+      //   }
+      // });
     }
   };
 

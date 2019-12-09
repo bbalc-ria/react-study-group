@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
 export const Gallery = styled.div`
-  border-top: 1px solid black;
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   padding: 10px 10px;
-  margin-top: 50px;
   cursor: pointer;
 `;
 export const Title = styled.div`
@@ -51,4 +50,30 @@ export const Empty = styled.div`
 export const Container = styled.div`
   background: #f2f2f2;
   height: 100%;
+`;
+export const Cards = styled.div`
+  margin-top: 2%;
+  display: flex;
+  flex: 1;
+  flex-grow: 100;
+  flex-wrap: wrap;
+
+  /* flex-direction: column; */
+`;
+export const Column1 = styled.div`
+  display: flex;
+  margin: 0% 3%;
+  min-width: 800px;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 40;
+`;
+export const Column2 = styled.div`
+  min-width: 400px;
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 15;
 `;

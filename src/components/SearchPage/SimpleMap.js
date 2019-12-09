@@ -18,8 +18,7 @@ export default function SimpleMap(props) {
   };
 
   let animateToLocation = x => {
-    if (defaultCenter !== x.geometry.location)
-      setDefaultCenter(x.geometry.location);
+    if (defaultCenter !== x.location) setDefaultCenter(x.location);
   };
 
   return (
@@ -37,9 +36,12 @@ export default function SimpleMap(props) {
           }
           return (
             <Marker
-              key={x.name + x.geometry.location.lat + x.geometry.location.lng}
-              lat={x.geometry.location.lat}
-              lng={x.geometry.location.lng}
+              // key={x.name + x.geometry.location.lat + x.geometry.location.lng}
+              key={x.id}
+              // lat={x.geometry.location.lat}
+              // lng={x.geometry.location.lng}
+              lat={x.location.lat}
+              lng={x.location.lng}
               label={x.name}
               selected={x.selected}
             ></Marker>

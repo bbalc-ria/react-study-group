@@ -1,9 +1,12 @@
 import React from "react";
-import ImageGallery from "./ImageGallery";
 import * as S from "./PlaceStyles";
 import { useHistory } from "react-router-dom";
 import GeneralInfoCard from "./Cards/GeneralInfoCard";
 import { Paper } from "@material-ui/core";
+import Hours from "./Cards/Hours";
+import DishCard from "../Resuables/DishCard/DishCard";
+import { navigate } from "@reach/router";
+
 const imagesPlaceholder = [
   "https://s3-media0.fl.yelpcdn.com/bphoto/F25yrKgW3p5TFLoZ8FYUKw/o.jpg",
   "https://s3-media0.fl.yelpcdn.com/bphoto/mD6Jws_iBBds2uRxefv1Fg/o.jpg",
@@ -16,11 +19,9 @@ const imagesPlaceholder = [
 ];
 
 function PlaceMain(props) {
-  let history = useHistory();
   let goToGallery = () => {
-    history.push("Gallery");
+    navigate("gallery");
   };
-
   return (
     <S.Container>
       <Paper square elevation={4}>
@@ -31,8 +32,19 @@ function PlaceMain(props) {
           <img src={imagesPlaceholder[5]} width="24.5%" height="300px"></img>
         </S.Gallery>
       </Paper>
+      <S.Cards>
+        <S.Column1>
+          <GeneralInfoCard></GeneralInfoCard>
+          <Hours></Hours>
+        </S.Column1>
 
-      <GeneralInfoCard></GeneralInfoCard>
+        <S.Column2>
+          <DishCard></DishCard>
+          <DishCard></DishCard>
+          <DishCard></DishCard>
+          <DishCard></DishCard>
+        </S.Column2>
+      </S.Cards>
     </S.Container>
   );
 }

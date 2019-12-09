@@ -21,9 +21,9 @@ export default function Marker(props) {
       {show && <S.label>{props.label}</S.label>}
       {!props.selected &&
         (props.home === true ? (
-          <HomeSvg fill="indianred" height="50px" width="44px"></HomeSvg>
+          <HomeSvg fill="darkcyan" height="50px" width="44px"></HomeSvg>
         ) : (
-          <PinSvg fill="darksalmon" height="30px" width="25px"></PinSvg>
+          <PinSvg fill="darkcyan" height="30px" width="25px"></PinSvg>
         ))}
       {props.selected === true && (
         <PinSvg fill="darkred" height="40px" width="35px"></PinSvg>

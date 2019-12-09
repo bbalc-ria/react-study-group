@@ -40,7 +40,7 @@ export const Map = styled.div`
   display: block;
   flex-grow: 30;
   position: sticky !important;
-  top: 20px;
+  top: 80px;
   justify-content: space-between;
   min-height: 300px;
 `;

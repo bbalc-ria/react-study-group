@@ -1,25 +1,23 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { createContext, useState, useContext } from "react";
 import PlaceMain from "./components/PlacePage/PlaceMain";
 import ImageGallery from "./components/PlacePage/ImageGallery";
-import Comment from "./components/Resuables/Comments/Comment";
 import SearchPage from "../src/components/SearchPage/SearchPage";
 import { addComment } from "@babel/types";
 import { ThemeProvider } from "@material-ui/styles";
 import { theme } from "./components/Resuables/Theme";
+import { Router, Link } from "@reach/router";
+import NavBar from "./components/Resuables/NavBar/NavBar";
+import Login from "./components/Login/Login";
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <NavBar></NavBar>
       <Router>
-        <Switch>
-          <Route exact path="/">
-            <PlaceMain />
-          </Route>
-          <Route exact path="/Gallery">
-            <ImageGallery></ImageGallery>
-          </Route>
-          <Route path="/login">{}</Route>
-        </Switch>
+        <Login path="/login"></Login>
+        <SearchPage path="/" />
+        <PlaceMain path="/place" />
+        <ImageGallery path="gallery" />
       </Router>
     </ThemeProvider>
   );
