@@ -77,18 +77,18 @@ export default function ContactInfo(props) {
       <div className={classes.paper}>
         <div className={classes.container}>
           <div className={classes.line}>
-            <PhoneIcon /> 0749849207
+            <PhoneIcon /> {props.place.contact_phone}
           </div>
           <div className={classes.line}>
-            <AlternateEmailIcon /> filipoiugeorge@gmail.com
+            <AlternateEmailIcon /> {props.place.contact_email}
           </div>
           <div className={classes.line}>
-            <FacebookIcon /> <a>Facebook</a>
+            <FacebookIcon /> <a>{props.place.contact_facebook}</a>
             <div className={classes.line}>
-              <TwitterIcon /> <a>Twitter</a>
+              <TwitterIcon /> <a>{props.place.contact_twitter}</a>
             </div>
             <div className={classes.line}>
-              <InstagramIcon /> <a>Direct</a>
+              <InstagramIcon /> <a>{props.place.contact_instagram}</a>
             </div>
           </div>
         </div>

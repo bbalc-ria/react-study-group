@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./GeneralInfoCardStyles";
 import { withStyles, makeStyles, createStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
@@ -20,6 +20,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Review from "../../Resuables/Reviews/Review";
+import { ReviewService } from "../../../services/ReviewService";
 
 let days = [
   "Monday",
@@ -78,6 +79,12 @@ const useStyles = makeStyles(theme => ({
 function GeneralInfoCard(props) {
   const [openAddReview, setOpenReview] = React.useState(false);
   const [openInfo, setOpenInfo] = React.useState(false);
+  const [reviews, setreviews] = useState();
+
+  useEffect(() => {
+    setreviews(ReviewService.getReviewsForPlace(props.place.id));
+  }, []);
+
   const classes = useStyles();
   let date = new Date();
 
@@ -93,15 +100,25 @@ function GeneralInfoCard(props) {
   const handleCloseInfo = () => {
     setOpenInfo(false);
   };
-  let handleOpenNow = () => {
+  function toDate(dStr) {
+    var now = new Date();
+    now.setHours(dStr.substr(0, dStr.indexOf(":")));
+    now.setMinutes(dStr.substr(dStr.indexOf(":") + 1));
+    now.setSeconds(0);
+    return now;
+  }
 
+  let handleOpenNow = () => {
     let today = new Date();
     let i = today.getDay();
-    let currentHour = today.getHours() + ":" + today.getMinutes();
+    let currentHour = toDate(today.getHours() + ":" + today.getMinutes());
     console.log("currentHour", currentHour);
+
     let hours = props.place.hours[i];
-    console.log("hours", hours);
-    return (currentHour.localeCompare(hours.open) > 0 && (currentHour.localeCompare(hours.close) < 0))
+    console.log("hours", toDate(hours.open));
+    return (
+      currentHour > toDate(hours.open) && currentHour < toDate(hours.close)
+    );
   };
 
   return (
@@ -125,8 +142,8 @@ function GeneralInfoCard(props) {
               {handleOpenNow() ? (
                 <S.OpenStatus>Open now!</S.OpenStatus>
               ) : (
-                  <S.OpenStatus closed>Closed now!</S.OpenStatus>
-                )}
+                <S.OpenStatus closed>Closed now!</S.OpenStatus>
+              )}
             </S.Line>
             <S.ButtonsRow>
               <Tooltip title="Add a review!">
@@ -171,7 +188,7 @@ function GeneralInfoCard(props) {
             </S.Button>
             <S.Button
               onClick={() =>
-                (window.location.href = `https://www.google.com/maps/dir//${props.lat},${props.lng}`)
+                (window.location.href = `https://www.google.com/maps/dir//${props.place.location.lat},${props.place.location.lng}`)
               }
               className={classes.mainButtons}
             >
@@ -263,42 +280,25 @@ function GeneralInfoCard(props) {
         <S.Line>
           <S.EffectiveContainerBeggining>
             <S.Subtitle>Description</S.Subtitle>
-            <S.Description>
-              "But I must explain to you how all this mistaken idea of
-              denouncing pleasure and praising pain was born and I will give you
-              a complete account of the system, and expound the actual teachings
-              of the great explorer of the truth, the master-builder of human
-              happiness. No one rejects, dislikes, or avoids pleasure itself,
-              because it is pleasure, but because those who do not know how to
-              pursue pleasure rationally encounter consequences that are
-              extremely painful. Nor again is there anyone who loves or pursues
-              or desires to obtain pain of itself, because it is pain, but
-              because occasionally circumstances occur in which toil and pain
-              can procure him some great pleasure. To take a trivial example,
-              which of us ever undertakes laborious physical exercise, except to
-              obtain some advantage from it? But who has any right to find fault
-              with a man who chooses to enjoy a pleasure that has no annoying
-              consequences, or one who avoids a pain that produces no resultant
-              pleasure?
-            </S.Description>
+            <S.Description>{props.place.description}</S.Description>
           </S.EffectiveContainerBeggining>
         </S.Line>
         <S.Line>
           <S.EffectiveContainer>
             <S.Reviews>
-              <Review photos={false}></Review>
-              <Review photos={true}></Review>
-              <Review></Review>
-              <Review></Review>
-              <Review></Review>
-              <Review></Review>
+              {console.log(reviews)}
+              {reviews && reviews.map(x => <Review review={x}></Review>)}
             </S.Reviews>
           </S.EffectiveContainer>
         </S.Line>
       </Paper>
 
       <AddReview open={openAddReview} handleClose={handleCloseReview} />
-      <ContactInfo open={openInfo} handleClose={handleCloseInfo}></ContactInfo>
+      <ContactInfo
+        open={openInfo}
+        handleClose={handleCloseInfo}
+        place={props.place}
+      ></ContactInfo>
     </>
   );
 }

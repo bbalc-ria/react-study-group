@@ -5,6 +5,7 @@ export const Gallery = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 10px 10px;
+  overflow: hidden;
   cursor: pointer;
 `;
 export const Title = styled.div`
