@@ -1,14 +1,24 @@
 import { dishes } from "./Dishes";
 
 export const DishService = {
-  getDishes
+  getDishes,
+  WarmUp
 };
 
+function WarmUp() {
+  if (!localStorage.getItem('dishes'))
+    localStorage.setItem("dishes", JSON.stringify(dishes));
+}
+
 function getDishes(placeId) {
-  let randomizedDishes = dishes;
+  let randomizedDishes = getDishesLocalStorage();
   shuffle(randomizedDishes);
   randomizedDishes.slice(0, 3);
   return randomizedDishes;
+}
+
+let getDishesLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("dishes"))
 }
 function shuffle(array) {
   var currentIndex = array.length,

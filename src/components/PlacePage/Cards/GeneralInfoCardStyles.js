@@ -43,7 +43,7 @@ export const ButtonsRow = styled.div`
 `;
 export const ReferenceButton = styled.div``;
 export const Line = styled.div`
-  padding: 40px 40px;
+  padding: 20px 40px;
   display: flex;
   justify-content: space-around;
 `;
@@ -56,9 +56,9 @@ export const Button = styled.div`
   cursor: pointer;
   :hover {
     color: ${props =>
-      props.color === "primary"
-        ? theme.palette.primary.main
-        : theme.palette.secondary.main};
+    props.color === "primary"
+      ? theme.palette.primary.main
+      : theme.palette.secondary.main};
   }
 `;
 
@@ -88,8 +88,8 @@ export const Subtitle = styled.div`
   font-weight: 500;
   text-decoration: underline;
 `;
-export const SpecialList = styled.ul``;
-export const SpecialLi = styled.div`
+export const PopularTagsList = styled.ul``;
+export const PopularTagsLi = styled.div`
   margin: 10px;
   font-size: 1em;
   color: ${theme.palette.primary[500]};
@@ -108,3 +108,14 @@ export const Reviews = styled.div`
   flex: 1;
   flex-direction: column;
 `;
+
+export const TitleContainer = styled.div`
+display:flex;
+justify-content:center;
+align-items:flex-end;
+`
+export const QuickRating = styled.div`
+color:rgba(0,0,0,1);
+bottom: 0;
+vertical-align:text-bottom;
+`

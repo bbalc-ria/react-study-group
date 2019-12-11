@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   withStyles,
   makeStyles,
@@ -18,6 +18,7 @@ import EditableImagePreviewer from "../../Resuables/EditableImagePreviewer/Image
 import Review from "../../Resuables/Reviews/Review";
 import CloseIcon from "@material-ui/icons/Close";
 import { theme } from "../../Resuables/Theme";
+import { ReviewService } from "../../../services/ReviewService";
 
 const labels = {
   1: "Poor!",
@@ -107,6 +108,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
 function IconContainer(props) {
   const { value, ...other } = props;
   return (
@@ -117,11 +119,12 @@ function IconContainer(props) {
 }
 
 export default function AddReview(props) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const classes = useStyles();
-  const [hover, setHover] = React.useState(-1);
-  const [pictures, setPictures] = React.useState([]);
-
+  const [hover, setHover] = useState(-1);
+  const [pictures, setPictures] = useState([]);
+  const [text, settext] = useState("")
+  const [tags, settags] = useState("")
   let handleImageChange = event => {
     let images = [];
     Object.entries(event.target.files).forEach(x =>
@@ -137,7 +140,10 @@ export default function AddReview(props) {
     });
     setPictures(auxPictures);
   };
-
+  let handleSumbit = () => {
+    let review = { rating: value, text, tags, pictures }
+    ReviewService.Add(review);
+  }
   return (
     <Modal
       aria-labelledby="simple-modal-title"
@@ -170,12 +176,16 @@ export default function AddReview(props) {
             aria-label="minimum height"
             rows={10}
             placeholder="Tell us about your experience"
+            value={text}
+            onChange={x => settext(x.target.value)}
           />
           <TextField
             multiline
             className={classes.textField}
             id="standard-basic"
+            value={tags}
             placeholder="Each space separated group will be considered a tag"
+            onChange={x => settags(x.target.value)}
           />
 
           <Box>
@@ -183,6 +193,7 @@ export default function AddReview(props) {
               color="primary"
               className={classes.addPhotoButton}
               variant="contained"
+              onClick={handleSumbit}
             >
               Submit
             </Button>
@@ -213,10 +224,7 @@ export default function AddReview(props) {
             ))}
         </div>
         <div className={classes.comments}>
-          <Review></Review>
-          <Review></Review>
-          <Review></Review>
-          <Review></Review>
+          {props.reviews && props.reviews.map(x => (<Review review={x}></Review>))}
         </div>
         <Button className={classes.close}>
           <CloseIcon />

@@ -1,5 +1,6 @@
 let users = [
   {
+    id: "0",
     firstName: "Bob",
     lastName: "Usernicus",
     email: "bobUsernicus@gmail.com",
@@ -11,6 +12,7 @@ let users = [
     nrReviews: 100
   },
   {
+    id: "1",
     firstName: "Ion",
     lastName: "Ionescu",
     email: "ionnescu@gmail.com",
@@ -22,6 +24,7 @@ let users = [
     nrReviews: 183
   },
   {
+    id: "2",
     firstName: "Vasilica",
     lastName: "Smardoi",
     email: "smardoiul@gmail.com",
@@ -33,6 +36,7 @@ let users = [
     nrReviews: 1298
   },
   {
+    id: "3",
     firstName: "Sandu",
     lastName: "Sandu",
     email: "sandusandu@gmail.com",
@@ -44,6 +48,7 @@ let users = [
     nrReviews: 890
   },
   {
+    id: "4",
     firstName: "SAM",
     lastName: "Sartis",
     email: "bobUsernicus@gmail.com",
@@ -58,15 +63,28 @@ let users = [
 
 export const UserService = {
   getCurrentUser,
-  getUser
+  getUser,
+  WarmUp
 };
 
+
+
+function WarmUp() {
+  if (!localStorage.getItem('users'))
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+let getUsersLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("users"))
+}
+
+
 function getCurrentUser() {
-  return users[0];
+  return getUsersLocalStorage()[0];
 }
 function getUser(userId) {
-  let x = shuffle(users);
-  return x[0];
+
+  return getUsersLocalStorage()[userId];
 }
 
 function shuffle(array) {

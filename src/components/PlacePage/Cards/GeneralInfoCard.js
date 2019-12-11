@@ -100,6 +100,12 @@ function GeneralInfoCard(props) {
   const handleCloseInfo = () => {
     setOpenInfo(false);
   };
+  const handleDeleteReview = (id) => {
+    debugger;
+    var succeded = ReviewService.Delete(id);
+    if (succeded)
+      setreviews(ReviewService.getReviewsForPlace(props.place.id));
+  }
   function toDate(dStr) {
     var now = new Date();
     now.setHours(dStr.substr(0, dStr.indexOf(":")));
@@ -126,24 +132,26 @@ function GeneralInfoCard(props) {
       <Paper elevation={1} square className={classes.generalInfo}>
         <S.Line>
           <S.EffectiveContainer>
-            <S.Title>{props.place.title}</S.Title>
-
+            <S.TitleContainer>
+              <S.Title>{props.place.title}</S.Title>
+              {handleOpenNow() ? (
+                <S.OpenStatus>Open now!</S.OpenStatus>
+              ) : (
+                  <S.OpenStatus closed>Closed now!</S.OpenStatus>
+                )}
+            </S.TitleContainer>
             <S.Line>
               <Tooltip title="Current Rating is:">
                 <StyledRating
                   readOnly
                   name="customized-color"
-                  value={props.place.rating_mean}
+                  value={props.place.rating / props.place.ratings}
                   precision={0.2}
                   size={"large"}
                   icon={<GradeIcon fontSize="inherit" />}
                 />
               </Tooltip>
-              {handleOpenNow() ? (
-                <S.OpenStatus>Open now!</S.OpenStatus>
-              ) : (
-                <S.OpenStatus closed>Closed now!</S.OpenStatus>
-              )}
+
             </S.Line>
             <S.ButtonsRow>
               <Tooltip title="Add a review!">
@@ -250,31 +258,15 @@ function GeneralInfoCard(props) {
           </S.EffectiveContainer>
           <S.EffectiveContainerBeggining>
             <S.Subtitle color="secondary">#PopularTags:</S.Subtitle>
-            <S.SpecialList>
-              <Tooltip title="20" placement="right">
-                <S.SpecialLi>#GoodDelivery</S.SpecialLi>
-              </Tooltip>
-              <Tooltip title="20" placement="right">
-                <S.SpecialLi>#OldButGold</S.SpecialLi>
-              </Tooltip>
-              <Tooltip title="20" placement="right">
-                <S.SpecialLi>#SureIllEatAgain</S.SpecialLi>
-              </Tooltip>
-              <Tooltip title="20" placement="right">
-                <S.SpecialLi>#ChineeseFood</S.SpecialLi>
-              </Tooltip>
-              <Tooltip title="20" placement="right">
-                <S.SpecialLi>#ReasonablePrices</S.SpecialLi>
-              </Tooltip>
-              <Tooltip title="20" placement="right">
-                <S.SpecialLi>#BioProducts</S.SpecialLi>
-              </Tooltip>
-              <Tooltip title="20" placement="right">
-                <S.SpecialLi>#BestInTown</S.SpecialLi>
-              </Tooltip>
+            <S.PopularTagsList>
+              {props.place.popular_tags.map(x => (
+                <Tooltip title={x.nr} placement="right">
+                  <S.PopularTagsLi>{x.value}</S.PopularTagsLi>
+                </Tooltip>
+              ))}
 
-              <S.SpecialLi></S.SpecialLi>
-            </S.SpecialList>
+
+            </S.PopularTagsList>
           </S.EffectiveContainerBeggining>
         </S.Line>
         <S.Line>
@@ -287,13 +279,13 @@ function GeneralInfoCard(props) {
           <S.EffectiveContainer>
             <S.Reviews>
               {console.log(reviews)}
-              {reviews && reviews.map(x => <Review review={x}></Review>)}
+              {reviews && reviews.map(x => <Review handleDelete={handleDeleteReview} review={x}></Review>)}
             </S.Reviews>
           </S.EffectiveContainer>
         </S.Line>
       </Paper>
 
-      <AddReview open={openAddReview} handleClose={handleCloseReview} />
+      <AddReview reviews={reviews} open={openAddReview} handleClose={handleCloseReview} />
       <ContactInfo
         open={openInfo}
         handleClose={handleCloseInfo}

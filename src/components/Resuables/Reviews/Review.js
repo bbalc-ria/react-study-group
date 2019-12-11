@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as S from "./ReviewStyle";
 import Rating from "@material-ui/lab/Rating";
 import GradeIcon from "@material-ui/icons/Grade";
@@ -6,10 +6,10 @@ import { withStyles } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Gallery from "react-grid-gallery";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import { Button, Paper, Tooltip } from "@material-ui/core";
+import { Paper, Tooltip } from "@material-ui/core";
 import { theme } from "../Theme";
-import ControlledOpenSelect from "./ControlledMenu";
 import CustomizedMenus from "./ControlledMenu";
+import { UserService } from "../../../services/UserService";
 const StyledRating = withStyles({
   iconFilled: {
     color: "#005858 "
@@ -50,9 +50,16 @@ const imagesPlaceholder = [
   "https://s3-media0.fl.yelpcdn.com/bphoto/9LihxkSH3zdAqtGCkn2VDQ/o.jpg"
 ];
 function Review(props) {
-  const [date, setdate] = useState(new Date());
   const classes = useStyles(props);
   const [showPhotos, setphowPhotos] = useState(false);
+  const [user, setuser] = useState();
+  const [tags, settags] = useState()
+
+  useEffect(() => {
+    console.log("ReviewIReceive", props.review);
+    settags(props.review.tags.split("#").splice(1));
+
+  }, [])
 
   let images = imagesPlaceholder.map(x => {
     return { src: x, thumbnail: x, thumbnailWidth: 10, thumbnailHeight: 10 };
@@ -65,8 +72,8 @@ function Review(props) {
           <S.AvatarContainer>
             <S.Avatar src="https://picsum.photos/id/272/200/200" />
             <S.Author>
-              Istvan Borwinmingerr
-              <S.Badge count={1001}>20022</S.Badge>
+              {props.review.user && props.review.user.firstName + " " + props.review.user.lastName}
+              <S.Badge count={props.review.user && props.review.user.nrReviews}>{props.review.user && props.review.user.nrReviews}</S.Badge>
             </S.Author>
           </S.AvatarContainer>
 
@@ -81,51 +88,35 @@ function Review(props) {
                   icon={<GradeIcon fontSize="inherit" />}
                 />
                 <S.Date>
-                  {console.log(date)}
-                  {date.getDate() +
+                  {/* TODO MAKE DATE WORKS WITHOUT WORK AROUND */}
+
+                  {new Date(props.review.date).getDate() +
                     "/" +
-                    (date.getMonth() + 1) +
+                    (new Date(props.review.date).getMonth() + 1) +
                     "/" +
-                    date.getFullYear()}
+                    new Date(props.review.date).getFullYear()}
                 </S.Date>
 
                 <S.Menu>
                   <Tooltip title="Show options!">
-                    <CustomizedMenus owned="true" />
+                    <CustomizedMenus handleDelete={() => props.handleDelete(props.review.id)} owned={props.review.userId === UserService.getCurrentUser().id} />
                   </Tooltip>
                 </S.Menu>
               </S.Details>
             </S.DetailsContainer>
 
             <S.Content>
-              This place was awesome I'dd really want to visit it very soon, I
-              hope it will happen GREAT!This place was awesome I'dd really want
-              to visit it very soon, I hope it will happen GREAT!This place was
-              awesome I'dd really want to visit it very soon, I hope it will
-              happen GREAT!This place was awesome I'dd really want to visit it
-              very soon, I hope it will happen GREAT!This place was awesome I'dd
-              really want to visit it very soon, I hope it will happen GREAT!
+              {props.review.text}
             </S.Content>
           </S.CommentContaierBody>
         </S.CommentContainer>
         <S.GalleryContaier>
-          <S.TagList>
-            <S.Tag>#tag1</S.Tag>
+          {tags &&
+            <S.TagList>
+              {tags.map(tagg => (<S.Tag>#{tagg.trim()}</S.Tag>))}
+            </S.TagList>
+          }
 
-            <S.Tag>#tttw</S.Tag>
-
-            <S.Tag>#MediumTag</S.Tag>
-
-            <S.Tag>#SuperMediumTag</S.Tag>
-
-            <S.Tag>#LongSuperMediumTagSuperMediumTag</S.Tag>
-            <S.Tag>#LongSuperMediumTagSuperMediumTag</S.Tag>
-            <S.Tag>#LongSuperMediumTagSuperMediumTag</S.Tag>
-            <S.Tag>#LongSuperMediumTagSuperMediumTag</S.Tag>
-            <S.Tag>#LongSuperMediumTagSuperMediumTag</S.Tag>
-
-            <S.Tag>#AnotherTag</S.Tag>
-          </S.TagList>
           <S.BasicLine>
             {props.photos &&
               (!showPhotos ? (
@@ -133,8 +124,8 @@ function Review(props) {
                   See Photos...
                 </S.ShowPhotos>
               ) : (
-                <Gallery images={images} enableImageSelection={false} />
-              ))}
+                  <Gallery images={images} enableImageSelection={false} />
+                ))}
           </S.BasicLine>
           <S.Feedback>
             <div className={classes.Score}>1</div>{" "}

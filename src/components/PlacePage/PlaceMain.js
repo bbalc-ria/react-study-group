@@ -30,7 +30,7 @@ function PlaceMain(props) {
         {galleryPreview && (
           <S.Gallery onClick={goToGallery}>
             {galleryPreview.map(x => (
-              <img src={x} width="auto" height="300px"></img>
+              <img key={place.id + x} src={x.src} width="auto" height="300px"></img>
             ))}
           </S.Gallery>
         )}

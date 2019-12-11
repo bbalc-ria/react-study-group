@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -8,12 +8,15 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ReportIcon from "@material-ui/icons/Report";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import { ReviewService } from "../../../services/ReviewService";
+import { UserService } from "../../../services/UserService";
 const StyledMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5"
   }
 })(props => (
   <Menu
+    autoFocus={false}
     elevation={0}
     getContentAnchorEl={null}
     anchorOrigin={{
@@ -41,7 +44,6 @@ const StyledMenuItem = withStyles(theme => ({
 
 export default function CustomizedMenus(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -61,43 +63,51 @@ export default function CustomizedMenus(props) {
       >
         <ExpandMoreIcon />
       </div>
-      <StyledMenu
-        id="customized-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        {props.owned ? (
-          <>
-            <StyledMenuItem>
-              <ListItemIcon>
-                <EditIcon color="primary" fontSize="small" />
-              </ListItemIcon>
-              <ListItemText primary="Edit" />
-            </StyledMenuItem>
-            <StyledMenuItem>
-              <ListItemIcon>
-                <ReportIcon color="secondary" fontSize="small" />
-              </ListItemIcon>
-              <ListItemText primary="Report" />
-            </StyledMenuItem>
-            <StyledMenuItem>
-              <ListItemIcon>
-                <DeleteIcon color="secondary" fontSize="small" />
-              </ListItemIcon>
-              <ListItemText primary="Delete" />
-            </StyledMenuItem>
-          </>
-        ) : (
+
+      {props.owned ? (
+        <StyledMenu
+          id="customized-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <StyledMenuItem>
+            <ListItemIcon>
+              <EditIcon color="secondary" fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Edit" />
+          </StyledMenuItem>
           <StyledMenuItem>
             <ListItemIcon>
               <ReportIcon color="secondary" fontSize="small" />
             </ListItemIcon>
             <ListItemText primary="Report" />
           </StyledMenuItem>
+          <StyledMenuItem onClick={props.handleDelete}>
+            <ListItemIcon>
+              <DeleteIcon color="secondary" fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Delete" />
+          </StyledMenuItem>
+        </StyledMenu>
+      ) : (
+          <StyledMenu
+            id="customized-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <StyledMenuItem>
+              <ListItemIcon>
+                <ReportIcon color="secondary" fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Report" />
+            </StyledMenuItem>
+          </StyledMenu>
         )}
-      </StyledMenu>
+
     </div>
   );
 }

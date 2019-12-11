@@ -2,13 +2,28 @@ import { Places } from "./Places";
 
 export const PlaceService = {
   getPlaces,
-  getPlace
+  getPlace,
+  WarmUp
 };
 
-function getPlaces() {
-  return Places;
+function WarmUp() {
+  if (!localStorage.getItem('places'))
+    localStorage.setItem("places", JSON.stringify(Places));
 }
+
+
+function getPlaces() {
+  return getPlacesLocalStorage();
+}
+
+
 
 function getPlace(id) {
   return Places.filter(x => x.id == id)[0];
+}
+
+
+
+let getPlacesLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("places"))
 }

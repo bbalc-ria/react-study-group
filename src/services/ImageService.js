@@ -1,17 +1,28 @@
 import { images } from "./Images";
 
 export const ImageService = {
-  getPreviewImages
+  getPreviewImages,
+  WarmUp
 };
 
+function WarmUp() {
+  if (!localStorage.getItem('images'))
+    localStorage.setItem("images", JSON.stringify(images));
+}
+
+
 function getPreviewImages(placeID) {
+
+  let randomizedDishes = getImagesLocalStorage();
   let randomizedImages = images;
   shuffle(randomizedImages);
   randomizedImages.slice(0, 10)
   return randomizedImages
 }
 
-
+let getImagesLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("images"))
+}
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 

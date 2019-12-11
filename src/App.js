@@ -8,8 +8,10 @@ import { theme } from "./components/Resuables/Theme";
 import { Router, Link } from "@reach/router";
 import NavBar from "./components/Resuables/NavBar/NavBar";
 import Login from "./components/Login/Login";
+import { GeneralService } from "./services/GeneralService";
 
 function App() {
+  { GeneralService.WarmUp() }
   return (
     <ThemeProvider theme={theme}>
       <NavBar></NavBar>
