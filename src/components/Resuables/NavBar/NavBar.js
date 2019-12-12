@@ -10,6 +10,7 @@ import Menu from "@material-ui/core/Menu";
 import HomeIcon from "@material-ui/icons/Home";
 import AddIcon from "@material-ui/icons/Add";
 import { navigate } from "@reach/router";
+import { AuthContext } from "../../../App";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function NavBar() {
+  const authUser = React.useContext(AuthContext);
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);

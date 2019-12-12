@@ -69,7 +69,7 @@ export default function CustomizedMenus(props) {
         onClose={handleClose}
       >
         {props.owned ? (
-          <>
+          <div>
             <StyledMenuItem>
               <ListItemIcon>
                 <EditIcon color="primary" fontSize="small" />
@@ -88,7 +88,7 @@ export default function CustomizedMenus(props) {
               </ListItemIcon>
               <ListItemText primary="Delete" />
             </StyledMenuItem>
-          </>
+          </div>
         ) : (
           <StyledMenuItem>
             <ListItemIcon>

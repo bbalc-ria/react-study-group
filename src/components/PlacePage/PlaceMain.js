@@ -21,7 +21,7 @@ function PlaceMain(props) {
     console.log("PLACE", place);
   }, []);
   let goToGallery = () => {
-    navigate("gallery");
+    navigate("/gallery/" + props.placeId);
   };
 
   return (

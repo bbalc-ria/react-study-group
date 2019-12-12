@@ -16,8 +16,7 @@ const StyledRating = withStyles({
   },
   iconHover: {
     color: "#005858 "
-  },
-  width: "fitContet"
+  }
 })(Rating);
 
 const useStyles = makeStyles(props => ({
@@ -90,9 +89,7 @@ function Review(props) {
                 </S.Date>
 
                 <S.Menu>
-                  <Tooltip title="Show options!">
-                    <CustomizedMenus owned="true" />
-                  </Tooltip>
+                  <CustomizedMenus owned="true" />
                 </S.Menu>
               </S.Details>
             </S.DetailsContainer>

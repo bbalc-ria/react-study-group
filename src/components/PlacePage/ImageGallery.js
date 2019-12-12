@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { render } from "react-dom";
 import Gallery from "react-grid-gallery";
 import * as S from "./PlaceStyles";
+import { ImageService } from "../../services/ImageService";
+import { PlaceService } from "../../services/PlaceService";
 
 const imagesPlaceholder = [
   "https://s3-media0.fl.yelpcdn.com/bphoto/F25yrKgW3p5TFLoZ8FYUKw/o.jpg",
@@ -13,31 +15,31 @@ const imagesPlaceholder = [
   "https://s3-media0.fl.yelpcdn.com/bphoto/wA7oxCzcMljVgURAVXKsvw/o.jpg",
   "https://s3-media0.fl.yelpcdn.com/bphoto/Jfjh22ZMDgY4tz9OeZBj3w/o.jpg"
 ];
-function ImageGallery() {
-  let images = imagesPlaceholder.map(x => {
-    return {
-      src: x,
-      thumbnail: x,
-      thumbnailWidth: (Math.random() + 0.5) * 400,
-      thumbnailHeight: 300,
-      caption: "This is a placeholder captions"
-    };
-  });
-  let images2 = imagesPlaceholder.map(x => {
-    return {
-      src: x,
-      thumbnail: x,
-      thumbnailWidth: (Math.random() + 0.5) * 400,
-      thumbnailHeight: 300
-    };
-  });
-  images = [...images, ...images2];
+function ImageGallery(props) {
+  {
+    console.log("render gallery");
+  }
+  const [images, setimages] = useState();
+  const [place, setplace] = useState();
+  useEffect(() => {
+    let imgs = ImageService.getImages(props.placeId).map(x => {
+      return {
+        src: x,
+        thumbnail: x,
+        thumbnailWidth: (Math.random() + 0.5) * 400,
+        thumbnailHeight: 300,
+        caption: "This is a placeholder captions"
+      };
+    });
+    setimages(imgs);
+    setplace(PlaceService.getPlace(props.placeId));
+  }, []);
   return (
     <>
-      <S.Title>Placeholder Place name </S.Title>
+      <S.Title>{place && place.tilte}</S.Title>
       <S.Subtitle>Gallery</S.Subtitle>
       <S.FullGallery>
-        <Gallery images={images} enableImageSelection={false} />
+        {images && <Gallery images={images} enableImageSelection={false} />}
       </S.FullGallery>
     </>
   );

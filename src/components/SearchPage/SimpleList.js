@@ -26,8 +26,8 @@ export default function SimpleList(props) {
           >
             <S.T>{x.title}</S.T>
             <S.AdditionalInfoContainer>
-              <S.Rating>{x.rating}</S.Rating>
-              with {x.rating_mean} ratings
+              <S.Rating>{(x.rating / x.ratings).toFixed(2)}</S.Rating>
+              with {x.ratings} ratings
             </S.AdditionalInfoContainer>
           </S.ListItem>
         ))}

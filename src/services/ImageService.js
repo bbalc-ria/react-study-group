@@ -1,23 +1,28 @@
 import { images } from "./Images";
 
 export const ImageService = {
-  getPreviewImages
+  getPreviewImages,
+  getImages
 };
 
 function getPreviewImages(placeID) {
   let randomizedImages = images;
   shuffle(randomizedImages);
-  randomizedImages.slice(0, 10)
-  return randomizedImages
+  randomizedImages.slice(0, 10);
+  return randomizedImages;
 }
 
+function getImages(placeId) {
+  return images;
+}
 
 function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;

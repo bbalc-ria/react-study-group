@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -38,8 +38,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Login() {
+export default function Login(props) {
   const classes = useStyles();
+  const [user, setuser] = useState();
+  const [password, setpassword] = useState();
+
+  let handleLogin = () => {
+    props.handleLogin(user, password);
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -61,6 +67,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={x => setuser(x.target.value)}
           />
           <TextField
             variant="outlined"
@@ -71,6 +78,7 @@ export default function Login() {
             label="Password"
             type="password"
             id="password"
+            onChange={x => setpassword(x.target.value)}
             autoComplete="current-password"
           />
           <FormControlLabel
@@ -78,10 +86,11 @@ export default function Login() {
             label="Remember me"
           />
           <Button
-            type="submit"
+            type="button"
             fullWidth
             variant="contained"
             color="primary"
+            onClick={handleLogin}
             className={classes.submit}
           >
             Sign In

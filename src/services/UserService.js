@@ -2,7 +2,8 @@ let users = [
   {
     firstName: "Bob",
     lastName: "Usernicus",
-    email: "bobUsernicus@gmail.com",
+    email: "user@gmail.com",
+    password: "test",
     avatarImage:
       "http://www.hotavatars.com/wp-content/uploads/2019/01/I80W1Q0.png",
     dateOfBirth: new Date("01 Jan 1970 00:00:00 GMT"),
@@ -13,7 +14,8 @@ let users = [
   {
     firstName: "Ion",
     lastName: "Ionescu",
-    email: "ionnescu@gmail.com",
+    email: "user1@gmail.com",
+    password: "test",
     avatarImage:
       "https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg",
     dateOfBirth: new Date("01 Jan 1970 00:00:00 GMT"),
@@ -24,7 +26,8 @@ let users = [
   {
     firstName: "Vasilica",
     lastName: "Smardoi",
-    email: "smardoiul@gmail.com",
+    email: "user2@gmail.com",
+    password: "test",
     avatarImage:
       "https://store.playstation.com/store/api/chihiro/00_09_000/container/RO/en/999/EP0149-CUSA09988_00-AV00000000000002/1553528383000/image?w=240&h=240&bg_color=000000&opacity=100&_version=00_09_000",
     dateOfBirth: new Date("01 Jan 1970 00:00:00 GMT"),
@@ -35,7 +38,8 @@ let users = [
   {
     firstName: "Sandu",
     lastName: "Sandu",
-    email: "sandusandu@gmail.com",
+    email: "user3@gmail.com",
+    password: "test",
     avatarImage:
       "http://www.hotavatars.com/wp-content/uploads/2019/01/I80W1Q0.png",
     dateOfBirth: new Date("01 Jan 1970 00:00:00 GMT"),
@@ -46,7 +50,8 @@ let users = [
   {
     firstName: "SAM",
     lastName: "Sartis",
-    email: "bobUsernicus@gmail.com",
+    email: "user4@gmail.com",
+    password: "test",
     avatarImage:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuAiODNjb28f4nkgZya8fGMi0b-tBTZY7P5hoYJq-2Jjvgxit5cw&s",
     dateOfBirth: new Date("01 Jan 1970 00:00:00 GMT"),
@@ -58,7 +63,8 @@ let users = [
 
 export const UserService = {
   getCurrentUser,
-  getUser
+  getUser,
+  login
 };
 
 function getCurrentUser() {
@@ -87,4 +93,12 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+function login(userPass) {
+  var userExists = users.filter(
+    x => x.email === userPass.email && x.password === userPass.password
+  )[0];
+  if (userExists) return userExists;
+  return undefined;
 }
