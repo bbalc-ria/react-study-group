@@ -16,8 +16,7 @@ const StyledRating = withStyles({
   },
   iconHover: {
     color: "#005858 "
-  },
-  width: "fitContet"
+  }
 })(Rating);
 
 const useStyles = makeStyles(props => ({

@@ -21,7 +21,8 @@ export const ListItem = styled.li`
   margin-right: 5px;
   padding: 7px;
   display: flex;
-  background: ${props => (props.selected ? "SeaShell" : "Snow")};
+  background: ${props => (props.selected ? "darkcyan" : "rgba(0,0,0,0.1)")};
+  color: ${props => props.selected && "white"};
 `;
 export const Marker = styled.div`
   position: relative;

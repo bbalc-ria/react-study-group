@@ -12,7 +12,6 @@ export default function SimpleMap(props) {
     lng: props.coords.longitude
   });
   console.log("Assdf");
-  const map = useRef(null);
   const mapOptions = {
     styles: mapStyles
   };
@@ -24,7 +23,6 @@ export default function SimpleMap(props) {
   return (
     <S.Map>
       <GoogleMapReact
-        ref={map}
         bootstrapURLKeys={{ key: API_KEY, v: "3.38" }}
         center={defaultCenter}
         defaultZoom={14}

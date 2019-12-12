@@ -63,51 +63,44 @@ export default function CustomizedMenus(props) {
       >
         <ExpandMoreIcon />
       </div>
-
-      {props.owned ? (
-        <StyledMenu
-          id="customized-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <StyledMenuItem>
-            <ListItemIcon>
-              <EditIcon color="secondary" fontSize="small" />
-            </ListItemIcon>
-            <ListItemText primary="Edit" />
-          </StyledMenuItem>
-          <StyledMenuItem>
-            <ListItemIcon>
-              <ReportIcon color="secondary" fontSize="small" />
-            </ListItemIcon>
-            <ListItemText primary="Report" />
-          </StyledMenuItem>
-          <StyledMenuItem onClick={props.handleDelete}>
-            <ListItemIcon>
-              <DeleteIcon color="secondary" fontSize="small" />
-            </ListItemIcon>
-            <ListItemText primary="Delete" />
-          </StyledMenuItem>
-        </StyledMenu>
-      ) : (
-          <StyledMenu
-            id="customized-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
+      <StyledMenu
+        id="customized-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        {props.owned ? (
+          <div>
+            <StyledMenuItem>
+              <ListItemIcon>
+                <EditIcon color="primary" fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Edit" />
+            </StyledMenuItem>
             <StyledMenuItem>
               <ListItemIcon>
                 <ReportIcon color="secondary" fontSize="small" />
               </ListItemIcon>
               <ListItemText primary="Report" />
             </StyledMenuItem>
-          </StyledMenu>
-        )}
+            <StyledMenuItem>
+              <ListItemIcon>
+                <DeleteIcon color="secondary" fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Delete" />
+            </StyledMenuItem>
+          </div>
+        ) : (
+            <StyledMenuItem>
+              <ListItemIcon>
+                <ReportIcon color="secondary" fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Report" />
+            </StyledMenuItem>
 
+          )}
+      </StyledMenu>
     </div>
   );
 }

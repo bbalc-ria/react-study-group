@@ -2,7 +2,8 @@ import { images } from "./Images";
 
 export const ImageService = {
   getPreviewImages,
-  WarmUp
+  WarmUp,
+  getImages
 };
 
 function WarmUp() {
@@ -16,19 +17,21 @@ function getPreviewImages(placeID) {
   let randomizedDishes = getImagesLocalStorage();
   let randomizedImages = images;
   shuffle(randomizedImages);
-  randomizedImages.slice(0, 10)
-  return randomizedImages
+  randomizedImages.slice(0, 10);
+  return randomizedImages;
 }
 
-let getImagesLocalStorage = () => {
-  return JSON.parse(localStorage.getItem("images"))
+function getImages(placeId) {
+  return getImagesLocalStorage();
 }
+
 function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
