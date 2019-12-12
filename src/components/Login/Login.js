@@ -39,12 +39,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Login(props) {
+
   const classes = useStyles();
   const [user, setuser] = useState();
   const [password, setpassword] = useState();
+  localStorage.setItem("auth", false);
+
 
   let handleLogin = () => {
     props.handleLogin(user, password);
+    localStorage.setItem("auth", true);
   };
   return (
     <Container component="main" maxWidth="xs">

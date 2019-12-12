@@ -20,9 +20,12 @@ function getPreviewImages(placeID) {
   randomizedImages.slice(0, 10);
   return randomizedImages;
 }
+function getImagesLocalStorage() {
+  return JSON.parse(localStorage.getItem("images"));
+}
 
 function getImages(placeId) {
-  return getImagesLocalStorage();
+  return getImagesLocalStorage().map(x => x.src);
 }
 
 function shuffle(array) {

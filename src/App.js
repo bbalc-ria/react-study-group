@@ -8,54 +8,53 @@ import { Router, Link, Redirect, navigate } from "@reach/router";
 import NavBar from "./components/Resuables/NavBar/NavBar";
 import Login from "./components/Login/Login";
 import { GeneralService } from "./services/GeneralService";
+import { UserService } from "./services/UserService";
+export const AuthContext = React.createContext({ isAuth: false });
+
+
+
+const ProtectedRoute = ({ component: Component, ...rest }) => (
+  <AuthContext.Consumer>
+    {({ isAuth }) =>
+      isAuth ? <Component {...rest} /> : <Redirect from="" to="login" noThrow />
+    }
+  </AuthContext.Consumer>
+);
+
+const PublicRoute = ({ component: Component, ...rest }) => (
+  <Component {...rest} />
+);
 
 function App() {
+  const [auth, setauth] = useState();
   { GeneralService.WarmUp() }
-  import { UserService } from "./services/UserService";
 
-  export const AuthContext = React.createContext({ isAuth: false });
+  let handleLogin = (user, pass) => {
+    var x = UserService.login({ email: user, password: pass });
+    console.log(x);
+    if (x) {
+      setauth(true);
+      navigate("/");
+    }
+  };
 
-  const ProtectedRoute = ({ component: Component, ...rest }) => (
-    <AuthContext.Consumer>
-      {({ isAuth }) =>
-        isAuth ? <Component {...rest} /> : <Redirect from="" to="login" noThrow />
-      }
-    </AuthContext.Consumer>
+  return (
+    <AuthContext.Provider value={{ isAuth: auth }}>
+      <ThemeProvider theme={theme}>
+        {auth && <NavBar></NavBar>}
+        <Router>
+          <PublicRoute
+            path="/login"
+            component={Login}
+            handleLogin={handleLogin}
+          />
+          <ProtectedRoute path="/" component={SearchPage} />
+          <PlaceMain path="/place/:placeId" />
+          <ImageGallery path="/gallery/:placeId" />
+        </Router>
+      </ThemeProvider>
+    </AuthContext.Provider>
   );
+}
 
-  const PublicRoute = ({ component: Component, ...rest }) => (
-    <Component {...rest} />
-  );
-
-  function App() {
-    const [auth, setauth] = useState();
-
-    let handleLogin = (user, pass) => {
-      var x = UserService.login({ email: user, password: pass });
-      console.log(x);
-      if (x) {
-        setauth(true);
-        navigate("/");
-      }
-    };
-
-    return (
-      <AuthContext.Provider value={{ isAuth: auth }}>
-        <ThemeProvider theme={theme}>
-          {auth && <NavBar></NavBar>}
-          <Router>
-            <PublicRoute
-              path="/login"
-              component={Login}
-              handleLogin={handleLogin}
-            />
-            <ProtectedRoute path="/" component={SearchPage} />
-            <PlaceMain path="/place/:placeId" />
-            <ImageGallery path="/gallery/:placeId" />
-          </Router>
-        </ThemeProvider>
-      </AuthContext.Provider>
-    );
-  }
-
-  export default App;
+export default App;
