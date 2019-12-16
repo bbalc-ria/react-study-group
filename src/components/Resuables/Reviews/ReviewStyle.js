@@ -7,7 +7,7 @@ export const Container = styled.div`
   padding: 2px 4px 4px 2px;
   background-color: rgba(0, 0, 0, 0.07);
   flex-direction: column;
-  width: fit-content;
+  width: 100%;
   position: relative;
   height: fit-content;
   align-items: center;
@@ -23,11 +23,15 @@ export const AvatarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  word-wrap: break-word;
+  width: 80px;
   padding: 10px;
 `;
 export const Author = styled.div`
   align-items: center;
   display: flex;
+  justify-content: center;
   flex-direction: column;
 `;
 export const Details = styled.div`
@@ -73,7 +77,7 @@ export const CommentContainer = styled.div`
   flex-direction: row;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   margin-bottom: 10px;
 `;
@@ -85,6 +89,7 @@ export const CommentContaierBody = styled.div`
   margin-left: 10px;
   padding-left: 5px;
   margin-right: 30px;
+  width: 100%;
   padding-left: 10px;
   padding-bottom: 5px;
 `;
@@ -97,8 +102,7 @@ export const Badge = styled.div`
   background: darkcyan;
   border: 1px solid rgba(0, 84.7, 84.7, 0.1);
   justify-content: center;
-  color: ${props => (props.count > 700 ? "white" : "black")};
-  color: ${props => (props.count >= 1000 ? "gold" : "")};
+  color: white;
 `;
 export const Feedback = styled.div`
   margin-right: 15px;

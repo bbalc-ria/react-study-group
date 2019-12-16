@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as S from "./GeneralInfoCardStyles";
 import { withStyles, makeStyles, createStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import ShareIcon from "@material-ui/icons/Share";
-import AddReview from "../Modals/AddReview";
+import AddReview from "../Modals/AddReview/AddReview";
 import WebIcon from "@material-ui/icons/Web";
 import PinDropIcon from "@material-ui/icons/PinDrop";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
@@ -19,8 +19,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Review from "../../Resuables/Reviews/Review";
 import { ReviewService } from "../../../services/ReviewService";
+import Review from "../../Resuables/Reviews/Review";
 
 let days = [
   "Monday",
@@ -31,6 +31,8 @@ let days = [
   "Saturday",
   "Sunday"
 ];
+
+const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
 const StyledTableCell = withStyles(theme =>
   createStyles({
@@ -80,14 +82,29 @@ function GeneralInfoCard(props) {
   const [openAddReview, setOpenReview] = React.useState(false);
   const [openInfo, setOpenInfo] = React.useState(false);
   const [reviews, setreviews] = useState();
+  const [open, setOpen] = React.useState(false);
+  const myRef = useRef(null);
 
   useEffect(() => {
+    scrollToRef(myRef);
     setreviews(ReviewService.getReviewsForPlace(props.place.id));
   }, []);
 
   const classes = useStyles();
   let date = new Date();
 
+  const ScrollDemo = () => {
+    console.log("FFF");
+    scrollToRef(myRef);
+  };
+  const handleTooltipClose = () => {
+    setOpen(false);
+  };
+
+  const handleTooltipOpen = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setOpen(true);
+  };
   const handleOpenReview = () => {
     setOpenReview(true);
   };
@@ -100,12 +117,11 @@ function GeneralInfoCard(props) {
   const handleCloseInfo = () => {
     setOpenInfo(false);
   };
-  const handleDeleteReview = (id) => {
+  const handleDeleteReview = id => {
     debugger;
     var succeded = ReviewService.Delete(id);
-    if (succeded)
-      setreviews(ReviewService.getReviewsForPlace(props.place.id));
-  }
+    if (succeded) setreviews(ReviewService.getReviewsForPlace(props.place.id));
+  };
   function toDate(dStr) {
     var now = new Date();
     now.setHours(dStr.substr(0, dStr.indexOf(":")));
@@ -137,8 +153,8 @@ function GeneralInfoCard(props) {
               {handleOpenNow() ? (
                 <S.OpenStatus>Open now!</S.OpenStatus>
               ) : (
-                  <S.OpenStatus closed>Closed now!</S.OpenStatus>
-                )}
+                <S.OpenStatus closed>Closed now!</S.OpenStatus>
+              )}
             </S.TitleContainer>
             <S.Line>
               <Tooltip title="Current Rating is:">
@@ -151,7 +167,6 @@ function GeneralInfoCard(props) {
                   icon={<GradeIcon fontSize="inherit" />}
                 />
               </Tooltip>
-
             </S.Line>
             <S.ButtonsRow>
               <Tooltip title="Add a review!">
@@ -174,16 +189,28 @@ function GeneralInfoCard(props) {
                   <AddAPhotoIcon className={classes.buttonIcon} />{" "}
                 </Button>
               </Tooltip>
-              <Tooltip title="Share this Location">
+              <Tooltip
+                PopperProps={{
+                  disablePortal: true
+                }}
+                onClose={handleTooltipClose}
+                open={open}
+                disableFocusListener
+                disableHoverListener
+                disableTouchListener
+                title="Link copied to clipboard!"
+              >
                 <Button
                   color="secondary"
                   variant="contained"
                   className={classes.squareButton}
+                  onClick={handleTooltipOpen}
                 >
                   <ShareIcon className={classes.buttonIcon} />
                 </Button>
               </Tooltip>
             </S.ButtonsRow>
+            <S.Category>{" " + props.place.category}</S.Category>
           </S.EffectiveContainer>
           <S.EffectiveContainer>
             <S.Button
@@ -238,9 +265,9 @@ function GeneralInfoCard(props) {
                 <TableBody>
                   {days.map((day, index) => (
                     <TableRow
-                      key={"Test"}
+                      key={"day" + index}
                       className={
-                        date.getDay() == (index + 1) % 7
+                        date.getDay() === (index + 1) % 7
                           ? classes.CurrentDay
                           : ""
                       }
@@ -258,14 +285,13 @@ function GeneralInfoCard(props) {
           </S.EffectiveContainer>
           <S.EffectiveContainerBeggining>
             <S.Subtitle color="secondary">#PopularTags:</S.Subtitle>
-            <S.PopularTagsList>
+
+            <S.PopularTagsList onClick={ScrollDemo}>
               {props.place.popular_tags.map(x => (
-                <Tooltip title={x.nr} placement="right">
+                <Tooltip key={x.value} title={x.nr} placement="right">
                   <S.PopularTagsLi>{x.value}</S.PopularTagsLi>
                 </Tooltip>
               ))}
-
-
             </S.PopularTagsList>
           </S.EffectiveContainerBeggining>
         </S.Line>
@@ -277,15 +303,25 @@ function GeneralInfoCard(props) {
         </S.Line>
         <S.Line>
           <S.EffectiveContainer>
-            <S.Reviews>
-              {console.log(reviews)}
-              {reviews && reviews.map(x => <Review handleDelete={handleDeleteReview} review={x}></Review>)}
+            <S.Reviews ref={myRef}>
+              {reviews &&
+                reviews.map(x => (
+                  <Review
+                    key={x.id}
+                    handleDelete={handleDeleteReview}
+                    review={x}
+                  ></Review>
+                ))}
             </S.Reviews>
           </S.EffectiveContainer>
         </S.Line>
       </Paper>
 
-      <AddReview reviews={reviews} open={openAddReview} handleClose={handleCloseReview} />
+      <AddReview
+        reviews={reviews}
+        open={openAddReview}
+        handleClose={handleCloseReview}
+      />
       <ContactInfo
         open={openInfo}
         handleClose={handleCloseInfo}

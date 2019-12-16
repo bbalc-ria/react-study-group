@@ -4,35 +4,33 @@ import SimpleMap from "./SimpleMap";
 import SimpleList from "./SimpleList";
 import { MapService } from "../services/MapsService";
 import { PlaceService } from "../../services/PlaceService";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
-import TextField from '@material-ui/core/TextField';
-
-
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles(theme => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap"
   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
+    width: 200
   },
   dense: {
-    marginTop: 19,
+    marginTop: 19
   },
   menu: {
-    width: 200,
-  },
+    width: 200
+  }
 }));
 
 export default function SearchPage() {
   const [coords, setCoords] = useState("");
   const [locations, setLocations] = useState("");
   const [nextLink, setNextLink] = useState("");
-  const [searchText, setsearchText] = useState()
+  const [searchText, setsearchText] = useState();
   const classes = useStyles();
 
   useEffect(() => {
@@ -84,22 +82,8 @@ export default function SearchPage() {
     console.log("deselected", index);
   };
 
-  let handleSearch = (e) => {
-    setsearchText(e.target.value);
-
-  }
-
   return (
     <S.Container>
-
-      <TextField
-        id="standard-name"
-        label="Name"
-        className={classes.textField}
-        value={values.name}
-        onChange={handleSearch}
-        margin="normal"
-      />
       {locations !== "" && (
         <SimpleList
           hasMore={nextLink}

@@ -11,8 +11,6 @@ import { GeneralService } from "./services/GeneralService";
 import { UserService } from "./services/UserService";
 export const AuthContext = React.createContext({ isAuth: false });
 
-
-
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <AuthContext.Consumer>
     {({ isAuth }) =>
@@ -27,21 +25,23 @@ const PublicRoute = ({ component: Component, ...rest }) => (
 
 function App() {
   const [auth, setauth] = useState();
-  { GeneralService.WarmUp() }
+  const [userId, setuserId] = useState("");
+  GeneralService.WarmUp();
 
   let handleLogin = (user, pass) => {
     var x = UserService.login({ email: user, password: pass });
     console.log(x);
     if (x) {
       setauth(true);
+      setuserId(x.id);
       navigate("/");
     }
   };
 
   return (
-    <AuthContext.Provider value={{ isAuth: auth }}>
+    <AuthContext.Provider value={{ isAuth: auth, userId: userId }}>
       <ThemeProvider theme={theme}>
-        {auth && <NavBar></NavBar>}
+        {auth && <NavBar />}
         <Router>
           <PublicRoute
             path="/login"

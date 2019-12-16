@@ -63,6 +63,7 @@ export const Cards = styled.div`
 `;
 export const Column1 = styled.div`
   display: flex;
+  margin-left: 5%;
   margin: 0% 3%;
   min-width: 800px;
   flex: 1;
@@ -77,4 +78,5 @@ export const Column2 = styled.div`
   flex: 1;
   flex-direction: column;
   flex-grow: 15;
+  margin-right: 2%;
 `;

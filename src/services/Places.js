@@ -22,6 +22,7 @@ export let Places = [
     contact_twitter: "",
     cotanct_instagram: "",
     site: "marty.ro",
+    category: "Restaurant",
     popular_tags: [
       { value: "#super", nr: 820 },
       { value: "#Duper", nr: 120 },
@@ -52,6 +53,7 @@ export let Places = [
     contact_twitter: "",
     cotanct_instagram: "",
     site: "marty.ro",
+    category: "Bar",
     popular_tags: [
       { value: "#super", nr: 20 },
       { value: "#super", nr: 20 },
@@ -82,6 +84,7 @@ export let Places = [
     contact_twitter: "",
     cotanct_instagram: "",
     site: "marty.ro",
+    category: "Restaurant",
     popular_tags: [
       { value: "#super", nr: 20 },
       { value: "#super", nr: 20 },

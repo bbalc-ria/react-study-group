@@ -3,9 +3,9 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 import Modal from "@material-ui/core/Modal";
 import { Button } from "@material-ui/core";
-import Review from "../../../Resuables/Reviews/Review";
 import CloseIcon from "@material-ui/icons/Close";
 import AddReviewForm from "./AddReviewForm";
+import Review from "../../../Resuables/Reviews/Review";
 
 const StyledRating = withStyles({
   iconFilled: {

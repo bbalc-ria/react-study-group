@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -8,8 +8,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ReportIcon from "@material-ui/icons/Report";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import { ReviewService } from "../../../services/ReviewService";
-import { UserService } from "../../../services/UserService";
+import { AuthContext } from "../../../App";
 const StyledMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5"
@@ -47,6 +46,7 @@ export default function CustomizedMenus(props) {
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
+  const auth = useContext(AuthContext);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -72,7 +72,7 @@ export default function CustomizedMenus(props) {
       >
         {props.owned ? (
           <div>
-            <StyledMenuItem>
+            <StyledMenuItem onClick={props.toggleEdit}>
               <ListItemIcon>
                 <EditIcon color="primary" fontSize="small" />
               </ListItemIcon>
@@ -84,7 +84,7 @@ export default function CustomizedMenus(props) {
               </ListItemIcon>
               <ListItemText primary="Report" />
             </StyledMenuItem>
-            <StyledMenuItem>
+            <StyledMenuItem onClick={props.handleDelete}>
               <ListItemIcon>
                 <DeleteIcon color="secondary" fontSize="small" />
               </ListItemIcon>
@@ -92,14 +92,13 @@ export default function CustomizedMenus(props) {
             </StyledMenuItem>
           </div>
         ) : (
-            <StyledMenuItem>
-              <ListItemIcon>
-                <ReportIcon color="secondary" fontSize="small" />
-              </ListItemIcon>
-              <ListItemText primary="Report" />
-            </StyledMenuItem>
-
-          )}
+          <StyledMenuItem>
+            <ListItemIcon>
+              <ReportIcon color="secondary" fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Report" />
+          </StyledMenuItem>
+        )}
       </StyledMenu>
     </div>
   );

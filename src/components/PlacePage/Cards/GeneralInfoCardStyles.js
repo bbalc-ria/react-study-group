@@ -56,9 +56,9 @@ export const Button = styled.div`
   cursor: pointer;
   :hover {
     color: ${props =>
-    props.color === "primary"
-      ? theme.palette.primary.main
-      : theme.palette.secondary.main};
+      props.color === "primary"
+        ? theme.palette.primary.main
+        : theme.palette.secondary.main};
   }
 `;
 
@@ -110,12 +110,15 @@ export const Reviews = styled.div`
 `;
 
 export const TitleContainer = styled.div`
-display:flex;
-justify-content:center;
-align-items:flex-end;
-`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+`;
 export const QuickRating = styled.div`
-color:rgba(0,0,0,1);
-bottom: 0;
-vertical-align:text-bottom;
-`
+  color: rgba(0, 0, 0, 1);
+  bottom: 0;
+  vertical-align: text-bottom;
+`;
+export const Category = styled.div`
+  font-size: 2em;
+`;

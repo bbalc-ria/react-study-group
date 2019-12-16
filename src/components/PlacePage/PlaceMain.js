@@ -30,19 +30,27 @@ function PlaceMain(props) {
         {galleryPreview && (
           <S.Gallery onClick={goToGallery}>
             {galleryPreview.map(x => (
-              <img key={place.id + x} src={x.src} width="auto" height="300px"></img>
+              <img
+                key={x.src + "placeMain"}
+                src={x.src}
+                width="auto"
+                height="300px"
+              ></img>
             ))}
           </S.Gallery>
         )}
       </Paper>
       <S.Cards>
         <S.Column1>
-          {place && <GeneralInfoCard place={place}></GeneralInfoCard>}
+          {place && <GeneralInfoCard key="d" place={place}></GeneralInfoCard>}
           <Hours></Hours>
         </S.Column1>
 
         <S.Column2>
-          {dishes && [...dishes].map(dish => <DishCard dish={dish} />)}
+          {dishes &&
+            [...dishes].map((dish, index) => (
+              <DishCard key={index} dish={dish} />
+            ))}
         </S.Column2>
       </S.Cards>
     </S.Container>

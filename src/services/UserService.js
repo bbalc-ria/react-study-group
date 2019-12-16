@@ -73,44 +73,20 @@ export const UserService = {
   login
 };
 
-
-
 function WarmUp() {
-  if (!localStorage.getItem('users'))
+  if (!localStorage.getItem("users"))
     localStorage.setItem("users", JSON.stringify(users));
 }
 
 let getUsersLocalStorage = () => {
-  return JSON.parse(localStorage.getItem("users"))
-}
-
+  return JSON.parse(localStorage.getItem("users"));
+};
 
 function getCurrentUser() {
   return getUsersLocalStorage()[0];
 }
 function getUser(userId) {
-
   return getUsersLocalStorage()[userId];
-}
-
-function shuffle(array) {
-  var currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
 }
 
 function login(userPass) {
